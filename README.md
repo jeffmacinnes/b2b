@@ -1,2 +1,2 @@
 # b2b
-tools for brain-to-brain interfaces studies
+tools for brain-to-brain interface studies
