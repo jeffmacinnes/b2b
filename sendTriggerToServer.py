@@ -13,6 +13,7 @@ import select
 
 
 host = '127.0.0.1'
+host = '192.168.0.8'
 port = 6666
 
 # create an instance of the socket

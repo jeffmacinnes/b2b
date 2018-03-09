@@ -9,16 +9,28 @@ trigger signal out the serial port to the magstim TMS device.
 
 import zmq
 import serial
+import time
 
 context = zmq.Context()
+host = '192.168.0.8' # ip address of server computer
 port = 6666
 
 # define the socket using the context
 serverSocket = context.socket(zmq.REP)
 serverSocket.bind("tcp://127.0.0.1:{}".format(port))
 
+# set up serial port parameters
+ser = serial.Serial('/dev/tty.usbmodem14141', 9600)
 
 while True:
     message = serverSocket.recv()
     print('server got message: {}'.format(message))
+
+    # write to the serial port
+    ser.write('1'.encode('utf-8'));
+
+    # read response from serial port
+    print('resp from arduino: ' + str(ser.readline()))
+
+    # send reply to client
     serverSocket.send_string('got it')
