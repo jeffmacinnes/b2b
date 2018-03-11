@@ -12,8 +12,9 @@ import serial
 import time
 
 context = zmq.Context()
-host = '192.168.0.4' # ip address of server computer
-host = '173.250.196.123'  # ip of office comp
+#host = '192.168.0.4' # ip address of server computer
+#host = '173.250.196.123'  # ip of office comp
+host = '69.91.146.93'   # taj, scanner
 port = 6666
 
 # define the socket using the context
