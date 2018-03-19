@@ -12,9 +12,7 @@ import serial
 import time
 
 context = zmq.Context()
-#host = '192.168.0.4' # ip address of server computer
-#host = '173.250.196.123'  # ip of office comp
-host = '69.91.146.93'   # taj, scanner
+host = # get from settingsThatWork.txt
 port = 6666
 
 # define the socket using the context
@@ -29,10 +27,10 @@ while True:
     print('server got message: {}'.format(message))
 
     # write to the serial port
-    #ser.write('1'.encode('utf-8'));
+    ser.write('1'.encode('utf-8'));
 
     # read response from serial port
-    #print('resp from arduino: ' + str(ser.readline()))
+    print('resp from arduino: ' + str(ser.readline()))
 
     # send reply to client
     serverSocket.send_string('got it')

@@ -12,10 +12,7 @@ import sys
 import select
 
 
-#host = '127.0.0.1'
-#host = '192.168.0.4'    # IP of the server computer
-#host = '173.250.196.123' # lab iMac
-host = '173.250.153.18' # scanner old laptop
+host = # get from settingsTheWork file
 port = 6666
 
 # create an instance of the socket

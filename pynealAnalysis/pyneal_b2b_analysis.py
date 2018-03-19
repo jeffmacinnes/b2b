@@ -19,7 +19,7 @@ import zmq
 
 
 # TMS Server Info
-host = '173.250.153.18'
+host = # get from settingsThatWork
 port = 6666
 
 class CustomAnalysis:
