@@ -1,66 +1,105 @@
 """
-Motor Imagery Task
+Motor/Imagery Task
 """
-
-from psychopy import visual, core
-import numpy as np
+import os, sys
 import random
 
+from psychopy import visual, core, event
+import numpy as np
 
 
-# Setup Window
-win = visual.Window(size=(500,500), fullscr=False, color=(0,0,0), units='cm', monitor='testMonitor')
-
-
-
-
-def chanceDisplay(prob):
-    angle = prob * 360
-    print(angle)
-
-    # draw the arc
-    wedge = visual.RadialStim(win, tex='sqrXsqr', color='green', size=6,
-                visibleWedge=[0, angle], radialCycles=1, angularCycles=0, angularRes=360,
-                interpolate=False, units='cm')
-
-    # draw the circle to hide the center
-    cover = visual.Circle(win, radius=2, edges=100, lineColor=None, fillColor=[0,0,0])
-
-    wedge.draw()
-    cover.draw()
+def drawTrial(trialType):
+    """ Draw the specifed file type """
+    if trialType == 'rest':
+        restStim.draw()
+        restMsg.draw()
+    elif trialType == 'motor':
+        motorStim.draw()
+        motorMsg.draw()
+    elif trialType == 'imagery':
+        imageryStim.draw()
+        imageryMsg.draw()
 
 
 
-
-# Draw textures
-waitForDD_msg = visual.TextStim(win, text='Waiting for disdaqs')
-rest_msg = visual.TextStim(win, text='REST')
-motor_msg = visual.TextStim(win, text='MOTOR IMAGERY')
-end_msg = visual.TextStim(win, text='All done!')
+#### key events
+# press 'q' to quit
+event.globalKeys.add(key='q', func=core.quit)
 
 
-wedge = visual.RadialStim(win, tex='sqrXsqr', color='green', size=6,
-            visibleWedge=[0, 181], radialCycles=1, angularCycles=0,
-            interpolate=False, units='cm')
-cover = visual.Circle(win, radius=2, edges=100, lineColor=None, fillColor=[0,0,0])
+#### setup Window
+win = visual.Window(size=(700,700),
+                    color=(-1,-1,-1),
+                    units='cm',
+                    monitor='testMonitor')
 
+#### draw stimuli
+stimRadius = 4
+msgPos = (0,7)
 
-##### Start Task ------------------
+# Motor trials
+motorStim = visual.Circle(win, radius=stimRadius, edges=100,
+                            lineColor=None, fillColor=(1,1,1))
+motorMsg = visual.TextStim(win, text='Squeeze', pos=msgPos)
 
+# Imagery trials
+imageryStim = visual.Circle(win, radius=stimRadius, edges=100,
+                            lineColor=(1,1,1), lineWidth=500, fillColor=None)
+imageryMsg = visual.TextStim(win, text='Imagine', pos=msgPos)
 
-# loop over trials
+# Rest trials
+restStim = visual.Rect(win, width=2*stimRadius, height=2*stimRadius,
+                        fillColor=(1,1,1))
+restMsg = visual.TextStim(win, text='Rest', pos=msgPos)
+
+# add'l messages
+itiMsg = visual.TextStim(win, text='+')
+endMsg = visual.TextStim(win, text='All Done!')
+
+#### task parameters
+nTrials = 3
+ITI = 1
+trialDur = 5
+
+#### begin trial loop
 for t in range(4):
     # rest trial
-    rest_msg.draw()
+    drawTrial('rest')
     win.flip()
-    core.wait(.5)
+    core.wait(trialDur)
 
-    # motor imagery trial
-    chanceDisplay(random.random())
+    # wait ITI
+    itiMsg.draw()
     win.flip()
-    core.wait(2)
+    core.wait(ITI)
+
+    # randomize Motor/Imagery order
+    trialOrder = ['motor', 'imagery']
+    random.shuffle(trialOrder)
 
 
-end_msg.draw()
+    # draw next trial
+    drawTrial(trialOrder[0])
+    win.flip()
+    core.wait(trialDur)
+
+    # wait ITI
+    itiMsg.draw()
+    win.flip()
+    core.wait(ITI)
+
+    # draw remaining trial
+    drawTrial(trialOrder[1])
+    win.flip()
+    core.wait(trialDur)
+
+    # wait ITI
+    itiMsg.draw()
+    win.flip()
+    core.wait(ITI)
+
+
+
+endMsg.draw()
 win.flip()
 core.wait(.1)
