@@ -2,6 +2,7 @@
 Motor/Imagery Task
 """
 import os, sys
+from os.path import join
 import random
 
 from psychopy import visual, core, event, gui, data
@@ -12,6 +13,10 @@ from taskUtils import writeSettings, loadSettings
 
 def drawTrial(trialType):
     """ Draw the specifed file type """
+
+    # write the timestamp for this trial to output file
+    writeTrialData(dataFile, trialType)
+
     # set trial durations
     if trialType == 'rest':
         trialDur = 20
@@ -33,6 +38,16 @@ def drawTrial(trialType):
     core.wait(trialDur/speedFactor)
 
 
+def writeTrialData(dataFile, trialType):
+    currentTime = expClock.getTime()
+    dataFile.write('{:.3f}\t{}\n'.format(currentTime, trialType))
+
+
+#### task parameters ----------------------------------
+nBlocks = 3
+expDir = os.path.abspath(os.path.dirname(__file__))
+
+
 #### Key events ----------------------------------
 # press 'q' to quit
 event.globalKeys.add(key='q', func=core.quit)
@@ -43,6 +58,7 @@ win = visual.Window(size=(700,700),
                     color=(-1,-1,-1),
                     units='cm',
                     monitor='testMonitor')
+
 
 #### Prepare stimuli ----------------------------------
 stimRadius = 4
@@ -64,12 +80,8 @@ restStim = visual.Rect(win, width=2*stimRadius, height=2*stimRadius,
 restMsg = visual.TextStim(win, text='Rest', pos=msgPos)
 
 # add'l messages
-itiMsg = visual.TextStim(win, text='+')
 endMsg = visual.TextStim(win, text='All Done!')
 
-#### task parameters ----------------------------------
-nBlocks = 3
-speedFactor = 5     # 0-1: slow down, 1+: speed up
 
 #### Prompt users for info ----------------------------------
 # load previous settings, otherwise prompt for new ones
@@ -89,8 +101,28 @@ if dlg.OK:
 else:
     core.quit()
 
+# print settings to screen
+for setting in expInfo.keys():
+    print(setting + ': ' + str(expInfo[setting]))
+print('Task is playing at {}x normal speed'.format(expInfo['speedFactor']))
+speedFactor = float(expInfo['speedFactor'])
 
-print('Task is playing at {}x normal speed'.format(speedFactor))
+#### Create output file ----------------------------------
+outputDir = join(expDir, 'data', str(expInfo['subjID']))
+if not os.path.isdir(outputDir):
+    os.makedirs(outputDir)
+dataFile = open(join(outputDir, (str(expInfo['subjID']) + '_' + str(expInfo['run']).zfill(2) + '.tsv')), 'w')
+dataFile.write('\t'.join(['timestamp', 'trialType']) + '\n')
+
+
+#### Show instructions screen  ----------------------------------
+instructMsg = visual.TextStim(win, text='Press any key to start')
+instructMsg.draw()
+win.flip()
+event.waitKeys()
+
+# start clock
+expClock = core.Clock()
 
 
 #### begin trial loop ----------------------------------
@@ -108,7 +140,8 @@ for b in range(nBlocks):
         # draw motor or imagery trial
         drawTrial(t)
 
-
+# close everything out
+dataFile.close()
 endMsg.draw()
 win.flip()
 core.wait(.1)
