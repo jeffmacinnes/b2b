@@ -4,36 +4,47 @@ Motor/Imagery Task
 import os, sys
 import random
 
-from psychopy import visual, core, event
+from psychopy import visual, core, event, gui, data
 import numpy as np
+
+from taskUtils import writeSettings, loadSettings
 
 
 def drawTrial(trialType):
     """ Draw the specifed file type """
+    # set trial durations
     if trialType == 'rest':
+        trialDur = 20
         restStim.draw()
         restMsg.draw()
+
     elif trialType == 'motor':
+        trialDur = 10
         motorStim.draw()
         motorMsg.draw()
+
     elif trialType == 'imagery':
+        trialDur = 10
         imageryStim.draw()
         imageryMsg.draw()
 
+    # flip to screen and wait for full trial period
+    win.flip()
+    core.wait(trialDur/speedFactor)
 
 
-#### key events
+#### Key events ----------------------------------
 # press 'q' to quit
 event.globalKeys.add(key='q', func=core.quit)
 
 
-#### setup Window
+#### Setup Window ----------------------------------
 win = visual.Window(size=(700,700),
                     color=(-1,-1,-1),
                     units='cm',
                     monitor='testMonitor')
 
-#### draw stimuli
+#### Prepare stimuli ----------------------------------
 stimRadius = 4
 msgPos = (0,7)
 
@@ -56,48 +67,46 @@ restMsg = visual.TextStim(win, text='Rest', pos=msgPos)
 itiMsg = visual.TextStim(win, text='+')
 endMsg = visual.TextStim(win, text='All Done!')
 
-#### task parameters
-nTrials = 3
-ITI = 1
-trialDur = 5
+#### task parameters ----------------------------------
+nBlocks = 3
+speedFactor = 5     # 0-1: slow down, 1+: speed up
 
-#### begin trial loop
-for t in range(4):
-    # rest trial
-    drawTrial('rest')
-    win.flip()
-    core.wait(trialDur)
+#### Prompt users for info ----------------------------------
+# load previous settings, otherwise prompt for new ones
+try:
+    expInfo = loadSettings('prevSettings.json')
+    # increment the run counter by 1
+    expInfo['run'] = expInfo['run'] + 1
+except:
+    expInfo = {'subjID': 999, 'run': 1, 'speedFactor': 1}
+    print('here')
+expInfo['dateStr'] = data.getDateStr()
 
-    # wait ITI
-    itiMsg.draw()
-    win.flip()
-    core.wait(ITI)
+# present dialog
+dlg = gui.DlgFromDict(expInfo, title='task settings', fixed=['dataStr'])
+if dlg.OK:
+    writeSettings('prevSettings.json', expInfo)
+else:
+    core.quit()
+
+
+print('Task is playing at {}x normal speed'.format(speedFactor))
+
+
+#### begin trial loop ----------------------------------
+for b in range(nBlocks):
 
     # randomize Motor/Imagery order
     trialOrder = ['motor', 'imagery']
     random.shuffle(trialOrder)
 
+    # each block will go REST - MOTOR/IMAGE - REST - MOTOR/IMAGE
+    for t in trialOrder:
+        # rest trial
+        drawTrial('rest')
 
-    # draw next trial
-    drawTrial(trialOrder[0])
-    win.flip()
-    core.wait(trialDur)
-
-    # wait ITI
-    itiMsg.draw()
-    win.flip()
-    core.wait(ITI)
-
-    # draw remaining trial
-    drawTrial(trialOrder[1])
-    win.flip()
-    core.wait(trialDur)
-
-    # wait ITI
-    itiMsg.draw()
-    win.flip()
-    core.wait(ITI)
-
+        # draw motor or imagery trial
+        drawTrial(t)
 
 
 endMsg.draw()
