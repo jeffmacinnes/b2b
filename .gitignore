@@ -1,4 +1,5 @@
 settingsThatWork.txt
+*/data/*
 *.pyc
 .ipynb_checkpoints/
 #*
