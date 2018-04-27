@@ -1,23 +1,31 @@
-var speedFactor = 5;
+var speedFactor = 1;
 
 var w, h;
-var disdaqsElapsed = false
+var disdaqsElapsed = false;
+var taskStarted = false;
 
 var trialNum = 0;
 var trialOrder = [
-    'rest', 'motor',
+    'rest', 'motor',        // each 2 trial block is 30sec (20 rest, 10 active)
     'rest', 'imagery',
+    'rest', 'imagery',
+    'rest', 'motor',
     'rest', 'imagery',
     'rest', 'motor'
 ];
 
+// total task time: 6s dd + 3 min (180 s)
+// @ 1s TR: 186 timepts
+// @ 1.5s TR: 124 timepts
+// @ 2s TR: 93 timepts
+
+var disdaqsDur = 6000
 var restDur = 20000;
 var motorDur = 10000;
 var imageryDur = 10000;
-var stimSize = 300
+var stimSize = 300;
 
 var trialStarted = false;
-
 
 function setup(){
     w = windowWidth;
@@ -38,14 +46,48 @@ function setup(){
 function draw(){
     background(150);
 
-    // check if disdaqs elapsed
-    if (disdaqsElapsed != true){
-        drawDisdaqs()
+    if (taskStarted != true){
+        // present start button
+        drawStartButton();
     } else {
-        drawTrial()
+        // check if disdaqs elapsed
+        if (disdaqsElapsed != true){
+            drawDisdaqs()
+        } else {
+            drawTrial()
+        }
     }
-
 }
+
+
+function drawStartButton(){
+    fill(0)
+    text('click circle to start', w/2, h/2-200);
+    textSize(18);
+    text('speedFactor: ' + speedFactor, w/2, h/2-150)
+    textSize(32);
+
+    // mouse distance
+    var d = dist(mouseX, mouseY, w/2, h/2);
+    if (d<100){
+        fill(254, 205, 83);
+    } else {
+        fill(253, 152, 39);
+    }
+    ellipse(w/2, h/2, 200);
+}
+
+
+function mousePressed(){
+    // start the task if not started yet and user has clicked in circle
+    if (taskStarted != true) {
+        var d = dist(mouseX, mouseY, w/2, h/2);
+        if (d<100){
+            taskStarted = true;
+        }
+    }
+}
+
 
 function drawDisdaqs(){
     // fill(255,0,0);
@@ -54,7 +96,7 @@ function drawDisdaqs(){
     fill(0);
     textSize(64);
     text('+', w/2, h/2);
-    setTimeout(function(){ disdaqsElapsed=true}, 5000/speedFactor);
+    setTimeout(function(){ disdaqsElapsed=true}, disdaqsDur/speedFactor);
     textSize(32);
 }
 
@@ -68,6 +110,7 @@ function nextTrial(){
         currentTrial = trialOrder[trialNum];
     }
 }
+
 
 function drawTrial(){
     if (currentTrial == 'rest'){
@@ -143,6 +186,7 @@ function drawImageryTrial(){
         nextTrial();
     }
 }
+
 
 function drawEnd(){
     fill(0);
