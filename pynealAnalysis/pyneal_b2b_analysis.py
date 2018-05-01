@@ -7,7 +7,6 @@ is running a server listening for responses).
 During the scan, if certain conditions are met, this script will send a trigger
 to the remote TMS machine, which will in turn fire the TMS pulse
 """
-
 import sys
 import os
 from os.path import join

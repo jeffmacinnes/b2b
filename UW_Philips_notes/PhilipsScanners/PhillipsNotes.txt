@@ -1,0 +1,3 @@
+
+.ashx file with reconstruction mode set to "real-time"
+http://www.childrenshospital.org/~/media/research-and-innovation/research-labs/pediatric-brain-tumor-consortium-neuroimaging-center/philips_t1_permeability_sequence.ashx
