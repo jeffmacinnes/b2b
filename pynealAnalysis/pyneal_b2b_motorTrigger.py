@@ -22,6 +22,17 @@ host = # get from settingsThatWork
 port = 6666
 
 class CustomAnalysis:
+    """
+    This is a custom analysis script for use with Pyneal that is designed for
+    the brain-2-brain project. The goal of this custom script will be to:
+        - establish a connection to a remote TMS server
+        - load a classifier that has been previously trained on a localizer run
+            from the current subject
+        - once the scan begins, each new timept will be masked to isolate the
+            desired voxels, detrended, and then classified. If the output of the
+            classifier surpasses some threshold, a trigger will be sent to the
+            remote TMS server
+    """
     def __init__(self, mask_img):
         """
         Everything in the __init__ class will be executed BEFORE the scan begins
@@ -43,10 +54,15 @@ class CustomAnalysis:
 
         ########################################################################
         ############# vvv INSERT USER-SPECIFIED CODE BELOW vvv #################
+        # Create a socket to communicate with the remote TMS server
         context = zmq.Context()
         self.TMS_socket = context.socket(zmq.REQ)
         self.TMS_socket.connect('tcp:{}:{}'.format(host, port))
         self.logger.info('Analysis script connected to remote TMS server')
+
+        # Load classifier
+
+        # Create an empty ndarray to store all of the samples. (nFeatures x nSamples)
 
         ############# ^^^ END USER-SPECIFIED CODE ^^^ ##########################
         ########################################################################
@@ -62,6 +78,17 @@ class CustomAnalysis:
         """
         ########################################################################
         ############# vvv INSERT USER-SPECIFIED CODE BELOW vvv #################
+        # mask the input volume
+
+        # add it to the master array
+
+        # detrend all voxels in the master array
+
+        # classifiy
+
+        # get probability from classifier
+
+
         self.triggered = False
 
         # Check if conditions are correct to trigger TMS
