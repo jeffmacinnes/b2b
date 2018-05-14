@@ -88,6 +88,8 @@ class CustomAnalysis:
 
         # get probability from classifier
 
+        # send trigger if desired
+
 
         self.triggered = False
 
