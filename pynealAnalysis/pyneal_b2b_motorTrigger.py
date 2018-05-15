@@ -11,15 +11,21 @@ import sys
 import os
 from os.path import join
 import logging
+import pickle
+from threading import Thread
+import atexit
 
 import numpy as np
+import nibabel as nib
 
 import zmq
 
 
 # TMS Server Info
-host = # get from settingsThatWork
-port = 6666
+host = '127.0.0.1' # get from settingsThatWork
+port = 5555
+classifierName = 'pyneal_002_classifier.pkl'
+maskFile = './pyneal_002_motorSphere_5mm_mask.nii.gz'
 
 class CustomAnalysis:
     """
@@ -54,13 +60,21 @@ class CustomAnalysis:
 
         ########################################################################
         ############# vvv INSERT USER-SPECIFIED CODE BELOW vvv #################
+        # Load classifier
+        with open(join(self.customAnalysisDir, classifierName), 'rb') as f:
+            self.clf = pickle.load(f)
+
         # Create a socket to communicate with the remote TMS server
         context = zmq.Context()
         self.TMS_socket = context.socket(zmq.REQ)
-        self.TMS_socket.connect('tcp:{}:{}'.format(host, port))
+        self.TMS_socket.connect("tcp://{}:{}".format(host, port))
+        self.TMS_socket.send_string('hello from analysis script')
+        print(self.TMS_socket.recv_string())
+
         self.logger.info('Analysis script connected to remote TMS server')
 
-        # Load classifier
+
+
 
         # Create an empty ndarray to store all of the samples. (nFeatures x nSamples)
 
@@ -107,3 +121,50 @@ class CustomAnalysis:
         ########################################################################
 
         return {'triggered': self.triggered}
+
+
+
+class TMS_serverSim(Thread):
+    """
+    for testing purposes, simulate the TMS server that the custom analysis
+    script can connect to
+    """
+    def __init__(self, host, port):
+        # start the thread upon creation
+        Thread.__init__(self)
+
+        context = zmq.Context()
+        self.socket = context.socket(zmq.REP)
+        self.socket.bind("tcp://{}:{}".format(host, port))
+        self.alive = True
+        print('TMS server alive and listening')
+
+        # atexit function, kill at shutdown
+        atexit.register(self.killServer)
+
+    def run(self):
+        while self.alive:
+            # listen for new messages
+            msg = self.socket.recv_string()
+            print('TMS server: {}'.format(msg))
+
+            # send reply
+            self.socket.send_string('from TMS server: received msg - {}'.format(msg))
+
+    def killServer(self):
+        self.alive = False
+
+
+### For testing:
+if __name__ == '__main__':
+
+    # start the test TMS server
+    TMS_server = TMS_serverSim(host, port)
+    TMS_server.daemon = True
+    TMS_server.start()
+
+    # read in the mask
+    mask_img = nib.load(maskFile)
+
+    # create instance of the custom analysis class
+    test = CustomAnalysis(mask_img)
