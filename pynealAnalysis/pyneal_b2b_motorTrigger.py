@@ -28,6 +28,8 @@ host = '127.0.0.1' # get from settingsThatWork
 port = 5555
 classifierName = 'pyneal_002_classifier.pkl'
 maskFile = './pyneal_002_motorSphere_5mm_mask.nii.gz'
+weightMask = False
+numTimepts = 186
 
 class CustomAnalysis:
     """
@@ -41,13 +43,28 @@ class CustomAnalysis:
             classifier surpasses some threshold, a trigger will be sent to the
             remote TMS server
     """
-    def __init__(self, mask_img):
+    def __init__(self, maskFile, weightMask, numTimepts):
         """
-        Everything in the __init__ class will be executed BEFORE the scan begins
+        Everything in the __init__ method will be executed BEFORE the scan
+        begins. This is a place to run any necessary setup code.
+
+        The __init__ method provides you with the following inputs from the
+        setup GUI:
+            - maskFile: path to the mask specified in the GUI
+            - weightMask: True/False flag for if "weight mask?" was checked
+            - numTimepts: number of timepts in run, as specified in GUI
+
+        You can use or ignore these inputs as needed for your analysis.
         """
-        # local reference to MASK from Pyneal setup GUI
-        self.mask = mask_img
-        self.masker = NiftiMasker(mask_img=self.mask)
+        # Load masks and weights, and create an within-class reference to
+        # each for use in later methods.
+        mask_img = nib.load(maskFile)
+        if weightMask == True:
+            self.weights = mask_img.get_data().copy()
+        self.mask = mask_img.get_data() > 0  # 3D boolean array of mask voxels
+
+        # within-class reference to numTimepts for use in later methods
+        self.numTimepts = numTimepts
 
         # Add the directory that this script lives in to the path. This way it
         # is easy to load any additional files you want to put in the same
@@ -73,13 +90,14 @@ class CustomAnalysis:
         self.TMS_socket.connect("tcp://{}:{}".format(host, port))
         self.TMS_socket.send_string('hello from analysis script')
         print(self.TMS_socket.recv_string())
-
         self.logger.info('Analysis script connected to remote TMS server')
 
-
         # Create an empty ndarray to store all of the samples. (nFeatures x nSamples)
-        print(self.mask.shape)
-        #self.masterArray = np.zeros(shape=(self.mask.shape[0]))
+        nVoxelsInMask = int(sum(self.mask.ravel()))
+        self.masterArray = np.zeros(shape=(nVoxelsInMask, self.numTimepts))
+
+        # create a flattened 1D version of mask
+        self.maskFlat = self.mask.ravel()
 
         ############# ^^^ END USER-SPECIFIED CODE ^^^ ##########################
         ########################################################################
@@ -96,8 +114,11 @@ class CustomAnalysis:
         ########################################################################
         ############# vvv INSERT USER-SPECIFIED CODE BELOW vvv #################
         # mask the input volume
+        maskedVol =
 
-        # add it to the master array
+
+        # mask volume and add to the master array
+        self.masterArray
 
         # detrend all voxels in the master array
 
@@ -170,4 +191,4 @@ if __name__ == '__main__':
     mask_img = nib.load(maskFile)
 
     # create instance of the custom analysis class
-    test = CustomAnalysis(mask_img)
+    test = CustomAnalysis(maskFile, weightMask, numTimepts)
