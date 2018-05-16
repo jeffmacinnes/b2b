@@ -17,6 +17,8 @@ import atexit
 
 import numpy as np
 import nibabel as nib
+from nilearn.input_data import NiftiMasker
+
 
 import zmq
 
@@ -45,6 +47,7 @@ class CustomAnalysis:
         """
         # local reference to MASK from Pyneal setup GUI
         self.mask = mask_img
+        self.masker = NiftiMasker(mask_img=self.mask)
 
         # Add the directory that this script lives in to the path. This way it
         # is easy to load any additional files you want to put in the same
@@ -74,9 +77,9 @@ class CustomAnalysis:
         self.logger.info('Analysis script connected to remote TMS server')
 
 
-
-
         # Create an empty ndarray to store all of the samples. (nFeatures x nSamples)
+        print(self.mask.shape)
+        #self.masterArray = np.zeros(shape=(self.mask.shape[0]))
 
         ############# ^^^ END USER-SPECIFIED CODE ^^^ ##########################
         ########################################################################
