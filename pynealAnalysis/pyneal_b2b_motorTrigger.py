@@ -6,6 +6,11 @@ is running a server listening for responses).
 
 During the scan, if certain conditions are met, this script will send a trigger
 to the remote TMS machine, which will in turn fire the TMS pulse
+
+Preparation for each scan:
+    - need to specify the path to the correct pickled classifier file. This
+    classifier should have been trained using previous data for the current
+    subject and the exact same mask as will be used during real-time run. 
 """
 import sys
 import os
@@ -17,8 +22,6 @@ import atexit
 
 import numpy as np
 import nibabel as nib
-from nilearn.input_data import NiftiMasker
-
 
 import zmq
 
@@ -26,7 +29,7 @@ import zmq
 # TMS Server Info
 host = '127.0.0.1' # get from settingsThatWork
 port = 5555
-classifierName = 'pyneal_002_classifier.pkl'
+classifierName = 'pyneal_002_motor-vs-rest_classifier.pkl'
 maskFile = './pyneal_002_motorSphere_5mm_mask.nii.gz'
 weightMask = False
 numTimepts = 186
@@ -84,6 +87,9 @@ class CustomAnalysis:
         with open(join(self.customAnalysisDir, classifierName), 'rb') as f:
             self.clf = pickle.load(f)
 
+        # get the index location of the "motor" class from within the classifier
+        self.clf_motorIdx = np.where(self.clf.classes_ == 'motor')[0][0]
+
         # Create a socket to communicate with the remote TMS server
         context = zmq.Context()
         self.TMS_socket = context.socket(zmq.REQ)
@@ -92,16 +98,12 @@ class CustomAnalysis:
         print(self.TMS_socket.recv_string())
         self.logger.info('Analysis script connected to remote TMS server')
 
-        # Create an empty ndarray to store all of the samples. (nFeatures x nSamples)
-        nVoxelsInMask = int(sum(self.mask.ravel()))
-        self.masterArray = np.zeros(shape=(nVoxelsInMask, self.numTimepts))
-
-        # create a flattened 1D version of mask
-        self.maskFlat = self.mask.ravel()
+        # Create an empty ndarray to store all of the samples. (nSamples x nFeatures)
+        nVoxelsInMask = sum(self.mask.ravel())
+        self.masterArray = np.zeros(shape=(self.numTimepts, nVoxelsInMask))
 
         ############# ^^^ END USER-SPECIFIED CODE ^^^ ##########################
         ########################################################################
-
 
     def compute(self, volume, volIdx):
         """
@@ -113,39 +115,59 @@ class CustomAnalysis:
         """
         ########################################################################
         ############# vvv INSERT USER-SPECIFIED CODE BELOW vvv #################
-        # mask the input volume
-        maskedVol =
+        # mask the volume to isolate the voxels of interest, add these voxels
+        # to the master array at this timept location
+        self.masterArray[volIdx, :] = volume[self.mask]
 
+        # standardize all voxel timeseries up to the current volume
+        cleaned_array = self.standardizeTimeseries(self.masterArray[:volIdx+1, :])
 
-        # mask volume and add to the master array
-        self.masterArray
+        # grab the current sample, reshape to (1, nFeatures)
+        thisSample = cleaned_array[volIdx, :].reshape(1, cleaned_array.shape[1])
 
-        # detrend all voxels in the master array
-
-        # classifiy
-
-        # get probability from classifier
+        # classify, and get the probability that this sample is a 'motor' sample
+        predictedClass = self.clf.predict(thisSample)[0]
+        motorProb = self.clf.predict_proba(thisSample)[self.clf_motorIdx][0]
+        self.logger.info('volIdx {} - motorProb: {}'.format(volIdx, motorProb))
 
         # send trigger if desired
-
-
-        self.triggered = False
-
-        # Check if conditions are correct to trigger TMS
-        if self.triggerTMS(volume):
-            self.TMS_socket.send_string('trigger')
-            self.logger.info('trigger sent to TMS server')
-            self.triggered = True
-
-            resp = self.TMS_socket.recv_string()
-            self.logger.info('received TMS server response: {}'.format(resp))
-
+        if motorProb > .5:
+            self.sendTrigger(volIdx)
 
         ############# ^^^ END USER-SPECIFIED CODE ^^^ ##########################
         ########################################################################
 
-        return {'triggered': self.triggered}
+        return {'predictedClass': predictedClass, 'motorProb': motorProb}
 
+    def standardizeTimeseries(self, signals):
+        """
+        'signals' expected to be a 2D array of timeseries with time on the first
+        axis (rows) and voxels on the second axis (columns). This method will
+        mean center each voxel, and set the variance to 1.
+
+        returns a standardized array of the same dimensions
+
+        Note: these calculations taken from 'clean' method from signal.py in
+        the nilearn packagage:
+        https://github.com/nilearn/nilearn/blob/master/nilearn/signal.py
+        """
+        signals = signals - signals.mean(axis=0)   # remove mean
+        std = np.sqrt((signals**2).sum(axis=0))
+        std[std < np.finfo(np.float).eps] = 1.  # avoids numerical problems
+        signals /= std    # divide every value in signals by the std
+        signals *= np.sqrt(signals.shape[0])  # set unit variance (i.e. 1)
+
+        return signals
+
+    def sendTrigger(self, volIdx):
+        """
+        Send a trigger to the TMS server, stamped with the current volume index
+        """
+        self.TMS_socket.send_string('trigger - volIdx: {}'.format(volIdx))
+        self.logger.info('trigger sent to TMS server - volIdx: {}'.format(volIdx))
+
+        resp = self.TMS_socket.recv_string()
+        self.logger.info('received TMS server response: {}'.format(resp))
 
 
 class TMS_serverSim(Thread):
@@ -170,7 +192,7 @@ class TMS_serverSim(Thread):
         while self.alive:
             # listen for new messages
             msg = self.socket.recv_string()
-            print('TMS server: {}'.format(msg))
+            print('TMS server received: {}'.format(msg))
 
             # send reply
             self.socket.send_string('from TMS server: received msg - {}'.format(msg))
@@ -191,4 +213,16 @@ if __name__ == '__main__':
     mask_img = nib.load(maskFile)
 
     # create instance of the custom analysis class
-    test = CustomAnalysis(maskFile, weightMask, numTimepts)
+    customAnalysis = CustomAnalysis(maskFile, weightMask, numTimepts)
+
+    # Load test data
+    test_fmri = nib.load('../data/subject001/pyneal_002/receivedFunc.nii.gz').get_data()
+    nTimepts = test_fmri.shape[3]
+
+    # loop over all timepts, and run compute method on each
+    probs = []
+    for volIdx in range(nTimepts):
+        thisResult = customAnalysis.compute(test_fmri[:,:,:,volIdx], volIdx)
+        probs.append(thisResult['motorProb'])
+
+    print(probs)
