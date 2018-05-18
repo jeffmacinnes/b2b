@@ -1,0 +1,14 @@
+{
+  "name": "b2b_node_server",
+  "version": "1.0.0",
+  "description": "node server for web-based brain-2-brain interactive site",
+  "main": "nodeServer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jeff MacInnes",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
