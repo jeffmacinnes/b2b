@@ -1,0 +1,15 @@
+{
+  "name": "node_sockets",
+  "version": "1.0.0",
+  "description": "test out socket.io for node",
+  "main": "nodesocket.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jeff MacInnes",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.3",
+    "socket.io": "^2.1.1"
+  }
+}
