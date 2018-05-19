@@ -29,7 +29,7 @@ function sendProbability(request, response){
         volIdx: Number(data.volIdx),
         prob: Number(data.prob)
     };
-    console.log('received from pyneal: ' + msg);
+    console.log('received from pyneal: ' + JSON.stringify(msg));
 
     // broadcast to clients
     io.sockets.emit('senderProb', msg);

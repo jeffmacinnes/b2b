@@ -1,34 +1,82 @@
 var socket;
 var host = '127.0.0.1';
-var port = '3000';
+var socketPort = '8000';
+
+var threshBar;
 
 function setup() {
-    createCanvas(400, 400);
+    createCanvas(600, 400);
+    frameRate(25);
     console.log('sketch running');
-    socket = io.connect('http://' + host + ':' + port);
-    socket.on('mouse', newDrawing);
-    background(51);
+
+    // set up socket streaming
+    socket = io.connect('http://' + host + ':' + socketPort);
+    socket.on('senderProb', updateSenderProb);
+
+    // create instance of threshBar object
+    threshBar = new ThresholdTherm(100, 200);
+    console.log(threshBar.height);
+
+    // set mode for drawing primitives
+    rectMode(CENTER);
+    ellipseMode(CENTER);
+    textAlign(CENTER, CENTER);
 }
 
 // handle incoming socket data
-function newDrawing(data){
-    noStroke();
-    fill(123,12,144);
-    ellipse(data.x, data.y, 30, 30);
+function updateSenderProb(data){
+    console.log('sketch got: ' + data.volIdx + ', ' + data.prob)
+    threshBar.updateProb(data.volIdx, data.prob);
 }
 
-function mouseDragged(){
-    console.log('sending: ' + mouseX + ',' + mouseY);
+function draw(){
+    background(100);
+    threshBar.display();
+}
 
-    // format the data to send to the server over the socket
-    var data = {
-        x: mouseX,
-        y: mouseY
+
+
+function ThresholdTherm(x, y){
+    // initialize location and size of thermometer frame
+    this.centerX = x;
+    this.centerY = y;
+    this.width = 15;
+    this.height = 250;
+    // coords for lower left corner
+    this.cornerX = this.centerX-(this.width/2);
+    this.cornerY = this.centerY+(this.height/2);
+
+    // init prob variable
+    this.prob = 0;
+    this.volIdx = 0;
+
+    this.updateProb = function(newVolIdx, newProb) {
+        // update the probability
+        this.volIdx = newVolIdx;
+        this.prob = newProb*100;
     }
-    socket.emit('mouse', data);
 
-    noStroke();
-    fill(255);
-    ellipse(mouseX, mouseY, 30, 30);
+    this.display = function(){
+        // draw the therm rect
+        fill(255);
+        rect(this.centerX, this.centerY, this.width, this.height);
+
+        // draw halfway line
+        fill(255, 12, 132);
+        rect(this.centerX, this.centerY, this.width+20, 3);
+
+        // draw the probability indicator
+        this.probY = map(this.prob, 0, 100, this.cornerY, this.cornerY - this.height)
+        fill(234, 131, 11);
+        noStroke();
+        ellipse(this.centerX, this.probY, 20, 20);
+
+        // draw the volIdx text
+        fill(255);
+        textSize(24);
+        text('vol: '+ this.volIdx, this.centerX, this.cornerY+40)
+
+
+    }
 
 }

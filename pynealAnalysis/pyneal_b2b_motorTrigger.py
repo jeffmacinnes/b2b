@@ -10,7 +10,7 @@ to the remote TMS machine, which will in turn fire the TMS pulse
 Preparation for each scan:
     - need to specify the path to the correct pickled classifier file. This
     classifier should have been trained using previous data for the current
-    subject and the exact same mask as will be used during real-time run. 
+    subject and the exact same mask as will be used during real-time run.
 """
 import sys
 import os
@@ -19,9 +19,12 @@ import logging
 import pickle
 from threading import Thread
 import atexit
+import time
 
 import numpy as np
 import nibabel as nib
+import urllib.request
+
 
 import zmq
 
@@ -219,10 +222,21 @@ if __name__ == '__main__':
     test_fmri = nib.load('../data/subject001/pyneal_002/receivedFunc.nii.gz').get_data()
     nTimepts = test_fmri.shape[3]
 
+    # send test url request
+    urllib.request.urlopen('http://127.0.0.1:8000/addProb/0/0')
+
     # loop over all timepts, and run compute method on each
     probs = []
     for volIdx in range(nTimepts):
         thisResult = customAnalysis.compute(test_fmri[:,:,:,volIdx], volIdx)
         probs.append(thisResult['motorProb'])
+
+        # send to dashboard
+        url = 'http://127.0.0.1:8000/addProb/{}/{:.3f}'.format(volIdx, probs[-1])
+        print(url)
+        urllib.request.urlopen(url);
+
+        # pause
+        time.sleep(.2);
 
     print(probs)
