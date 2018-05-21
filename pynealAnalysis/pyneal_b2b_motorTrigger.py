@@ -37,6 +37,10 @@ maskFile = './pyneal_002_motorSphere_5mm_mask.nii.gz'
 weightMask = False
 numTimepts = 186
 
+dashboardHost = '127.0.0.1'
+dashboardPort = 8000
+dashboardBaseURL = 'http://{}:{}'.format(dashboardHost, dashboardPort)
+
 class CustomAnalysis:
     """
     This is a custom analysis script for use with Pyneal that is designed for
@@ -222,8 +226,8 @@ if __name__ == '__main__':
     test_fmri = nib.load('../data/subject001/pyneal_002/receivedFunc.nii.gz').get_data()
     nTimepts = test_fmri.shape[3]
 
-    # send test url request
-    urllib.request.urlopen('http://127.0.0.1:8000/addProb/0/0')
+    # send pynealConnect message to dashboard
+    urllib.request.urlopen('{}/pynealConnect'.format(dashboardBaseURL))
 
     # loop over all timepts, and run compute method on each
     probs = []
@@ -232,7 +236,7 @@ if __name__ == '__main__':
         probs.append(thisResult['motorProb'])
 
         # send to dashboard
-        url = 'http://127.0.0.1:8000/addProb/{}/{:.3f}'.format(volIdx, probs[-1])
+        url = '{}/addProb/{}/{:.3f}'.format(dashboardBaseURL, volIdx, probs[-1])
         print(url)
         urllib.request.urlopen(url);
 

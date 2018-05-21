@@ -18,7 +18,6 @@ function newConnection(socket){
 }
 
 
-
 // set up routes for sending data -----------------
 // method for Pyneal to update server with data from sender
 app.get('/addProb/:volIdx/:prob', sendProbability);
@@ -33,6 +32,19 @@ function sendProbability(request, response){
 
     // broadcast to clients
     io.sockets.emit('senderProb', msg);
+
+    // send message back to sender, just cuz
+    response.send(msg);
+}
+
+app.get('/pynealConnect', pynealConnect);
+function pynealConnect(request, response){
+    // indicate that pyneal has started and initialized a connection
+    msg = 'pyneal connected'
+    console.log('pyneal connected!')
+
+    // broadcast to clients
+    io.sockets.emit('pynealConnected');
 
     // send message back to sender, just cuz
     response.send(msg);

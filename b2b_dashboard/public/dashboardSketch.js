@@ -1,8 +1,8 @@
 var socket;
 var host = '127.0.0.1';
 var socketPort = '8000';
-
 var threshBar;
+var taskStarted = false;
 
 function setup() {
     createCanvas(600, 400);
@@ -12,6 +12,7 @@ function setup() {
     // set up socket streaming
     socket = io.connect('http://' + host + ':' + socketPort);
     socket.on('senderProb', updateSenderProb);
+    socket.on('pynealConnected', pynealConnected);
 
     // create instance of threshBar object
     threshBar = new ThresholdTherm(100, 200);
@@ -29,14 +30,29 @@ function updateSenderProb(data){
     threshBar.updateProb(data.volIdx, data.prob);
 }
 
+function pynealConnected(){
+    console.log('pyneal connected to the site!');
+    taskStarted = true;
+}
+
 function draw(){
     background(100);
-    threshBar.display();
+    if (taskStarted == true){
+        threshBar.display;
+    } else {
+        drawStartScreen();
+    }
+}
+
+function drawStartScreen(){
+    fill(255, 0, 0);
+    ellipse(200, 200, 50, 50);
 }
 
 
 
 function ThresholdTherm(x, y){
+    // object representing the threshold thermometer bar
     // initialize location and size of thermometer frame
     this.centerX = x;
     this.centerY = y;
@@ -57,6 +73,7 @@ function ThresholdTherm(x, y){
     }
 
     this.display = function(){
+        console.log('heresfsd');
         // draw the therm rect
         fill(255);
         rect(this.centerX, this.centerY, this.width, this.height);
@@ -75,8 +92,6 @@ function ThresholdTherm(x, y){
         fill(255);
         textSize(24);
         text('vol: '+ this.volIdx, this.centerX, this.cornerY+40)
-
-
     }
 
 }
