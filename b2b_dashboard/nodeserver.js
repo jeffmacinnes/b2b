@@ -37,14 +37,27 @@ function sendProbability(request, response){
     response.send(msg);
 }
 
-app.get('/pynealConnect', pynealConnect);
-function pynealConnect(request, response){
-    // indicate that pyneal has started and initialized a connection
-    msg = 'pyneal connected'
-    console.log('pyneal connected!')
+app.get('/senderConnect', senderConnect);
+function senderConnect(request, response){
+    // indicate that sender (aka Pyneal) has initialized a connection
+    msg = 'sender connected'
+    console.log('sender connected!')
 
     // broadcast to clients
-    io.sockets.emit('pynealConnected');
+    io.sockets.emit('senderConnected');
+
+    // send message back to sender, just cuz
+    response.send(msg);
+}
+
+app.get('/senderDisconnect', senderDisconnect);
+function senderDisconnect(request, response){
+    // indicate that sender (aka Pyneal) has disconnected
+    msg = 'sender disconnected'
+    console.log('sender disconnected!')
+
+    // broadcast to clients
+    io.sockets.emit('senderDisconnected');
 
     // send message back to sender, just cuz
     response.send(msg);

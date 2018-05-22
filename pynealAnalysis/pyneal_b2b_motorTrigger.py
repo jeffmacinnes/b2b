@@ -25,7 +25,6 @@ import numpy as np
 import nibabel as nib
 import urllib.request
 
-
 import zmq
 
 
@@ -40,6 +39,7 @@ numTimepts = 186
 dashboardHost = '127.0.0.1'
 dashboardPort = 8000
 dashboardBaseURL = 'http://{}:{}'.format(dashboardHost, dashboardPort)
+
 
 class CustomAnalysis:
     """
@@ -105,6 +105,11 @@ class CustomAnalysis:
         print(self.TMS_socket.recv_string())
         self.logger.info('Analysis script connected to remote TMS server')
 
+        # set up dashboard communication
+        self.dashboard = True
+        self.connectToDashboard()
+        atexit.register(self.disconnectFromDashboard)
+
         # Create an empty ndarray to store all of the samples. (nSamples x nFeatures)
         nVoxelsInMask = sum(self.mask.ravel())
         self.masterArray = np.zeros(shape=(self.numTimepts, nVoxelsInMask))
@@ -136,6 +141,9 @@ class CustomAnalysis:
         predictedClass = self.clf.predict(thisSample)[0]
         motorProb = self.clf.predict_proba(thisSample)[self.clf_motorIdx][0]
         self.logger.info('volIdx {} - motorProb: {}'.format(volIdx, motorProb))
+
+        # send this probability to the dashboard
+        self.updateDashboard(volIdx, motorProb)
 
         # send trigger if desired
         if motorProb > .5:
@@ -176,6 +184,30 @@ class CustomAnalysis:
         resp = self.TMS_socket.recv_string()
         self.logger.info('received TMS server response: {}'.format(resp))
 
+    def updateDashboard(self, volIdx, prob):
+        """
+        If dashboard is running, send the probability value for this volume to
+        the dashboard server
+        """
+        if self.dashboard:
+            # format the url for sending this value to the dashboard
+            url = '{}/addProb/{}/{:.3f}'.format(dashboardBaseURL, volIdx, prob)
+            urllib.request.urlopen(url)
+
+    def connectToDashboard(self):
+        """
+        connect to the dashboard server
+        """
+        urllib.request.urlopen('{}/senderConnect'.format(dashboardBaseURL))
+
+    def disconnectFromDashboard(self):
+        """
+        function to send disconnect message to the dashboard
+        """
+        # send senderDisconnect message to dashboard
+        urllib.request.urlopen('{}/senderDisconnect'.format(dashboardBaseURL))
+
+
 
 class TMS_serverSim(Thread):
     """
@@ -205,10 +237,14 @@ class TMS_serverSim(Thread):
             self.socket.send_string('from TMS server: received msg - {}'.format(msg))
 
     def killServer(self):
+        """
+        close connection to dashboard (if running), and kill the server
+        """
         self.alive = False
 
 
-### For testing:
+
+### FOR TESTING:
 if __name__ == '__main__':
 
     # start the test TMS server
@@ -226,20 +262,13 @@ if __name__ == '__main__':
     test_fmri = nib.load('../data/subject001/pyneal_002/receivedFunc.nii.gz').get_data()
     nTimepts = test_fmri.shape[3]
 
-    # send pynealConnect message to dashboard
-    urllib.request.urlopen('{}/pynealConnect'.format(dashboardBaseURL))
 
     # loop over all timepts, and run compute method on each
+    a = input('press any key to begin...')
     probs = []
     for volIdx in range(nTimepts):
         thisResult = customAnalysis.compute(test_fmri[:,:,:,volIdx], volIdx)
         probs.append(thisResult['motorProb'])
-
-        # send to dashboard
-        url = '{}/addProb/{}/{:.3f}'.format(dashboardBaseURL, volIdx, probs[-1])
-        print(url)
-        urllib.request.urlopen(url);
-
         # pause
         time.sleep(.2);
 
