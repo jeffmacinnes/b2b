@@ -1,8 +1,7 @@
 var socket;
+var socketPort;
 //var host = '127.0.0.1';
-//var socketPort = '8000';
 var host = 'warm-river-88108.herokuapp.com';
-var socketPort = '30717';
 var threshBar;
 var senderConnection;
 
@@ -11,11 +10,8 @@ function setup() {
     frameRate(25);
     console.log('sketch running');
 
-    // set up socket streaming
-    socket = io.connect('http://' + host + ':' + socketPort);
-    socket.on('senderProb', updateSenderProb);
-    socket.on('senderConnected', senderConnected);
-    socket.on('senderDisconnected', senderDisconnected);
+    // get the current port number, open socket
+    loadJSON('/getPortNum', gotSocketPort);
 
     // create instance of sender connection indicator
     senderConnection = new SenderConnection(100, 40);
@@ -26,6 +22,19 @@ function setup() {
     // set mode for drawing primitives
     rectMode(CENTER);
     ellipseMode(CENTER);
+}
+
+function gotSocketPort(msg){
+    // once we've retrieved the socket port, we can open the socket and
+    // listen for streaming data from the server
+    socketPort = msg['port'];
+    console.log('got socket port from server: ' + socketPort);
+
+    // set up socket streaming
+    socket = io.connect('http://' + host + ':' + socketPort);
+    socket.on('senderProb', updateSenderProb);
+    socket.on('senderConnected', senderConnected);
+    socket.on('senderDisconnected', senderDisconnected);
 }
 
 // handle incoming socket data

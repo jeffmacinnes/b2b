@@ -21,6 +21,17 @@ function newConnection(socket){
 
 
 // set up routes for sending data -----------------
+// method to retrieve the current port number of the nodeserver
+app.get('/getPortNum', getPortNum);
+function getPortNum(request, response){
+    var msg = {
+        port: port
+    };
+    msg = JSON.stringify(msg)
+    response.send(msg);
+    console.log('sent ' + msg);
+}
+
 // method for Pyneal to update server with data from sender
 app.get('/addProb/:volIdx/:prob', sendProbability);
 function sendProbability(request, response){
