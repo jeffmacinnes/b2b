@@ -4,7 +4,7 @@
   "description": "node server for b2b dashboard site",
   "main": "nodeserver.js",
   "scripts": {
-    "start": "node nodeserver.js",
+    "start": "node nodeserver.js"
   },
   "author": "Jeff MacInnes",
   "license": "ISC",
