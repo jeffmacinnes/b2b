@@ -31,7 +31,7 @@ function gotSocketPort(msg){
     console.log('got socket port from server: ' + socketPort);
 
     // set up socket streaming
-    socket = io.connect('http://' + host + ':' + socketPort);
+    socket = io.connect('https://' + host + ':' + socketPort);
     socket.on('senderProb', updateSenderProb);
     socket.on('senderConnected', senderConnected);
     socket.on('senderDisconnected', senderDisconnected);
