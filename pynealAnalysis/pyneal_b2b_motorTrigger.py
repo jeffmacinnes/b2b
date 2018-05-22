@@ -36,9 +36,12 @@ maskFile = './pyneal_002_motorSphere_5mm_mask.nii.gz'
 weightMask = False
 numTimepts = 186
 
-dashboardHost = '127.0.0.1'
-dashboardPort = 8000
-dashboardBaseURL = 'http://{}:{}'.format(dashboardHost, dashboardPort)
+#dashboardHost = '127.0.0.1'
+#dashboardPort = 8000
+#dashboardBaseURL = 'http://{}:{}'.format(dashboardHost, dashboardPort)
+dashboardHost = 'warm-river-88108.herokuapp.com'
+dashboardPort = 30717
+dashboardBaseURL = 'http://{}'.format(dashboardHost)
 
 
 class CustomAnalysis:
@@ -198,7 +201,9 @@ class CustomAnalysis:
         """
         connect to the dashboard server
         """
-        urllib.request.urlopen('{}/senderConnect'.format(dashboardBaseURL))
+        url = '{}/senderConnect'.format(dashboardBaseURL)
+        print('connecting to: {}'.format(url))
+        urllib.request.urlopen(url)
 
     def disconnectFromDashboard(self):
         """

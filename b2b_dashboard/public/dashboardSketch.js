@@ -1,6 +1,8 @@
 var socket;
-var host = '127.0.0.1';
-var socketPort = '8000';
+//var host = '127.0.0.1';
+//var socketPort = '8000';
+var host = 'warm-river-88108.herokuapp.com';
+var socketPort = '30717';
 var threshBar;
 var senderConnection;
 
