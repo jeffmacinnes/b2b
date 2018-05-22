@@ -15,13 +15,16 @@ from threading import Thread
 import zmq
 import serial
 
+from CCDLUtil.MagStimRapid2Interface.ArmAndFire import TMS
+from CCDLUtil.Communications.MultiClientServer import TCPServer
+
 
 ### TMS Server Info
 
 context = zmq.Context()
 socketHost = '127.0.0.1' # get from settingsThatWork.txt
 socketPort = 6666
-serialPort = '/dev/tty.usbmodem1421'
+serialPort = 'COM19'
 
 class TMSServer(Thread):
     """
@@ -29,7 +32,7 @@ class TMSServer(Thread):
     listening for trigger messages from Pyneal. Whenever a trigger message
     is received, it will send a pulse out the serial def
     """
-    def __init__(self, socketHost='127.0.0.1', socketPort=6666, serialPort=''):
+    def __init__(self, socketHost='127.0.0.1', socketPort=6666, serialPort='', tms_intensity=50):
         # Start the thread upon creation
         Thread.__init__(self)
         self.alive = True
@@ -37,35 +40,40 @@ class TMSServer(Thread):
         # Set up socket
         context = zmq.Context()
         self.socket = context.socket(zmq.REP)
-        self.socket.bind("tcp://{}:{}".format(socketHost, socketPort))
-
+        self.socket.bind("tcp://*:%s" % socketPort)
         # Set up serial port
         self.serialPort = serial.Serial(serialPort, 9600)
 
-        # atexit function, kill thread
+        # # atexit function, kill thread
         atexit.register(self.kill)
+
+        # init TMS machine
+        self.tms = TMS()
+        self.tms.tms_arm()
+        self.tms_intensity = tms_intensity
 
     def run(self):
         while self.alive:
             # listen for new messages
-            msg = self.socket.recv_string()
-            print('TMS server got message: {}'.format(msg))
+            msg = self.socket.recv()
 
             # write to the serial port
             self.triggerSerial()
 
             # send reply to socket client
-            self.socket.send_string('got it')
+            self.socket.send('got it')
 
     def triggerSerial(self):
         """
         send a trigger down the serial port
         """
         # write a '1' to the serial port
-        self.serialPort.write('1'.encode('utf-8'))
+        # self.serialPort.write('1'.encode('utf-8'))
 
         # get response from serial port
         #print('resp from serial port: ' + str(self.serialPort.readline()))
+        ### fire TMS ###
+        self.tms.tms_fire(i=self.tms_intensity, sleep_time=0.5)
 
     def kill(self):
         self.alive = False
@@ -128,9 +136,10 @@ if __name__ == '__main__':
 
 
     # for testing
-    pynealSim = PynealSim(socketHost, socketPort)
-    volIdx = 0
+    # pynealSim = PynealSim(socketHost, socketPort)
+    # volIdx = 0
     while True:
-        a = input('press any key to send trigger...')
-        pynealSim.sendTrigger(volIdx)
-        volIdx += 1
+        pass
+        # a = raw_input('press any key to send trigger...')
+        # pynealSim.sendTrigger(volIdx)
+        # volIdx += 1
