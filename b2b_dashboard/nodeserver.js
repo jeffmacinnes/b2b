@@ -1,5 +1,7 @@
 // set up express to host the static site
-var port = 8000;
+//var port = 8000;
+var port = process.env.PORT || 8080;   // let port be set by heroku
+console.log('PORT NUMBER: ' + port);
 var express = require('express');
 var app = express();
 var server = app.listen(port);
