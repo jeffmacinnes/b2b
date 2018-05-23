@@ -15,17 +15,12 @@ from threading import Thread
 import zmq
 import serial
 
-from CCDLUtil.MagStimRapid2Interface.ArmAndFire import TMS
-from CCDLUtil.Communications.MultiClientServer import TCPServer
-
-
 ### TMS Server Info
-
 context = zmq.Context()
 socketHost = '127.0.0.1' # get from settingsThatWork.txt
 socketPort = 6666
-# serialPort = '/dev/tty.usbmodem1411'  # for osx, arduino port
-serialPort = 'COM19'   # for windows, arduino port
+serialPort = '/dev/tty.usbmodem14141'  # for osx, arduino port
+#serialPort = 'COM19'   # for windows, arduino port
 
 class TMSServer(Thread):
     """
@@ -33,7 +28,7 @@ class TMSServer(Thread):
     listening for trigger messages from Pyneal. Whenever a trigger message
     is received, it will send a pulse out the serial def
     """
-    def __init__(self, socketHost='127.0.0.1', socketPort=6666, serialPort='', tms_intensity=50):
+    def __init__(self, socketHost='127.0.0.1', socketPort=6666, serialPort='', triggerType='serial', tms_intensity=50):
         # Start the thread upon creation
         Thread.__init__(self)
         self.alive = True
@@ -42,24 +37,37 @@ class TMSServer(Thread):
         context = zmq.Context()
         self.socket = context.socket(zmq.REP)
         self.socket.bind("tcp://*:%s" % socketPort)
-        # Set up serial port
-        self.serialPort = serial.Serial(serialPort, 9600)
+
+        # Set up serial port if needed
+        self.triggerType = triggerType
+        if self.triggerType == 'serial':
+            self.serialPort = serial.Serial(serialPort, 9600)
+        elif self.triggerType == 'TMS':
+            from CCDLUtil.MagStimRapid2Interface.ArmAndFire import TMS
+
+            # init TMS machine
+            self.tms = TMS()
+            self.tms.tms_arm()
+            self.tms_intensity = tms_intensity
+        else:
+            print("I don't recognize your triggerType variable: {}".format(triggerType))
 
         # # atexit function, kill thread
         atexit.register(self.kill)
-
-        # init TMS machine
-        self.tms = TMS()
-        self.tms.tms_arm()
-        self.tms_intensity = tms_intensity
 
     def run(self):
         while self.alive:
             # listen for new messages
             msg = self.socket.recv()
+            print(msg)
 
-            # write to the serial port
-            self.triggerSerial()
+            # send the appropriate trigger
+            if self.triggerType == 'serial':
+                self.triggerSerial()
+            elif self.triggerType == 'TMS':
+                self.triggerTMS()
+            else:
+                print('no trigger device set up!')
 
             # send reply to socket client
             self.socket.send('got it')
@@ -69,10 +77,12 @@ class TMSServer(Thread):
         send a trigger down the serial port
         """
         # write a '1' to the serial port
-        # self.serialPort.write('1'.encode('utf-8'))
+        self.serialPort.write('1'.encode('utf-8'))
 
         # get response from serial port
         #print('resp from serial port: ' + str(self.serialPort.readline()))
+
+    def triggerTMS(self):
         ### fire TMS ###
         self.tms.tms_fire(i=self.tms_intensity, sleep_time=0.5)
 
@@ -110,7 +120,8 @@ if __name__ == '__main__':
     # Start the TMS server
     TMS_server = TMSServer(socketHost = socketHost,
                             socketPort = socketPort,
-                            serialPort = serialPort)
+                            serialPort = serialPort,
+                            triggerType = 'serial')
     TMS_server.daemon = True
     TMS_server.start()
 

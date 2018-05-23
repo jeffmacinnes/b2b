@@ -1,19 +1,19 @@
 var socket;
-var socketPort;
-var host = '127.0.0.1';
+//var socketPort;
+//var host = '127.0.0.1';
 //var host = 'warm-river-88108.herokuapp.com';
 var threshBar;
 var senderConnection;
 
-function preload(){
-    // get the current port number, open socket
-    loadJSON('/getPortNum', gotPort);
-}
-
-function gotPort(data){
-    socketPort = data.port;
-    console.log(socketPort);
-}
+// function preload(){
+//     // get the current port number, open socket
+//     loadJSON('/getPortNum', gotPort);
+// }
+//
+// function gotPort(data){
+//     socketPort = data.port;
+//     console.log(socketPort);
+// }
 
 function setup() {
     createCanvas(600, 400);
@@ -21,7 +21,7 @@ function setup() {
     console.log('sketch running');
 
     // set up socket streaming
-    socket = io.connect('http://' + host + ':' + socketPort);
+    socket = io.connect(window.location.origin)
     socket.on('senderProb', updateSenderProb);
     socket.on('senderConnected', senderConnected);
     socket.on('senderDisconnected', senderDisconnected);

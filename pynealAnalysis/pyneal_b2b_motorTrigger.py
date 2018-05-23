@@ -29,8 +29,8 @@ import zmq
 
 
 # TMS Server Info
-#host = '127.0.0.1' # get from settingsThatWork
-host = '10.19.101.32'
+host = '127.0.0.1' # get from settingsThatWork
+#host = '10.19.101.32'
 port = 6666
 classifierName = 'pyneal_002_motor-vs-rest_classifier.pkl'
 maskFile = './pyneal_002_motorSphere_5mm_mask.nii.gz'
@@ -106,9 +106,8 @@ class CustomAnalysis:
         self.TMS_socket = context.socket(zmq.REQ)
         self.logger.info('Analysis script waiting to connect to remote TMS server at {}:{}'.format(host, port))
         self.TMS_socket.connect("tcp://{}:{}".format(host, port))
-        
         self.TMS_socket.send_string('hello from analysis script')
-        print(self.TMS_socket.recv_string())
+        self.TMS_socket.recv_string()
         self.logger.info('Analysis script connected to remote TMS server')
 
         # set up dashboard communication
