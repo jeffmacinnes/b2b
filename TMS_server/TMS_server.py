@@ -21,7 +21,7 @@ import serial
 context = zmq.Context()
 socketHost = '127.0.0.1' # get from settingsThatWork.txt
 socketPort = 6666
-serialPort = '/dev/tty.usbmodem1421'
+serialPort = '/dev/tty.usbmodem1411'
 
 class TMSServer(Thread):
     """
@@ -96,27 +96,6 @@ class PynealSim():
         resp = self.TMS_socket.recv_string()
         print('pyneal simulator received: {}'.format(resp))
 
-# # define the socket using the context
-# serverSocket = context.socket(zmq.REP)
-# serverSocket.bind("tcp://{}:{}".format(host, port))
-#
-# # set up serial port parameters
-# ser = serial.Serial('/dev/tty.usbmodem14141', 9600)
-#
-# while True:
-#     message = serverSocket.recv()
-#     print('server got message: {}'.format(message))
-#
-#     # write to the serial port
-#     ser.write('1'.encode('utf-8'));
-#
-#     # read response from serial port
-#     print('resp from arduino: ' + str(ser.readline()))
-#
-#     # send reply to client
-#     serverSocket.send_string('got it')
-
-
 
 if __name__ == '__main__':
     # Start the TMS server
@@ -126,11 +105,14 @@ if __name__ == '__main__':
     TMS_server.daemon = True
     TMS_server.start()
 
+    while True:
+        a = 0
+
 
     # for testing
-    pynealSim = PynealSim(socketHost, socketPort)
-    volIdx = 0
-    while True:
-        a = input('press any key to send trigger...')
-        pynealSim.sendTrigger(volIdx)
-        volIdx += 1
+    # pynealSim = PynealSim(socketHost, socketPort)
+    # volIdx = 0
+    # while True:
+    #     a = input('press any key to send trigger...')
+    #     pynealSim.sendTrigger(volIdx)
+    #     volIdx += 1

@@ -29,19 +29,20 @@ import zmq
 
 
 # TMS Server Info
-host = '127.0.0.1' # get from settingsThatWork
-port = 5555
+#host = '127.0.0.1' # get from settingsThatWork
+host = '10.19.101.32'
+port = 6666
 classifierName = 'pyneal_002_motor-vs-rest_classifier.pkl'
 maskFile = './pyneal_002_motorSphere_5mm_mask.nii.gz'
 weightMask = False
 numTimepts = 186
 
-#dashboardHost = '127.0.0.1'
-#dashboardPort = 8000
-#dashboardBaseURL = 'http://{}:{}'.format(dashboardHost, dashboardPort)
-dashboardHost = 'warm-river-88108.herokuapp.com'
-dashboardPort = 30717
-dashboardBaseURL = 'http://{}'.format(dashboardHost)
+dashboardHost = '127.0.0.1'
+dashboardPort = 8080
+dashboardBaseURL = 'http://{}:{}'.format(dashboardHost, dashboardPort)
+#dashboardHost = 'warm-river-88108.herokuapp.com'
+#dashboardPort = 41293
+#dashboardBaseURL = 'https://{}'.format(dashboardHost)
 
 
 class CustomAnalysis:
@@ -103,7 +104,9 @@ class CustomAnalysis:
         # Create a socket to communicate with the remote TMS server
         context = zmq.Context()
         self.TMS_socket = context.socket(zmq.REQ)
+        self.logger.info('Analysis script waiting to connect to remote TMS server at {}:{}'.format(host, port))
         self.TMS_socket.connect("tcp://{}:{}".format(host, port))
+        
         self.TMS_socket.send_string('hello from analysis script')
         print(self.TMS_socket.recv_string())
         self.logger.info('Analysis script connected to remote TMS server')
@@ -253,9 +256,9 @@ class TMS_serverSim(Thread):
 if __name__ == '__main__':
 
     # start the test TMS server
-    TMS_server = TMS_serverSim(host, port)
-    TMS_server.daemon = True
-    TMS_server.start()
+    # TMS_server = TMS_serverSim(host, port)
+    # TMS_server.daemon = True
+    # TMS_server.start()
 
     # read in the mask
     mask_img = nib.load(maskFile)

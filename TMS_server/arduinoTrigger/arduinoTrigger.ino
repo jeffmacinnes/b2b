@@ -20,6 +20,9 @@ void loop() {
       Serial.println(inByte); // send the data back in a new line so that it is not all one long line
       delay(100);
       digitalWrite(LED_BUILTIN, LOW);    // turn the LED off by making the voltage LOW
+
+      // play tone
+      tone(8, 2000, 20);
   }
 
 }

@@ -27,10 +27,11 @@ function getPortNum(request, response){
     var msg = {
         port: port
     };
-    msg = JSON.stringify(msg)
+    //msg = JSON.stringify(msg)
     response.send(msg);
     console.log('sent ' + msg);
 }
+
 
 // method for Pyneal to update server with data from sender
 app.get('/addProb/:volIdx/:prob', sendProbability);

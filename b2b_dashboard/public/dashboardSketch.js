@@ -1,17 +1,30 @@
 var socket;
 var socketPort;
-//var host = '127.0.0.1';
-var host = 'warm-river-88108.herokuapp.com';
+var host = '127.0.0.1';
+//var host = 'warm-river-88108.herokuapp.com';
 var threshBar;
 var senderConnection;
+
+function preload(){
+    // get the current port number, open socket
+    loadJSON('/getPortNum', gotPort);
+}
+
+function gotPort(data){
+    socketPort = data.port;
+    console.log(socketPort);
+}
 
 function setup() {
     createCanvas(600, 400);
     frameRate(25);
     console.log('sketch running');
 
-    // get the current port number, open socket
-    loadJSON('/getPortNum', gotSocketPort);
+    // set up socket streaming
+    socket = io.connect('http://' + host + ':' + socketPort);
+    socket.on('senderProb', updateSenderProb);
+    socket.on('senderConnected', senderConnected);
+    socket.on('senderDisconnected', senderDisconnected);
 
     // create instance of sender connection indicator
     senderConnection = new SenderConnection(100, 40);
@@ -24,18 +37,6 @@ function setup() {
     ellipseMode(CENTER);
 }
 
-function gotSocketPort(msg){
-    // once we've retrieved the socket port, we can open the socket and
-    // listen for streaming data from the server
-    socketPort = msg['port'];
-    console.log('got socket port from server: ' + socketPort);
-
-    // set up socket streaming
-    socket = io.connect('https://' + host + ':' + socketPort);
-    socket.on('senderProb', updateSenderProb);
-    socket.on('senderConnected', senderConnected);
-    socket.on('senderDisconnected', senderDisconnected);
-}
 
 // handle incoming socket data
 function updateSenderProb(data){
@@ -93,8 +94,6 @@ function SenderConnection(x, y){
             text('SENDER disconnected', this.textCornerX, this.centerY)
         }
     }
-
-
 }
 
 
