@@ -37,12 +37,11 @@ maskFile = './pyneal_002_motorSphere_5mm_mask.nii.gz'
 weightMask = False
 numTimepts = 186
 
-dashboardHost = '127.0.0.1'
-dashboardPort = 8080
-dashboardBaseURL = 'http://{}:{}'.format(dashboardHost, dashboardPort)
-#dashboardHost = 'warm-river-88108.herokuapp.com'
-#dashboardPort = 41293
-#dashboardBaseURL = 'https://{}'.format(dashboardHost)
+#dashboardHost = '127.0.0.1'
+#dashboardPort = 8080
+#dashboardBaseURL = 'http://{}:{}'.format(dashboardHost, dashboardPort)
+dashboardHost = 'warm-river-88108.herokuapp.com'
+dashboardBaseURL = 'https://{}'.format(dashboardHost)
 
 
 class CustomAnalysis:
@@ -273,10 +272,13 @@ if __name__ == '__main__':
     # loop over all timepts, and run compute method on each
     a = input('press any key to begin...')
     probs = []
+    print('volume: ', end =' ', flush=True)
     for volIdx in range(nTimepts):
         thisResult = customAnalysis.compute(test_fmri[:,:,:,volIdx], volIdx)
         probs.append(thisResult['motorProb'])
         # pause
-        time.sleep(.2);
+        print(volIdx, end=', ', flush=True)
+        time.sleep(.1);
+
 
     print(probs)
