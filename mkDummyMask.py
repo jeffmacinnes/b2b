@@ -12,7 +12,6 @@ import nibabel as nib
 import numpy as np
 
 
-
 if __name__ == '__main__':
     # parse arguments
     parser = argparse.ArgumentParser()

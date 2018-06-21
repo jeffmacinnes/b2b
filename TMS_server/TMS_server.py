@@ -19,7 +19,7 @@ import serial
 context = zmq.Context()
 socketHost = '127.0.0.1' # get from settingsThatWork.txt
 socketPort = 6666
-serialPort = '/dev/tty.usbmodem14141'  # for osx, arduino port
+serialPort = '/dev/tty.usbmodem1411'  # for osx, arduino port
 #serialPort = 'COM19'   # for windows, arduino port
 
 class TMSServer(Thread):
