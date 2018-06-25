@@ -7,22 +7,25 @@ Each trial is 16 sec long (8 samples at 2s TR)
 Run begins and ends with a 6sec fixation screen
 **/
 
-var speedFactor = 1;
+var speedFactor = 2;
 
 var w, h;
-var disdaqsElapsed = false;
+var taskStage;
 var taskStarted = false;
+var dummyScansStartTime;
+var preTaskStartTime;
+
+
+var dummyScansDur = 4000;   // duration of dummy scans (ms)
+var preTaskDur = 4000;      // duration of preTask (ms)
+
 
 var trialNum = 0;
 
-var tr = 2000  // TR in ms
-var nDummyScans = 2  // number of dummy scans in beginning of run
-var disdaqsDur = 6000
-var trialDur = 16000;
+var repetitions = 8;
+var nDummyScans = 2;  // number of dummy scans in beginning of run
 var stimSize = 300;
 
-var dummyScansElapsed = false;
-var trialStarted = false;
 
 function setup(){
     w = windowWidth;
@@ -34,9 +37,6 @@ function setup(){
 
     textSize(32);
     textAlign(CENTER, CENTER);
-
-    // initialize the first trial
-    currentTrial = getCurrentTrial()
 }
 
 
@@ -44,16 +44,14 @@ function draw(){
     background(150);
 
     if (taskStarted != true){
-        // present start button
         drawStartButton();
     } else {
-        // check if disdaqs elapsed
-        if (dummyScansElapsed != true){
-            drawDummyScans()
-        } else if (disdaqsElapse != true){
-            drawDisdaqs()
+        if (taskStage == 'dummyScans'){
+            drawDummyScans();
+        } else if (taskStage == 'preTask'){
+            drawPreTask();
         } else {
-            drawTrial()
+            console.log('taskStage not recognized!');
         }
     }
 }
@@ -83,28 +81,61 @@ function mousePressed(){
         var d = dist(mouseX, mouseY, w/2, h/2);
         if (d<100){
             taskStarted = true;
+            taskStage = 'dummyScans';
         }
     }
 }
 
 
-function drawDummyScan(){
+function drawDummyScans(){
+    // set start time
+    if (dummyScansStartTime == null){
+        dummyScansStartTime = millis();
+    }
+
     fill(0);
     textSize(64);
     text('waiting for dummy scans', w/2, h/2);
-    setTimeout(function(){ disdaqsElapsed=true}, disdaqsDur/speedFactor);
     textSize(32);
+
+    var elapsedTime = millis() - dummyScansStartTime;
+    if (elapsedTime > (dummyScansDur/speedFactor)){
+        nextStage();
+    }
 }
 
-function drawDisdaqs(){
-    // fill(255,0,0);
-    // rect(w/2, h/2, 100, 100);
+function drawPreTask(){
+    // set start time
+    if (preTaskStartTime == null){
+        preTaskStartTime = millis();
+    }
 
     fill(0);
     textSize(64);
     text('+', w/2, h/2);
-    setTimeout(function(){ disdaqsElapsed=true}, disdaqsDur/speedFactor);
     textSize(32);
+
+    var elapsedTime = millis() - preTaskStartTime;
+    if (elapsedTime > (preTaskDur/speedFactor)){
+        nextStage();
+    }
+}
+
+function nextStage(){
+    var currentStage = taskStage;
+    console.log('current stage: ' + currentStage);
+    switch(currentStage){
+        case 'dummyScans':
+            taskStage = 'preTask';
+            break;
+        case 'preTask':
+            taskStage = 'task';
+            break;
+        case 'task':
+            taskStage = 'postTask';
+            break;
+    }
+    console.log('switched to: ' + taskStage);
 }
 
 
