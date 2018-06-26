@@ -7,6 +7,7 @@ Each trial is 16 sec long (8 samples at 2s TR)
 Run begins and ends with a 6sec fixation screen
 **/
 
+var runType = 'Full Run'
 var speedFactor = 8;
 
 var w, h;
@@ -32,9 +33,6 @@ var restDur = 16000;
 var activeDur = 16000;
 
 var trialNum = 0;
-
-var repetitions = 8;
-var nDummyScans = 2;  // number of dummy scans in beginning of run
 var stimSize = 300;
 var currentTrial
 
@@ -77,6 +75,7 @@ function draw(){
 
 function drawStartButton(){
     fill(0)
+    text(runType, w/2, h/2-350)
     text('click circle to start', w/2, h/2-200);
     textSize(18);
     text('speedFactor: ' + speedFactor, w/2, h/2-150)
@@ -185,7 +184,6 @@ function drawActiveTrial(){
     }
 }
 
-
 function drawPostTask(){
     // set start time
     if (postTaskStartTime == null){
@@ -239,6 +237,7 @@ function nextTrial(){
         nextStage();
     } else {
         currentTrial = trialOrder[trialNum];
+        console.log('trial count: ' + trialNum);
     }
-    console.log('trial count: ' + trialNum)
+
 }

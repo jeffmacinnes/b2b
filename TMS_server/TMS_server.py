@@ -28,7 +28,7 @@ class TMSServer(Thread):
     listening for trigger messages from Pyneal. Whenever a trigger message
     is received, it will send a pulse out the serial def
     """
-    def __init__(self, socketHost='127.0.0.1', socketPort=6666, serialPort='', triggerType='serial', tms_intensity=50):
+    def __init__(self, socketPort=6666, serialPort='', triggerType='serial', tms_intensity=50):
         # Start the thread upon creation
         Thread.__init__(self)
         self.alive = True
@@ -118,8 +118,7 @@ class PynealSim():
 
 if __name__ == '__main__':
     # Start the TMS server
-    TMS_server = TMSServer(socketHost = socketHost,
-                            socketPort = socketPort,
+    TMS_server = TMSServer(socketPort = socketPort,
                             serialPort = serialPort,
                             triggerType = 'serial')
     TMS_server.daemon = True
