@@ -3,8 +3,14 @@
 
 
 ## Steps for running task
+### Scanner Settings
 
-
+* TR: 2s
+* slice dims: 64 x 64
+* 30 slices
+* nTimepts: 
+	* full run: 132 + 2 dummy scans -> (268 sec; 4 min 28 sec)
+	* short run: 68 + 2 dummy scans -> (140 sec; 2 min 20 sec)
 
 ## Steps for testing remote triggers to Guthrie
 

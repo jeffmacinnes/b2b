@@ -8,7 +8,7 @@ Run begins and ends with a 6sec fixation screen
 **/
 
 var runType = 'Full Run'
-var speedFactor = 8;
+var speedFactor = 1;
 
 var w, h;
 var taskStage;
