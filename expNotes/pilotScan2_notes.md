@@ -12,6 +12,61 @@
 	* full run: 132 + 2 dummy scans -> (268 sec; 4 min 28 sec)
 	* short run: 68 + 2 dummy scans -> (140 sec; 2 min 20 sec)
 
+	
+1. Connect laptop to IBIC LAN
+2. Collect the FULL RUN functional run first (using **finger tapping** vs rest)
+
+3. Use `getSeries.py` to build a nifti version of the run. Confirm that the TR of the output nifti is set to 2sec and voxel size is correct. If not use:
+
+`fsledithd [NIFTIFILE] emacs`
+
+4. Start the MPRAGE. While that is going, run GLM on first run....
+
+### Run GLM on first run
+
+1. Open FEAT, load `fullRunGLM.fsf` template file
+2. Load the nifti from the first run into FEAT
+3. Hit Submit (should take ~1min). Output saved at `firstLevel.feat`
+
+### Build 5mm sphere mask around peak
+
+1. Get the coordinates for peak voxel from GLM:
+
+`fslstats firstLevel.feat/stats/zstat1.nii.gz -x`
+
+2. Build a 5mm sphere mask around point
+
+`fslmaths firstLevel.feat/example_func.nii.gz -mul 0 -add 1 -roi [X] 1 [Y] 1 [Z] 1 0 1 tmpPoint -odt float`
+
+`fslmaths tmpPoint.nii.gz -kernel sphere 5 -fmean -bin 5mm_sphereMask_FUNC -odt float`
+
+`rm tmpPoint.nii.gz`
+
+### Train classifier on first run
+
+1. Run script to train classifier
+
+`python3 classifyLocalizer.py [fullRun Nifti File] 5mm_sphereMask_FUNC.nii.gz`
+
+This will print the classification accuracy to the screen, as well as save the classifier at: `pilot2_classifier.pkl`
+
+
+### Set up Pyneal, load custom Analysis script
+
+1. In Pyneal, load the custom analysis script at:
+
+`.../b2b/pynealAnalysis/pilot2/pyneal_b2b_customAnalysis.py`
+
+This file has the classifier and mask file already hardcoded. Doesn't matter when mask you select in GUI. 
+
+2. Make sure the heroko dashboard is running locally on `127.0.0.1:8080`
+
+
+### Monitor via dashboard
+locally: [http://127.0.0.1:8080/](http://127.0.0.1:8080/)
+
+heroku: [https://warm-river-88108.herokuapp.com/](https://warm-river-88108.herokuapp.com/)
+
 ## Steps for testing remote triggers to Guthrie
 
 A goal of this scan is to confirm that we can send remote triggers to the TMS server in Guthrie via the UW wi-fi network while simultaneously hooked up to the IBIC private LAN

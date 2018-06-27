@@ -6,11 +6,18 @@ supplied mask
 import sys
 import os
 import argparse
+import pickle
+
+import numpy as np
+import pandas as pd
 
 from nilearn.input_data import NiftiMasker
 from sklearn.svm import SVC
 from sklearn.cross_validation import KFold
 from sklearn.cross_validation import cross_val_score
+
+
+labelsFile = 'fullRunLabels_excl2.txt'
 
 def classifyRun(funcFile, maskFile):
     """ Train an SVM classifier on the given funcFile, using the given
@@ -24,7 +31,16 @@ def classifyRun(funcFile, maskFile):
     fmri = masker.fit_transform(funcFile)
 
     ### MASK FMRI TIMEPTS TO ONLY THE CONDITIONS OF INTEREST
-    ### NEED LABELS
+    # load labels
+    labelsTmp = np.genfromtxt(labelsFile, dtype='str')
+    labels = pd.Series(labelsTmp)
+    conditions_mask = labels.isin(['Rest', 'Active'])
+
+    # mask the fmri
+    fmri = fmri[conditions_mask]
+
+    # mask the labels
+    labels = labels[conditions_mask]
 
     # build the SVM decoder
     clf = SVC(kernel='linear', C=100, probability=True)
@@ -46,7 +62,7 @@ def classifyRun(funcFile, maskFile):
     clf_fname = 'pilot2_classifier.pkl'
     with open(clf_fname, 'wb') as p:
         pickle.dump(clf, p, pickle.HIGHEST_PROTOCOL)
-    print('Classifier saved as: {}'.format(clf_name))
+    print('Classifier saved as: {}'.format(clf_fname))
 
 
 if __name__ == '__main__':
