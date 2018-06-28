@@ -1,0 +1,6 @@
+</pre><hr>Initialisation<br><pre>
+
+/usr/local/fsl/bin/fslmaths /Users/jeff/gDrive/jeffCloud/real-time/b2b/pynealAnalysis/pilot2/pilot2_fullRun_fingerTapping_0000 prefiltered_func_data -odt float
+Total original volumes = 132
+
+/usr/local/fsl/bin/fslroi prefiltered_func_data example_func 66 1

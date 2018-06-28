@@ -32,11 +32,13 @@
 
 1. Get the coordinates for peak voxel from GLM:
 
-`fslstats firstLevel.feat/stats/zstat1.nii.gz -x`
+`fslstats firstLevel+.feat/stats/zstat1.nii.gz -x`
+
+output: 28 31 26
 
 2. Build a 5mm sphere mask around point
 
-`fslmaths firstLevel.feat/example_func.nii.gz -mul 0 -add 1 -roi [X] 1 [Y] 1 [Z] 1 0 1 tmpPoint -odt float`
+`fslmaths firstLevel+.feat/example_func.nii.gz -mul 0 -add 1 -roi 28 1 31 1 26 1 0 1 tmpPoint -odt float`
 
 `fslmaths tmpPoint.nii.gz -kernel sphere 5 -fmean -bin 5mm_sphereMask_FUNC -odt float`
 
@@ -49,6 +51,8 @@
 `python3 classifyLocalizer.py [fullRun Nifti File] 5mm_sphereMask_FUNC.nii.gz`
 
 This will print the classification accuracy to the screen, as well as save the classifier at: `pilot2_classifier.pkl`
+
+NOTE: Classifier accuracy w/ 5mm sphere mask was only 55% (std. 11.38%), so we tried classifying using the whole brain mask (`firstLevel+.feat/mask.nii.gz') instead and got 66% accuracy (19% stdev). Better, so we used it, but still less than anticipated
 
 
 ### Set up Pyneal, load custom Analysis script
@@ -67,7 +71,7 @@ locally: [http://127.0.0.1:8080/](http://127.0.0.1:8080/)
 
 heroku: [https://warm-river-88108.herokuapp.com/](https://warm-river-88108.herokuapp.com/)
 
-## Steps for testing remote triggers to Guthrie
+## Steps for testing remote triggers to Guthrie [WORKS!!!]
 
 A goal of this scan is to confirm that we can send remote triggers to the TMS server in Guthrie via the UW wi-fi network while simultaneously hooked up to the IBIC private LAN
 

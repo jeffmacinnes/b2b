@@ -1,5 +1,7 @@
 # Steps for settings up Pyneal at IBIC
 
+**PAF**: b2b
+
 ### Plug in yellow ethernet cord
 
 ### Open network settings
