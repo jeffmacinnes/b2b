@@ -1,0 +1,13 @@
+onsets_TR1	onsets_TR2	trialTypes	weights	duration
+4	2	rest	1.0	20
+24	22	motor	1.0	10
+34	32	rest	1.0	20
+54	52	imagery	1.0	10
+64	62	rest	1.0	20
+84	82	imagery	1.0	10
+94	92	rest	1.0	20
+114	112	motor	1.0	10
+124	122	rest	1.0	20
+144	142	imagery	1.0	10
+154	152	rest	1.0	20
+174	172	motor	1.0	10

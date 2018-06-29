@@ -1,0 +1,6 @@
+</pre><hr>Initialisation<br><pre>
+
+/usr/local/fsl/bin/fslmaths /Users/jeff/gDrive/jeffCloud/real-time/b2b/data/subject001/pyneal_002/receivedFunc prefiltered_func_data -odt float
+Total original volumes = 186
+
+/usr/local/fsl/bin/fslroi prefiltered_func_data example_func 93 1

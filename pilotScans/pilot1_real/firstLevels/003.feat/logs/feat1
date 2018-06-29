@@ -1,0 +1,21 @@
+
+/bin/cp /tmp/feat_nOBUpu.fsf design.fsf
+
+/usr/local/fsl/bin/feat_model design
+
+mkdir .files;cp /usr/local/fsl/doc/fsl.css .files;cp -r /usr/local/fsl/doc/images .files/images
+
+/usr/local/fsl/bin/fsl_sub -T 10 -l logs -N feat0_init   /usr/local/fsl/bin/feat /Users/jeff/gDrive/jeffCloud/real-time/b2b/data/subject001/firstLevels/003.feat/design.fsf -D /Users/jeff/gDrive/jeffCloud/real-time/b2b/data/subject001/firstLevels/003.feat -I 1 -init
+5268
+
+/usr/local/fsl/bin/fsl_sub -T 48 -l logs -N feat2_pre -j 5268  /usr/local/fsl/bin/feat /Users/jeff/gDrive/jeffCloud/real-time/b2b/data/subject001/firstLevels/003.feat/design.fsf -D /Users/jeff/gDrive/jeffCloud/real-time/b2b/data/subject001/firstLevels/003.feat -I 1 -prestats
+5355
+
+/usr/local/fsl/bin/fsl_sub -T 1 -l logs -N feat3_film -j 5355  /usr/local/fsl/bin/feat /Users/jeff/gDrive/jeffCloud/real-time/b2b/data/subject001/firstLevels/003.feat/design.fsf -D /Users/jeff/gDrive/jeffCloud/real-time/b2b/data/subject001/firstLevels/003.feat -I 1 -stats
+8496
+
+/usr/local/fsl/bin/fsl_sub -T 119 -l logs -N feat4_post -j 8496  /usr/local/fsl/bin/feat /Users/jeff/gDrive/jeffCloud/real-time/b2b/data/subject001/firstLevels/003.feat/design.fsf -D /Users/jeff/gDrive/jeffCloud/real-time/b2b/data/subject001/firstLevels/003.feat -poststats 0 
+9666
+
+/usr/local/fsl/bin/fsl_sub -T 1 -l logs -N feat5_stop -j 5355,8496,9666  /usr/local/fsl/bin/feat /Users/jeff/gDrive/jeffCloud/real-time/b2b/data/subject001/firstLevels/003.feat/design.fsf -D /Users/jeff/gDrive/jeffCloud/real-time/b2b/data/subject001/firstLevels/003.feat -stop
+11406

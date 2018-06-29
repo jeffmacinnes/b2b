@@ -1,0 +1,457 @@
+06-27 13:20:00 - INFO - MainThread - pyneal: Setting: analysisChoice: /Users/jeff/gDrive/jeffCloud/real-time/b2b/pynealAnalysis/pilot2/pyneal_b2b_customAnalysis.py
+06-27 13:20:00 - INFO - MainThread - pyneal: Setting: dashboardClientPort: 5558
+06-27 13:20:00 - INFO - MainThread - pyneal: Setting: dashboardPort: 5557
+06-27 13:20:00 - INFO - MainThread - pyneal: Setting: launchDashboard: True
+06-27 13:20:00 - INFO - MainThread - pyneal: Setting: maskFile: /Users/jeff/gDrive/jeffCloud/real-time/b2b/pynealAnalysis/pilot2/firstLevel+.feat/mask.nii.gz
+06-27 13:20:00 - INFO - MainThread - pyneal: Setting: maskIsWeighted: False
+06-27 13:20:00 - INFO - MainThread - pyneal: Setting: numTimepts: 68
+06-27 13:20:00 - INFO - MainThread - pyneal: Setting: outputPath: /Users/jeff/Desktop/development/pynealOutput
+06-27 13:20:00 - INFO - MainThread - pyneal: Setting: pynealHost: 127.0.0.1
+06-27 13:20:00 - INFO - MainThread - pyneal: Setting: pynealScannerPort: 5555
+06-27 13:20:00 - INFO - MainThread - pyneal: Setting: resultsServerPort: 5556
+06-27 13:20:00 - INFO - MainThread - pyneal: Setting: seriesOutputDir: /Users/jeff/Desktop/development/pynealOutput/pyneal_022
+06-27 13:20:00 - DEBUG - MainThread - scanReceiver: scanReceiver server bound to 127.0.0.1:5555
+06-27 13:20:00 - INFO - MainThread - scanReceiver: ScanReceiver Server alive and listening....
+06-27 13:20:00 - DEBUG - MainThread - pyneal: Starting Scan Receiver
+06-27 13:20:00 - DEBUG - MainThread - resultsServer: Results Server bound to 127.0.0.1:5556
+06-27 13:20:00 - INFO - MainThread - resultsServer: Results Server alive and listening....
+06-27 13:20:00 - DEBUG - MainThread - pyneal: Starting Results Server
+06-27 13:20:00 - INFO - MainThread - pyneal_b2b_customAnalysis: Analysis script waiting to connect to remote TMS server at 10.19.15.206:6666
+06-27 13:20:00 - DEBUG - Thread-1 - scanReceiver: Scanner socket connected to Pyneal-Scanner
+06-27 13:20:00 - INFO - MainThread - pyneal_b2b_customAnalysis: Analysis script connected to remote TMS server
+06-27 13:20:58 - DEBUG - Thread-1 - scanReceiver: Image Matrix dims: (64, 64, 30, 68)
+06-27 13:20:58 - INFO - Thread-1 - scanReceiver: Received vol 0
+06-27 13:20:58 - DEBUG - MainThread - pyneal: Scan started
+06-27 13:20:58 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 0
+06-27 13:20:58 - INFO - MainThread - pyneal_b2b_customAnalysis: volIdx 0 - motorProb: 0.4520459622267607
+06-27 13:20:58 - INFO - MainThread - pynealAnalysis: analyzed vol: 0
+06-27 13:20:58 - DEBUG - MainThread - resultsServer: vol 0 - {'predictedClass': 'Rest', 'motorProb': 0.45204596222676069} added to resultsServer
+06-27 13:20:58 - INFO - Thread-1 - scanReceiver: Received vol 1
+06-27 13:20:58 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 1
+06-27 13:20:58 - INFO - MainThread - pyneal_b2b_customAnalysis: volIdx 1 - motorProb: 0.3185733762033509
+06-27 13:20:58 - INFO - MainThread - pynealAnalysis: analyzed vol: 1
+06-27 13:20:58 - DEBUG - MainThread - resultsServer: vol 1 - {'predictedClass': 'Rest', 'motorProb': 0.31857337620335091} added to resultsServer
+06-27 13:21:00 - INFO - Thread-1 - scanReceiver: Received vol 2
+06-27 13:21:00 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 2
+06-27 13:21:00 - INFO - MainThread - pyneal_b2b_customAnalysis: volIdx 2 - motorProb: 0.5738922085158042
+06-27 13:21:00 - INFO - MainThread - pyneal_b2b_customAnalysis: trigger sent to TMS server - volIdx: 2
+06-27 13:21:00 - INFO - MainThread - pyneal_b2b_customAnalysis: received TMS server response: got it
+06-27 13:21:00 - INFO - MainThread - pynealAnalysis: analyzed vol: 2
+06-27 13:21:00 - DEBUG - MainThread - resultsServer: vol 2 - {'predictedClass': 'Active', 'motorProb': 0.57389220851580425} added to resultsServer
+06-27 13:21:02 - INFO - Thread-1 - scanReceiver: Received vol 3
+06-27 13:21:02 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 3
+06-27 13:21:02 - INFO - MainThread - pyneal_b2b_customAnalysis: volIdx 3 - motorProb: 0.1538750752210101
+06-27 13:21:02 - INFO - MainThread - pynealAnalysis: analyzed vol: 3
+06-27 13:21:02 - DEBUG - MainThread - resultsServer: vol 3 - {'predictedClass': 'Rest', 'motorProb': 0.1538750752210101} added to resultsServer
+06-27 13:21:04 - INFO - Thread-1 - scanReceiver: Received vol 4
+06-27 13:21:04 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 4
+06-27 13:21:04 - INFO - MainThread - pyneal_b2b_customAnalysis: volIdx 4 - motorProb: 0.5660884760531631
+06-27 13:21:04 - INFO - MainThread - pyneal_b2b_customAnalysis: trigger sent to TMS server - volIdx: 4
+06-27 13:21:04 - INFO - MainThread - pyneal_b2b_customAnalysis: received TMS server response: got it
+06-27 13:21:04 - INFO - MainThread - pynealAnalysis: analyzed vol: 4
+06-27 13:21:04 - DEBUG - MainThread - resultsServer: vol 4 - {'predictedClass': 'Active', 'motorProb': 0.56608847605316315} added to resultsServer
+06-27 13:21:06 - INFO - Thread-1 - scanReceiver: Received vol 5
+06-27 13:21:07 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 5
+06-27 13:21:07 - INFO - MainThread - pyneal_b2b_customAnalysis: volIdx 5 - motorProb: 0.4418540172892094
+06-27 13:21:07 - INFO - MainThread - pynealAnalysis: analyzed vol: 5
+06-27 13:21:07 - DEBUG - MainThread - resultsServer: vol 5 - {'predictedClass': 'Rest', 'motorProb': 0.44185401728920942} added to resultsServer
+06-27 13:21:08 - INFO - Thread-1 - scanReceiver: Received vol 6
+06-27 13:21:09 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 6
+06-27 13:21:09 - INFO - MainThread - pyneal_b2b_customAnalysis: volIdx 6 - motorProb: 0.5491461633009096
+06-27 13:21:09 - INFO - MainThread - pyneal_b2b_customAnalysis: trigger sent to TMS server - volIdx: 6
+06-27 13:21:09 - INFO - MainThread - pyneal_b2b_customAnalysis: received TMS server response: got it
+06-27 13:21:09 - INFO - MainThread - pynealAnalysis: analyzed vol: 6
+06-27 13:21:09 - DEBUG - MainThread - resultsServer: vol 6 - {'predictedClass': 'Active', 'motorProb': 0.5491461633009096} added to resultsServer
+06-27 13:21:10 - INFO - Thread-1 - scanReceiver: Received vol 7
+06-27 13:21:11 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 7
+06-27 13:21:11 - INFO - MainThread - pyneal_b2b_customAnalysis: volIdx 7 - motorProb: 0.5092834814117844
+06-27 13:21:11 - INFO - MainThread - pyneal_b2b_customAnalysis: trigger sent to TMS server - volIdx: 7
+06-27 13:21:11 - INFO - MainThread - pyneal_b2b_customAnalysis: received TMS server response: got it
+06-27 13:21:11 - INFO - MainThread - pynealAnalysis: analyzed vol: 7
+06-27 13:21:11 - DEBUG - MainThread - resultsServer: vol 7 - {'predictedClass': 'Active', 'motorProb': 0.50928348141178437} added to resultsServer
+06-27 13:21:12 - INFO - Thread-1 - scanReceiver: Received vol 8
+06-27 13:21:13 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 8
+06-27 13:21:13 - INFO - MainThread - pyneal_b2b_customAnalysis: volIdx 8 - motorProb: 0.3767789000875747
+06-27 13:21:13 - INFO - MainThread - pynealAnalysis: analyzed vol: 8
+06-27 13:21:13 - DEBUG - MainThread - resultsServer: vol 8 - {'predictedClass': 'Rest', 'motorProb': 0.3767789000875747} added to resultsServer
+06-27 13:21:14 - INFO - Thread-1 - scanReceiver: Received vol 9
+06-27 13:21:15 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 9
+06-27 13:21:15 - INFO - MainThread - pyneal_b2b_customAnalysis: volIdx 9 - motorProb: 0.3229309905223845
+06-27 13:21:15 - INFO - MainThread - pynealAnalysis: analyzed vol: 9
+06-27 13:21:15 - DEBUG - MainThread - resultsServer: vol 9 - {'predictedClass': 'Rest', 'motorProb': 0.3229309905223845} added to resultsServer
+06-27 13:21:16 - INFO - Thread-1 - scanReceiver: Received vol 10
+06-27 13:21:17 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 10
+06-27 13:21:17 - INFO - MainThread - pyneal_b2b_customAnalysis: volIdx 10 - motorProb: 0.7970890083600652
+06-27 13:21:17 - INFO - MainThread - pyneal_b2b_customAnalysis: trigger sent to TMS server - volIdx: 10
+06-27 13:21:17 - INFO - MainThread - pyneal_b2b_customAnalysis: received TMS server response: got it
+06-27 13:21:17 - INFO - MainThread - pynealAnalysis: analyzed vol: 10
+06-27 13:21:17 - DEBUG - MainThread - resultsServer: vol 10 - {'predictedClass': 'Active', 'motorProb': 0.79708900836006524} added to resultsServer
+06-27 13:21:18 - INFO - Thread-1 - scanReceiver: Received vol 11
+06-27 13:21:18 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 11
+06-27 13:21:19 - INFO - MainThread - pyneal_b2b_customAnalysis: volIdx 11 - motorProb: 0.7205293008554948
+06-27 13:21:19 - INFO - MainThread - pyneal_b2b_customAnalysis: trigger sent to TMS server - volIdx: 11
+06-27 13:21:19 - INFO - MainThread - pyneal_b2b_customAnalysis: received TMS server response: got it
+06-27 13:21:19 - INFO - MainThread - pynealAnalysis: analyzed vol: 11
+06-27 13:21:19 - DEBUG - MainThread - resultsServer: vol 11 - {'predictedClass': 'Active', 'motorProb': 0.72052930085549483} added to resultsServer
+06-27 13:21:20 - INFO - Thread-1 - scanReceiver: Received vol 12
+06-27 13:21:21 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 12
+06-27 13:21:21 - INFO - MainThread - pyneal_b2b_customAnalysis: volIdx 12 - motorProb: 0.30973344695546706
+06-27 13:21:21 - INFO - MainThread - pynealAnalysis: analyzed vol: 12
+06-27 13:21:21 - DEBUG - MainThread - resultsServer: vol 12 - {'predictedClass': 'Rest', 'motorProb': 0.30973344695546706} added to resultsServer
+06-27 13:21:22 - INFO - Thread-1 - scanReceiver: Received vol 13
+06-27 13:21:23 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 13
+06-27 13:21:23 - INFO - MainThread - pyneal_b2b_customAnalysis: volIdx 13 - motorProb: 0.3516695169995289
+06-27 13:21:23 - INFO - MainThread - pynealAnalysis: analyzed vol: 13
+06-27 13:21:23 - DEBUG - MainThread - resultsServer: vol 13 - {'predictedClass': 'Rest', 'motorProb': 0.35166951699952892} added to resultsServer
+06-27 13:21:24 - INFO - Thread-1 - scanReceiver: Received vol 14
+06-27 13:21:25 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 14
+06-27 13:21:25 - INFO - MainThread - pyneal_b2b_customAnalysis: volIdx 14 - motorProb: 0.6025139109795895
+06-27 13:21:25 - INFO - MainThread - pyneal_b2b_customAnalysis: trigger sent to TMS server - volIdx: 14
+06-27 13:21:25 - INFO - MainThread - pyneal_b2b_customAnalysis: received TMS server response: got it
+06-27 13:21:25 - INFO - MainThread - pynealAnalysis: analyzed vol: 14
+06-27 13:21:25 - DEBUG - MainThread - resultsServer: vol 14 - {'predictedClass': 'Active', 'motorProb': 0.60251391097958951} added to resultsServer
+06-27 13:21:26 - INFO - Thread-1 - scanReceiver: Received vol 15
+06-27 13:21:27 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 15
+06-27 13:21:27 - INFO - MainThread - pyneal_b2b_customAnalysis: volIdx 15 - motorProb: 0.9446292942306217
+06-27 13:21:27 - INFO - MainThread - pyneal_b2b_customAnalysis: trigger sent to TMS server - volIdx: 15
+06-27 13:21:27 - INFO - MainThread - pyneal_b2b_customAnalysis: received TMS server response: got it
+06-27 13:21:27 - INFO - MainThread - pynealAnalysis: analyzed vol: 15
+06-27 13:21:27 - DEBUG - MainThread - resultsServer: vol 15 - {'predictedClass': 'Active', 'motorProb': 0.9446292942306217} added to resultsServer
+06-27 13:21:28 - INFO - Thread-1 - scanReceiver: Received vol 16
+06-27 13:21:29 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 16
+06-27 13:21:29 - INFO - MainThread - pyneal_b2b_customAnalysis: volIdx 16 - motorProb: 0.9591276108254277
+06-27 13:21:29 - INFO - MainThread - pyneal_b2b_customAnalysis: trigger sent to TMS server - volIdx: 16
+06-27 13:21:29 - INFO - MainThread - pyneal_b2b_customAnalysis: received TMS server response: got it
+06-27 13:21:29 - INFO - MainThread - pynealAnalysis: analyzed vol: 16
+06-27 13:21:29 - DEBUG - MainThread - resultsServer: vol 16 - {'predictedClass': 'Active', 'motorProb': 0.95912761082542775} added to resultsServer
+06-27 13:21:30 - INFO - Thread-1 - scanReceiver: Received vol 17
+06-27 13:21:31 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 17
+06-27 13:21:31 - INFO - MainThread - pyneal_b2b_customAnalysis: volIdx 17 - motorProb: 0.9376252859831824
+06-27 13:21:31 - INFO - MainThread - pyneal_b2b_customAnalysis: trigger sent to TMS server - volIdx: 17
+06-27 13:21:31 - INFO - MainThread - pyneal_b2b_customAnalysis: received TMS server response: got it
+06-27 13:21:31 - INFO - MainThread - pynealAnalysis: analyzed vol: 17
+06-27 13:21:31 - DEBUG - MainThread - resultsServer: vol 17 - {'predictedClass': 'Active', 'motorProb': 0.9376252859831824} added to resultsServer
+06-27 13:21:32 - INFO - Thread-1 - scanReceiver: Received vol 18
+06-27 13:21:33 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 18
+06-27 13:21:33 - INFO - MainThread - pyneal_b2b_customAnalysis: volIdx 18 - motorProb: 0.9898103544422081
+06-27 13:21:33 - INFO - MainThread - pyneal_b2b_customAnalysis: trigger sent to TMS server - volIdx: 18
+06-27 13:21:33 - INFO - MainThread - pyneal_b2b_customAnalysis: received TMS server response: got it
+06-27 13:21:33 - INFO - MainThread - pynealAnalysis: analyzed vol: 18
+06-27 13:21:33 - DEBUG - MainThread - resultsServer: vol 18 - {'predictedClass': 'Active', 'motorProb': 0.98981035444220811} added to resultsServer
+06-27 13:21:34 - INFO - Thread-1 - scanReceiver: Received vol 19
+06-27 13:21:35 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 19
+06-27 13:21:35 - INFO - MainThread - pyneal_b2b_customAnalysis: volIdx 19 - motorProb: 0.6644149393149453
+06-27 13:21:35 - INFO - MainThread - pyneal_b2b_customAnalysis: trigger sent to TMS server - volIdx: 19
+06-27 13:21:35 - INFO - MainThread - pyneal_b2b_customAnalysis: received TMS server response: got it
+06-27 13:21:35 - INFO - MainThread - pynealAnalysis: analyzed vol: 19
+06-27 13:21:35 - DEBUG - MainThread - resultsServer: vol 19 - {'predictedClass': 'Active', 'motorProb': 0.66441493931494533} added to resultsServer
+06-27 13:21:36 - INFO - Thread-1 - scanReceiver: Received vol 20
+06-27 13:21:37 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 20
+06-27 13:21:37 - INFO - MainThread - pyneal_b2b_customAnalysis: volIdx 20 - motorProb: 0.652738317612859
+06-27 13:21:37 - INFO - MainThread - pyneal_b2b_customAnalysis: trigger sent to TMS server - volIdx: 20
+06-27 13:21:37 - INFO - MainThread - pyneal_b2b_customAnalysis: received TMS server response: got it
+06-27 13:21:37 - INFO - MainThread - pynealAnalysis: analyzed vol: 20
+06-27 13:21:37 - DEBUG - MainThread - resultsServer: vol 20 - {'predictedClass': 'Active', 'motorProb': 0.65273831761285905} added to resultsServer
+06-27 13:21:38 - INFO - Thread-1 - scanReceiver: Received vol 21
+06-27 13:21:39 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 21
+06-27 13:21:39 - INFO - MainThread - pyneal_b2b_customAnalysis: volIdx 21 - motorProb: 0.1930873544587187
+06-27 13:21:39 - INFO - MainThread - pynealAnalysis: analyzed vol: 21
+06-27 13:21:39 - DEBUG - MainThread - resultsServer: vol 21 - {'predictedClass': 'Rest', 'motorProb': 0.19308735445871869} added to resultsServer
+06-27 13:21:40 - INFO - Thread-1 - scanReceiver: Received vol 22
+06-27 13:21:41 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 22
+06-27 13:21:41 - INFO - MainThread - pyneal_b2b_customAnalysis: volIdx 22 - motorProb: 0.9000507374067984
+06-27 13:21:41 - INFO - MainThread - pyneal_b2b_customAnalysis: trigger sent to TMS server - volIdx: 22
+06-27 13:21:41 - INFO - MainThread - pyneal_b2b_customAnalysis: received TMS server response: got it
+06-27 13:21:41 - INFO - MainThread - pynealAnalysis: analyzed vol: 22
+06-27 13:21:41 - DEBUG - MainThread - resultsServer: vol 22 - {'predictedClass': 'Active', 'motorProb': 0.90005073740679842} added to resultsServer
+06-27 13:21:42 - INFO - Thread-1 - scanReceiver: Received vol 23
+06-27 13:21:43 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 23
+06-27 13:21:43 - INFO - MainThread - pyneal_b2b_customAnalysis: volIdx 23 - motorProb: 0.7548403643581321
+06-27 13:21:43 - INFO - MainThread - pyneal_b2b_customAnalysis: trigger sent to TMS server - volIdx: 23
+06-27 13:21:43 - INFO - MainThread - pyneal_b2b_customAnalysis: received TMS server response: got it
+06-27 13:21:43 - INFO - MainThread - pynealAnalysis: analyzed vol: 23
+06-27 13:21:43 - DEBUG - MainThread - resultsServer: vol 23 - {'predictedClass': 'Active', 'motorProb': 0.75484036435813207} added to resultsServer
+06-27 13:21:44 - INFO - Thread-1 - scanReceiver: Received vol 24
+06-27 13:21:44 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 24
+06-27 13:21:44 - INFO - MainThread - pyneal_b2b_customAnalysis: volIdx 24 - motorProb: 0.34212971699464484
+06-27 13:21:44 - INFO - MainThread - pynealAnalysis: analyzed vol: 24
+06-27 13:21:44 - DEBUG - MainThread - resultsServer: vol 24 - {'predictedClass': 'Rest', 'motorProb': 0.34212971699464484} added to resultsServer
+06-27 13:21:46 - INFO - Thread-1 - scanReceiver: Received vol 25
+06-27 13:21:47 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 25
+06-27 13:21:47 - INFO - MainThread - pyneal_b2b_customAnalysis: volIdx 25 - motorProb: 0.07131290640200512
+06-27 13:21:47 - INFO - MainThread - pynealAnalysis: analyzed vol: 25
+06-27 13:21:47 - DEBUG - MainThread - resultsServer: vol 25 - {'predictedClass': 'Rest', 'motorProb': 0.071312906402005119} added to resultsServer
+06-27 13:21:48 - INFO - Thread-1 - scanReceiver: Received vol 26
+06-27 13:21:49 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 26
+06-27 13:21:49 - INFO - MainThread - pyneal_b2b_customAnalysis: volIdx 26 - motorProb: 0.1974313327538187
+06-27 13:21:49 - INFO - MainThread - pynealAnalysis: analyzed vol: 26
+06-27 13:21:49 - DEBUG - MainThread - resultsServer: vol 26 - {'predictedClass': 'Rest', 'motorProb': 0.19743133275381869} added to resultsServer
+06-27 13:21:50 - INFO - Thread-1 - scanReceiver: Received vol 27
+06-27 13:21:51 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 27
+06-27 13:21:51 - INFO - MainThread - pyneal_b2b_customAnalysis: volIdx 27 - motorProb: 0.35223746714986937
+06-27 13:21:51 - INFO - MainThread - pynealAnalysis: analyzed vol: 27
+06-27 13:21:51 - DEBUG - MainThread - resultsServer: vol 27 - {'predictedClass': 'Rest', 'motorProb': 0.35223746714986937} added to resultsServer
+06-27 13:21:52 - INFO - Thread-1 - scanReceiver: Received vol 28
+06-27 13:21:53 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 28
+06-27 13:21:53 - INFO - MainThread - pyneal_b2b_customAnalysis: volIdx 28 - motorProb: 0.5055305855560114
+06-27 13:21:53 - INFO - MainThread - pyneal_b2b_customAnalysis: trigger sent to TMS server - volIdx: 28
+06-27 13:21:53 - INFO - MainThread - pyneal_b2b_customAnalysis: received TMS server response: got it
+06-27 13:21:53 - INFO - MainThread - pynealAnalysis: analyzed vol: 28
+06-27 13:21:53 - DEBUG - MainThread - resultsServer: vol 28 - {'predictedClass': 'Active', 'motorProb': 0.50553058555601138} added to resultsServer
+06-27 13:21:54 - INFO - Thread-1 - scanReceiver: Received vol 29
+06-27 13:21:55 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 29
+06-27 13:21:55 - INFO - MainThread - pyneal_b2b_customAnalysis: volIdx 29 - motorProb: 0.9796929770597288
+06-27 13:21:55 - INFO - MainThread - pyneal_b2b_customAnalysis: trigger sent to TMS server - volIdx: 29
+06-27 13:21:55 - INFO - MainThread - pyneal_b2b_customAnalysis: received TMS server response: got it
+06-27 13:21:55 - INFO - MainThread - pynealAnalysis: analyzed vol: 29
+06-27 13:21:55 - DEBUG - MainThread - resultsServer: vol 29 - {'predictedClass': 'Active', 'motorProb': 0.9796929770597288} added to resultsServer
+06-27 13:21:56 - INFO - Thread-1 - scanReceiver: Received vol 30
+06-27 13:21:57 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 30
+06-27 13:21:57 - INFO - MainThread - pyneal_b2b_customAnalysis: volIdx 30 - motorProb: 0.9562659967707903
+06-27 13:21:57 - INFO - MainThread - pyneal_b2b_customAnalysis: trigger sent to TMS server - volIdx: 30
+06-27 13:21:57 - INFO - MainThread - pyneal_b2b_customAnalysis: received TMS server response: got it
+06-27 13:21:57 - INFO - MainThread - pynealAnalysis: analyzed vol: 30
+06-27 13:21:57 - DEBUG - MainThread - resultsServer: vol 30 - {'predictedClass': 'Active', 'motorProb': 0.95626599677079027} added to resultsServer
+06-27 13:21:58 - INFO - Thread-1 - scanReceiver: Received vol 31
+06-27 13:21:59 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 31
+06-27 13:21:59 - INFO - MainThread - pyneal_b2b_customAnalysis: volIdx 31 - motorProb: 0.8791081067605283
+06-27 13:21:59 - INFO - MainThread - pyneal_b2b_customAnalysis: trigger sent to TMS server - volIdx: 31
+06-27 13:21:59 - INFO - MainThread - pyneal_b2b_customAnalysis: received TMS server response: got it
+06-27 13:21:59 - INFO - MainThread - pynealAnalysis: analyzed vol: 31
+06-27 13:21:59 - DEBUG - MainThread - resultsServer: vol 31 - {'predictedClass': 'Active', 'motorProb': 0.87910810676052831} added to resultsServer
+06-27 13:22:00 - INFO - Thread-1 - scanReceiver: Received vol 32
+06-27 13:22:01 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 32
+06-27 13:22:01 - INFO - MainThread - pyneal_b2b_customAnalysis: volIdx 32 - motorProb: 0.6030200471363357
+06-27 13:22:01 - INFO - MainThread - pyneal_b2b_customAnalysis: trigger sent to TMS server - volIdx: 32
+06-27 13:22:01 - INFO - MainThread - pyneal_b2b_customAnalysis: received TMS server response: got it
+06-27 13:22:01 - INFO - MainThread - pynealAnalysis: analyzed vol: 32
+06-27 13:22:01 - DEBUG - MainThread - resultsServer: vol 32 - {'predictedClass': 'Active', 'motorProb': 0.60302004713633572} added to resultsServer
+06-27 13:22:02 - INFO - Thread-1 - scanReceiver: Received vol 33
+06-27 13:22:03 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 33
+06-27 13:22:03 - INFO - MainThread - pyneal_b2b_customAnalysis: volIdx 33 - motorProb: 0.15672804415872094
+06-27 13:22:03 - INFO - MainThread - pynealAnalysis: analyzed vol: 33
+06-27 13:22:03 - DEBUG - MainThread - resultsServer: vol 33 - {'predictedClass': 'Rest', 'motorProb': 0.15672804415872094} added to resultsServer
+06-27 13:22:04 - INFO - Thread-1 - scanReceiver: Received vol 34
+06-27 13:22:05 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 34
+06-27 13:22:05 - INFO - MainThread - pyneal_b2b_customAnalysis: volIdx 34 - motorProb: 0.13169169076769638
+06-27 13:22:05 - INFO - MainThread - pynealAnalysis: analyzed vol: 34
+06-27 13:22:05 - DEBUG - MainThread - resultsServer: vol 34 - {'predictedClass': 'Rest', 'motorProb': 0.13169169076769638} added to resultsServer
+06-27 13:22:06 - INFO - Thread-1 - scanReceiver: Received vol 35
+06-27 13:22:07 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 35
+06-27 13:22:07 - INFO - MainThread - pyneal_b2b_customAnalysis: volIdx 35 - motorProb: 0.02232407856120804
+06-27 13:22:07 - INFO - MainThread - pynealAnalysis: analyzed vol: 35
+06-27 13:22:07 - DEBUG - MainThread - resultsServer: vol 35 - {'predictedClass': 'Rest', 'motorProb': 0.022324078561208039} added to resultsServer
+06-27 13:22:08 - INFO - Thread-1 - scanReceiver: Received vol 36
+06-27 13:22:09 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 36
+06-27 13:22:09 - INFO - MainThread - pyneal_b2b_customAnalysis: volIdx 36 - motorProb: 0.04048635606204899
+06-27 13:22:09 - INFO - MainThread - pynealAnalysis: analyzed vol: 36
+06-27 13:22:09 - DEBUG - MainThread - resultsServer: vol 36 - {'predictedClass': 'Rest', 'motorProb': 0.040486356062048992} added to resultsServer
+06-27 13:22:10 - INFO - Thread-1 - scanReceiver: Received vol 37
+06-27 13:22:11 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 37
+06-27 13:22:11 - INFO - MainThread - pyneal_b2b_customAnalysis: volIdx 37 - motorProb: 0.17912268177866195
+06-27 13:22:11 - INFO - MainThread - pynealAnalysis: analyzed vol: 37
+06-27 13:22:11 - DEBUG - MainThread - resultsServer: vol 37 - {'predictedClass': 'Rest', 'motorProb': 0.17912268177866195} added to resultsServer
+06-27 13:22:12 - INFO - Thread-1 - scanReceiver: Received vol 38
+06-27 13:22:13 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 38
+06-27 13:22:13 - INFO - MainThread - pyneal_b2b_customAnalysis: volIdx 38 - motorProb: 0.1005406073474609
+06-27 13:22:13 - INFO - MainThread - pynealAnalysis: analyzed vol: 38
+06-27 13:22:13 - DEBUG - MainThread - resultsServer: vol 38 - {'predictedClass': 'Rest', 'motorProb': 0.1005406073474609} added to resultsServer
+06-27 13:22:14 - INFO - Thread-1 - scanReceiver: Received vol 39
+06-27 13:22:14 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 39
+06-27 13:22:15 - INFO - MainThread - pyneal_b2b_customAnalysis: volIdx 39 - motorProb: 0.6545888854397873
+06-27 13:22:15 - INFO - MainThread - pyneal_b2b_customAnalysis: trigger sent to TMS server - volIdx: 39
+06-27 13:22:15 - INFO - MainThread - pyneal_b2b_customAnalysis: received TMS server response: got it
+06-27 13:22:15 - INFO - MainThread - pynealAnalysis: analyzed vol: 39
+06-27 13:22:15 - DEBUG - MainThread - resultsServer: vol 39 - {'predictedClass': 'Active', 'motorProb': 0.65458888543978733} added to resultsServer
+06-27 13:22:16 - INFO - Thread-1 - scanReceiver: Received vol 40
+06-27 13:22:17 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 40
+06-27 13:22:17 - INFO - MainThread - pyneal_b2b_customAnalysis: volIdx 40 - motorProb: 0.7166545929652527
+06-27 13:22:17 - INFO - MainThread - pyneal_b2b_customAnalysis: trigger sent to TMS server - volIdx: 40
+06-27 13:22:17 - INFO - MainThread - pyneal_b2b_customAnalysis: received TMS server response: got it
+06-27 13:22:17 - INFO - MainThread - pynealAnalysis: analyzed vol: 40
+06-27 13:22:17 - DEBUG - MainThread - resultsServer: vol 40 - {'predictedClass': 'Active', 'motorProb': 0.71665459296525269} added to resultsServer
+06-27 13:22:18 - INFO - Thread-1 - scanReceiver: Received vol 41
+06-27 13:22:19 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 41
+06-27 13:22:19 - INFO - MainThread - pyneal_b2b_customAnalysis: volIdx 41 - motorProb: 0.8025446259717601
+06-27 13:22:19 - INFO - MainThread - pyneal_b2b_customAnalysis: trigger sent to TMS server - volIdx: 41
+06-27 13:22:19 - INFO - MainThread - pyneal_b2b_customAnalysis: received TMS server response: got it
+06-27 13:22:19 - INFO - MainThread - pynealAnalysis: analyzed vol: 41
+06-27 13:22:19 - DEBUG - MainThread - resultsServer: vol 41 - {'predictedClass': 'Active', 'motorProb': 0.80254462597176013} added to resultsServer
+06-27 13:22:20 - INFO - Thread-1 - scanReceiver: Received vol 42
+06-27 13:22:21 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 42
+06-27 13:22:21 - INFO - MainThread - pyneal_b2b_customAnalysis: volIdx 42 - motorProb: 0.7960557625289104
+06-27 13:22:21 - INFO - MainThread - pyneal_b2b_customAnalysis: trigger sent to TMS server - volIdx: 42
+06-27 13:22:21 - INFO - MainThread - pyneal_b2b_customAnalysis: received TMS server response: got it
+06-27 13:22:21 - INFO - MainThread - pynealAnalysis: analyzed vol: 42
+06-27 13:22:21 - DEBUG - MainThread - resultsServer: vol 42 - {'predictedClass': 'Active', 'motorProb': 0.79605576252891042} added to resultsServer
+06-27 13:22:22 - INFO - Thread-1 - scanReceiver: Received vol 43
+06-27 13:22:23 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 43
+06-27 13:22:23 - INFO - MainThread - pyneal_b2b_customAnalysis: volIdx 43 - motorProb: 0.768323716366217
+06-27 13:22:23 - INFO - MainThread - pyneal_b2b_customAnalysis: trigger sent to TMS server - volIdx: 43
+06-27 13:22:23 - INFO - MainThread - pyneal_b2b_customAnalysis: received TMS server response: got it
+06-27 13:22:23 - INFO - MainThread - pynealAnalysis: analyzed vol: 43
+06-27 13:22:23 - DEBUG - MainThread - resultsServer: vol 43 - {'predictedClass': 'Active', 'motorProb': 0.76832371636621699} added to resultsServer
+06-27 13:22:24 - INFO - Thread-1 - scanReceiver: Received vol 44
+06-27 13:22:25 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 44
+06-27 13:22:25 - INFO - MainThread - pyneal_b2b_customAnalysis: volIdx 44 - motorProb: 0.9735018460664107
+06-27 13:22:25 - INFO - MainThread - pyneal_b2b_customAnalysis: trigger sent to TMS server - volIdx: 44
+06-27 13:22:25 - INFO - MainThread - pyneal_b2b_customAnalysis: received TMS server response: got it
+06-27 13:22:25 - INFO - MainThread - pynealAnalysis: analyzed vol: 44
+06-27 13:22:25 - DEBUG - MainThread - resultsServer: vol 44 - {'predictedClass': 'Active', 'motorProb': 0.97350184606641066} added to resultsServer
+06-27 13:22:26 - INFO - Thread-1 - scanReceiver: Received vol 45
+06-27 13:22:27 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 45
+06-27 13:22:27 - INFO - MainThread - pyneal_b2b_customAnalysis: volIdx 45 - motorProb: 0.987167939824658
+06-27 13:22:27 - INFO - MainThread - pyneal_b2b_customAnalysis: trigger sent to TMS server - volIdx: 45
+06-27 13:22:27 - INFO - MainThread - pyneal_b2b_customAnalysis: received TMS server response: got it
+06-27 13:22:27 - INFO - MainThread - pynealAnalysis: analyzed vol: 45
+06-27 13:22:27 - DEBUG - MainThread - resultsServer: vol 45 - {'predictedClass': 'Active', 'motorProb': 0.987167939824658} added to resultsServer
+06-27 13:22:28 - INFO - Thread-1 - scanReceiver: Received vol 46
+06-27 13:22:29 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 46
+06-27 13:22:29 - INFO - MainThread - pyneal_b2b_customAnalysis: volIdx 46 - motorProb: 0.9428037372101372
+06-27 13:22:29 - INFO - MainThread - pyneal_b2b_customAnalysis: trigger sent to TMS server - volIdx: 46
+06-27 13:22:29 - INFO - MainThread - pyneal_b2b_customAnalysis: received TMS server response: got it
+06-27 13:22:29 - INFO - MainThread - pynealAnalysis: analyzed vol: 46
+06-27 13:22:29 - DEBUG - MainThread - resultsServer: vol 46 - {'predictedClass': 'Active', 'motorProb': 0.94280373721013722} added to resultsServer
+06-27 13:22:30 - INFO - Thread-1 - scanReceiver: Received vol 47
+06-27 13:22:31 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 47
+06-27 13:22:31 - INFO - MainThread - pyneal_b2b_customAnalysis: volIdx 47 - motorProb: 0.7316154750835976
+06-27 13:22:31 - INFO - MainThread - pyneal_b2b_customAnalysis: trigger sent to TMS server - volIdx: 47
+06-27 13:22:31 - INFO - MainThread - pyneal_b2b_customAnalysis: received TMS server response: got it
+06-27 13:22:31 - INFO - MainThread - pynealAnalysis: analyzed vol: 47
+06-27 13:22:31 - DEBUG - MainThread - resultsServer: vol 47 - {'predictedClass': 'Active', 'motorProb': 0.73161547508359759} added to resultsServer
+06-27 13:22:32 - INFO - Thread-1 - scanReceiver: Received vol 48
+06-27 13:22:33 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 48
+06-27 13:22:33 - INFO - MainThread - pyneal_b2b_customAnalysis: volIdx 48 - motorProb: 0.9021447758686486
+06-27 13:22:33 - INFO - MainThread - pyneal_b2b_customAnalysis: trigger sent to TMS server - volIdx: 48
+06-27 13:22:33 - INFO - MainThread - pyneal_b2b_customAnalysis: received TMS server response: got it
+06-27 13:22:33 - INFO - MainThread - pynealAnalysis: analyzed vol: 48
+06-27 13:22:33 - DEBUG - MainThread - resultsServer: vol 48 - {'predictedClass': 'Active', 'motorProb': 0.90214477586864861} added to resultsServer
+06-27 13:22:34 - INFO - Thread-1 - scanReceiver: Received vol 49
+06-27 13:22:35 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 49
+06-27 13:22:35 - INFO - MainThread - pyneal_b2b_customAnalysis: volIdx 49 - motorProb: 0.9890996158515898
+06-27 13:22:35 - INFO - MainThread - pyneal_b2b_customAnalysis: trigger sent to TMS server - volIdx: 49
+06-27 13:22:35 - INFO - MainThread - pyneal_b2b_customAnalysis: received TMS server response: got it
+06-27 13:22:35 - INFO - MainThread - pynealAnalysis: analyzed vol: 49
+06-27 13:22:35 - DEBUG - MainThread - resultsServer: vol 49 - {'predictedClass': 'Active', 'motorProb': 0.98909961585158979} added to resultsServer
+06-27 13:22:36 - INFO - Thread-1 - scanReceiver: Received vol 50
+06-27 13:22:37 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 50
+06-27 13:22:37 - INFO - MainThread - pyneal_b2b_customAnalysis: volIdx 50 - motorProb: 0.9636067880858887
+06-27 13:22:37 - INFO - MainThread - pyneal_b2b_customAnalysis: trigger sent to TMS server - volIdx: 50
+06-27 13:22:37 - INFO - MainThread - pyneal_b2b_customAnalysis: received TMS server response: got it
+06-27 13:22:37 - INFO - MainThread - pynealAnalysis: analyzed vol: 50
+06-27 13:22:37 - DEBUG - MainThread - resultsServer: vol 50 - {'predictedClass': 'Active', 'motorProb': 0.96360678808588873} added to resultsServer
+06-27 13:22:38 - INFO - Thread-1 - scanReceiver: Received vol 51
+06-27 13:22:39 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 51
+06-27 13:22:39 - INFO - MainThread - pyneal_b2b_customAnalysis: volIdx 51 - motorProb: 0.9566897197516333
+06-27 13:22:39 - INFO - MainThread - pyneal_b2b_customAnalysis: trigger sent to TMS server - volIdx: 51
+06-27 13:22:39 - INFO - MainThread - pyneal_b2b_customAnalysis: received TMS server response: got it
+06-27 13:22:39 - INFO - MainThread - pynealAnalysis: analyzed vol: 51
+06-27 13:22:39 - DEBUG - MainThread - resultsServer: vol 51 - {'predictedClass': 'Active', 'motorProb': 0.95668971975163331} added to resultsServer
+06-27 13:22:40 - INFO - Thread-1 - scanReceiver: Received vol 52
+06-27 13:22:41 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 52
+06-27 13:22:41 - INFO - MainThread - pyneal_b2b_customAnalysis: volIdx 52 - motorProb: 0.7164049612149815
+06-27 13:22:41 - INFO - MainThread - pyneal_b2b_customAnalysis: trigger sent to TMS server - volIdx: 52
+06-27 13:22:41 - INFO - MainThread - pyneal_b2b_customAnalysis: received TMS server response: got it
+06-27 13:22:41 - INFO - MainThread - pynealAnalysis: analyzed vol: 52
+06-27 13:22:41 - DEBUG - MainThread - resultsServer: vol 52 - {'predictedClass': 'Active', 'motorProb': 0.71640496121498154} added to resultsServer
+06-27 13:22:42 - INFO - Thread-1 - scanReceiver: Received vol 53
+06-27 13:22:43 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 53
+06-27 13:22:43 - INFO - MainThread - pyneal_b2b_customAnalysis: volIdx 53 - motorProb: 0.7348642756266353
+06-27 13:22:43 - INFO - MainThread - pyneal_b2b_customAnalysis: trigger sent to TMS server - volIdx: 53
+06-27 13:22:43 - INFO - MainThread - pyneal_b2b_customAnalysis: received TMS server response: got it
+06-27 13:22:43 - INFO - MainThread - pynealAnalysis: analyzed vol: 53
+06-27 13:22:43 - DEBUG - MainThread - resultsServer: vol 53 - {'predictedClass': 'Active', 'motorProb': 0.73486427562663525} added to resultsServer
+06-27 13:22:44 - INFO - Thread-1 - scanReceiver: Received vol 54
+06-27 13:22:45 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 54
+06-27 13:22:45 - INFO - MainThread - pyneal_b2b_customAnalysis: volIdx 54 - motorProb: 0.5224862498711935
+06-27 13:22:45 - INFO - MainThread - pyneal_b2b_customAnalysis: trigger sent to TMS server - volIdx: 54
+06-27 13:22:45 - INFO - MainThread - pyneal_b2b_customAnalysis: received TMS server response: got it
+06-27 13:22:45 - INFO - MainThread - pynealAnalysis: analyzed vol: 54
+06-27 13:22:45 - DEBUG - MainThread - resultsServer: vol 54 - {'predictedClass': 'Active', 'motorProb': 0.52248624987119352} added to resultsServer
+06-27 13:22:46 - INFO - Thread-1 - scanReceiver: Received vol 55
+06-27 13:22:47 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 55
+06-27 13:22:47 - INFO - MainThread - pyneal_b2b_customAnalysis: volIdx 55 - motorProb: 0.876009385129895
+06-27 13:22:47 - INFO - MainThread - pyneal_b2b_customAnalysis: trigger sent to TMS server - volIdx: 55
+06-27 13:22:47 - INFO - MainThread - pyneal_b2b_customAnalysis: received TMS server response: got it
+06-27 13:22:47 - INFO - MainThread - pynealAnalysis: analyzed vol: 55
+06-27 13:22:47 - DEBUG - MainThread - resultsServer: vol 55 - {'predictedClass': 'Active', 'motorProb': 0.87600938512989501} added to resultsServer
+06-27 13:22:48 - INFO - Thread-1 - scanReceiver: Received vol 56
+06-27 13:22:49 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 56
+06-27 13:22:49 - INFO - MainThread - pyneal_b2b_customAnalysis: volIdx 56 - motorProb: 0.734517203781712
+06-27 13:22:49 - INFO - MainThread - pyneal_b2b_customAnalysis: trigger sent to TMS server - volIdx: 56
+06-27 13:22:49 - INFO - MainThread - pyneal_b2b_customAnalysis: received TMS server response: got it
+06-27 13:22:49 - INFO - MainThread - pynealAnalysis: analyzed vol: 56
+06-27 13:22:49 - DEBUG - MainThread - resultsServer: vol 56 - {'predictedClass': 'Active', 'motorProb': 0.73451720378171204} added to resultsServer
+06-27 13:22:50 - INFO - Thread-1 - scanReceiver: Received vol 57
+06-27 13:22:51 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 57
+06-27 13:22:51 - INFO - MainThread - pyneal_b2b_customAnalysis: volIdx 57 - motorProb: 0.7937423669103029
+06-27 13:22:51 - INFO - MainThread - pyneal_b2b_customAnalysis: trigger sent to TMS server - volIdx: 57
+06-27 13:22:51 - INFO - MainThread - pyneal_b2b_customAnalysis: received TMS server response: got it
+06-27 13:22:51 - INFO - MainThread - pynealAnalysis: analyzed vol: 57
+06-27 13:22:51 - DEBUG - MainThread - resultsServer: vol 57 - {'predictedClass': 'Active', 'motorProb': 0.79374236691030287} added to resultsServer
+06-27 13:22:52 - INFO - Thread-1 - scanReceiver: Received vol 58
+06-27 13:22:53 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 58
+06-27 13:22:53 - INFO - MainThread - pyneal_b2b_customAnalysis: volIdx 58 - motorProb: 0.9692390530619465
+06-27 13:22:53 - INFO - MainThread - pyneal_b2b_customAnalysis: trigger sent to TMS server - volIdx: 58
+06-27 13:22:53 - INFO - MainThread - pyneal_b2b_customAnalysis: received TMS server response: got it
+06-27 13:22:53 - INFO - MainThread - pynealAnalysis: analyzed vol: 58
+06-27 13:22:53 - DEBUG - MainThread - resultsServer: vol 58 - {'predictedClass': 'Active', 'motorProb': 0.96923905306194647} added to resultsServer
+06-27 13:22:54 - INFO - Thread-1 - scanReceiver: Received vol 59
+06-27 13:22:55 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 59
+06-27 13:22:55 - INFO - MainThread - pyneal_b2b_customAnalysis: volIdx 59 - motorProb: 0.9900488094831155
+06-27 13:22:55 - INFO - MainThread - pyneal_b2b_customAnalysis: trigger sent to TMS server - volIdx: 59
+06-27 13:22:55 - INFO - MainThread - pyneal_b2b_customAnalysis: received TMS server response: got it
+06-27 13:22:55 - INFO - MainThread - pynealAnalysis: analyzed vol: 59
+06-27 13:22:55 - DEBUG - MainThread - resultsServer: vol 59 - {'predictedClass': 'Active', 'motorProb': 0.99004880948311547} added to resultsServer
+06-27 13:22:56 - INFO - Thread-1 - scanReceiver: Received vol 60
+06-27 13:22:57 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 60
+06-27 13:22:57 - INFO - MainThread - pyneal_b2b_customAnalysis: volIdx 60 - motorProb: 0.9368966448420138
+06-27 13:22:57 - INFO - MainThread - pyneal_b2b_customAnalysis: trigger sent to TMS server - volIdx: 60
+06-27 13:22:57 - INFO - MainThread - pyneal_b2b_customAnalysis: received TMS server response: got it
+06-27 13:22:57 - INFO - MainThread - pynealAnalysis: analyzed vol: 60
+06-27 13:22:57 - DEBUG - MainThread - resultsServer: vol 60 - {'predictedClass': 'Active', 'motorProb': 0.93689664484201385} added to resultsServer
+06-27 13:22:58 - INFO - Thread-1 - scanReceiver: Received vol 61
+06-27 13:22:59 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 61
+06-27 13:22:59 - INFO - MainThread - pyneal_b2b_customAnalysis: volIdx 61 - motorProb: 0.8641843953163234
+06-27 13:22:59 - INFO - MainThread - pyneal_b2b_customAnalysis: trigger sent to TMS server - volIdx: 61
+06-27 13:22:59 - INFO - MainThread - pyneal_b2b_customAnalysis: received TMS server response: got it
+06-27 13:22:59 - INFO - MainThread - pynealAnalysis: analyzed vol: 61
+06-27 13:22:59 - DEBUG - MainThread - resultsServer: vol 61 - {'predictedClass': 'Active', 'motorProb': 0.86418439531632341} added to resultsServer
+06-27 13:23:00 - INFO - Thread-1 - scanReceiver: Received vol 62
+06-27 13:23:01 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 62
+06-27 13:23:01 - INFO - MainThread - pyneal_b2b_customAnalysis: volIdx 62 - motorProb: 0.7974873598049271
+06-27 13:23:01 - INFO - MainThread - pyneal_b2b_customAnalysis: trigger sent to TMS server - volIdx: 62
+06-27 13:23:01 - INFO - MainThread - pyneal_b2b_customAnalysis: received TMS server response: got it
+06-27 13:23:01 - INFO - MainThread - pynealAnalysis: analyzed vol: 62
+06-27 13:23:01 - DEBUG - MainThread - resultsServer: vol 62 - {'predictedClass': 'Active', 'motorProb': 0.79748735980492713} added to resultsServer
+06-27 13:23:02 - INFO - Thread-1 - scanReceiver: Received vol 63
+06-27 13:23:03 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 63
+06-27 13:23:03 - INFO - MainThread - pyneal_b2b_customAnalysis: volIdx 63 - motorProb: 0.46457782457714514
+06-27 13:23:03 - INFO - MainThread - pynealAnalysis: analyzed vol: 63
+06-27 13:23:03 - DEBUG - MainThread - resultsServer: vol 63 - {'predictedClass': 'Rest', 'motorProb': 0.46457782457714514} added to resultsServer
+06-27 13:23:04 - INFO - Thread-1 - scanReceiver: Received vol 64
+06-27 13:23:05 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 64
+06-27 13:23:05 - INFO - MainThread - pyneal_b2b_customAnalysis: volIdx 64 - motorProb: 0.7109578141543188
+06-27 13:23:05 - INFO - MainThread - pyneal_b2b_customAnalysis: trigger sent to TMS server - volIdx: 64
+06-27 13:23:05 - INFO - MainThread - pyneal_b2b_customAnalysis: received TMS server response: got it
+06-27 13:23:05 - INFO - MainThread - pynealAnalysis: analyzed vol: 64
+06-27 13:23:05 - DEBUG - MainThread - resultsServer: vol 64 - {'predictedClass': 'Active', 'motorProb': 0.7109578141543188} added to resultsServer
+06-27 13:23:06 - INFO - Thread-1 - scanReceiver: Received vol 65
+06-27 13:23:07 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 65
+06-27 13:23:07 - INFO - MainThread - pyneal_b2b_customAnalysis: volIdx 65 - motorProb: 0.8792854315305403
+06-27 13:23:07 - INFO - MainThread - pyneal_b2b_customAnalysis: trigger sent to TMS server - volIdx: 65
+06-27 13:23:07 - INFO - MainThread - pyneal_b2b_customAnalysis: received TMS server response: got it
+06-27 13:23:07 - INFO - MainThread - pynealAnalysis: analyzed vol: 65
+06-27 13:23:07 - DEBUG - MainThread - resultsServer: vol 65 - {'predictedClass': 'Active', 'motorProb': 0.87928543153054028} added to resultsServer
+06-27 13:23:08 - INFO - Thread-1 - scanReceiver: Received vol 66
+06-27 13:23:09 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 66
+06-27 13:23:09 - INFO - MainThread - pyneal_b2b_customAnalysis: volIdx 66 - motorProb: 0.8243365259453577
+06-27 13:23:09 - INFO - MainThread - pyneal_b2b_customAnalysis: trigger sent to TMS server - volIdx: 66
+06-27 13:23:09 - INFO - MainThread - pyneal_b2b_customAnalysis: received TMS server response: got it
+06-27 13:23:09 - INFO - MainThread - pynealAnalysis: analyzed vol: 66
+06-27 13:23:09 - DEBUG - MainThread - resultsServer: vol 66 - {'predictedClass': 'Active', 'motorProb': 0.82433652594535767} added to resultsServer
+06-27 13:23:10 - INFO - Thread-1 - scanReceiver: Received vol 67
+06-27 13:23:11 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 67
+06-27 13:23:11 - INFO - MainThread - pyneal_b2b_customAnalysis: volIdx 67 - motorProb: 0.5
+06-27 13:23:11 - INFO - MainThread - pynealAnalysis: analyzed vol: 67
+06-27 13:23:11 - DEBUG - MainThread - resultsServer: vol 67 - {'predictedClass': 'Active', 'motorProb': 0.5} added to resultsServer

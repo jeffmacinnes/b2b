@@ -1,0 +1,393 @@
+04-27 12:40:21 - INFO - MainThread - pyneal: Setting: analysisChoice: Average
+04-27 12:40:21 - INFO - MainThread - pyneal: Setting: dashboardClientPort: 5558
+04-27 12:40:21 - INFO - MainThread - pyneal: Setting: dashboardPort: 5557
+04-27 12:40:21 - INFO - MainThread - pyneal: Setting: launchDashboard: True
+04-27 12:40:21 - INFO - MainThread - pyneal: Setting: maskFile: /Users/jeff/gDrive/jeffCloud/real-time/b2b/dummyMask_80-80-30.nii.gz
+04-27 12:40:21 - INFO - MainThread - pyneal: Setting: maskIsWeighted: False
+04-27 12:40:21 - INFO - MainThread - pyneal: Setting: numTimepts: 93
+04-27 12:40:21 - INFO - MainThread - pyneal: Setting: outputPath: /Users/jeff/Desktop/development/pynealOutput
+04-27 12:40:21 - INFO - MainThread - pyneal: Setting: pynealHost: 127.0.0.1
+04-27 12:40:21 - INFO - MainThread - pyneal: Setting: pynealScannerPort: 5555
+04-27 12:40:21 - INFO - MainThread - pyneal: Setting: resultsServerPort: 5556
+04-27 12:40:21 - INFO - MainThread - pyneal: Setting: seriesOutputDir: /Users/jeff/Desktop/development/pynealOutput/pyneal_005
+04-27 12:40:21 - DEBUG - MainThread - scanReceiver: scanReceiver server bound to 127.0.0.1:5555
+04-27 12:40:21 - INFO - MainThread - scanReceiver: ScanReceiver Server alive and listening....
+04-27 12:40:21 - DEBUG - MainThread - pyneal: Starting Scan Receiver
+04-27 12:40:21 - DEBUG - MainThread - resultsServer: Results Server bound to 127.0.0.1:5556
+04-27 12:40:21 - INFO - MainThread - resultsServer: Results Server alive and listening....
+04-27 12:40:21 - DEBUG - MainThread - pyneal: Starting Results Server
+04-27 12:40:28 - DEBUG - Thread-1 - scanReceiver: Scanner socket connected to Pyneal-Scanner
+04-27 12:41:11 - DEBUG - Thread-1 - scanReceiver: Image Matrix dims: (80, 80, 30, 93)
+04-27 12:41:11 - INFO - Thread-1 - scanReceiver: Received vol 0
+04-27 12:41:12 - DEBUG - MainThread - pyneal: Scan started
+04-27 12:41:12 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 0
+04-27 12:41:12 - INFO - MainThread - pynealAnalysis: analyzed vol: 0
+04-27 12:41:12 - DEBUG - MainThread - resultsServer: vol 0 - {'average': 852.54999999999995} added to resultsServer
+04-27 12:41:12 - INFO - Thread-1 - scanReceiver: Received vol 1
+04-27 12:41:12 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 1
+04-27 12:41:12 - INFO - MainThread - pynealAnalysis: analyzed vol: 1
+04-27 12:41:12 - DEBUG - MainThread - resultsServer: vol 1 - {'average': 843.50999999999999} added to resultsServer
+04-27 12:41:14 - INFO - Thread-1 - scanReceiver: Received vol 2
+04-27 12:41:14 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 2
+04-27 12:41:14 - INFO - MainThread - pynealAnalysis: analyzed vol: 2
+04-27 12:41:14 - DEBUG - MainThread - resultsServer: vol 2 - {'average': 862.74000000000001} added to resultsServer
+04-27 12:41:16 - INFO - Thread-1 - scanReceiver: Received vol 3
+04-27 12:41:16 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 3
+04-27 12:41:16 - INFO - MainThread - pynealAnalysis: analyzed vol: 3
+04-27 12:41:16 - DEBUG - MainThread - resultsServer: vol 3 - {'average': 845.15999999999997} added to resultsServer
+04-27 12:41:18 - INFO - Thread-1 - scanReceiver: Received vol 4
+04-27 12:41:18 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 4
+04-27 12:41:18 - INFO - MainThread - pynealAnalysis: analyzed vol: 4
+04-27 12:41:18 - DEBUG - MainThread - resultsServer: vol 4 - {'average': 857.94000000000005} added to resultsServer
+04-27 12:41:20 - INFO - Thread-1 - scanReceiver: Received vol 5
+04-27 12:41:21 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 5
+04-27 12:41:21 - INFO - MainThread - pynealAnalysis: analyzed vol: 5
+04-27 12:41:21 - DEBUG - MainThread - resultsServer: vol 5 - {'average': 842.72000000000003} added to resultsServer
+04-27 12:41:22 - INFO - Thread-1 - scanReceiver: Received vol 6
+04-27 12:41:23 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 6
+04-27 12:41:23 - INFO - MainThread - pynealAnalysis: analyzed vol: 6
+04-27 12:41:23 - DEBUG - MainThread - resultsServer: vol 6 - {'average': 849.52999999999997} added to resultsServer
+04-27 12:41:24 - INFO - Thread-1 - scanReceiver: Received vol 7
+04-27 12:41:25 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 7
+04-27 12:41:25 - INFO - MainThread - pynealAnalysis: analyzed vol: 7
+04-27 12:41:25 - DEBUG - MainThread - resultsServer: vol 7 - {'average': 841.13999999999999} added to resultsServer
+04-27 12:41:26 - INFO - Thread-1 - scanReceiver: Received vol 8
+04-27 12:41:27 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 8
+04-27 12:41:27 - INFO - MainThread - pynealAnalysis: analyzed vol: 8
+04-27 12:41:27 - DEBUG - MainThread - resultsServer: vol 8 - {'average': 842.89999999999998} added to resultsServer
+04-27 12:41:28 - INFO - Thread-1 - scanReceiver: Received vol 9
+04-27 12:41:29 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 9
+04-27 12:41:29 - INFO - MainThread - pynealAnalysis: analyzed vol: 9
+04-27 12:41:29 - DEBUG - MainThread - resultsServer: vol 9 - {'average': 865.50999999999999} added to resultsServer
+04-27 12:41:30 - INFO - Thread-1 - scanReceiver: Received vol 10
+04-27 12:41:31 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 10
+04-27 12:41:31 - INFO - MainThread - pynealAnalysis: analyzed vol: 10
+04-27 12:41:31 - DEBUG - MainThread - resultsServer: vol 10 - {'average': 843.38999999999999} added to resultsServer
+04-27 12:41:32 - INFO - Thread-1 - scanReceiver: Received vol 11
+04-27 12:41:33 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 11
+04-27 12:41:33 - INFO - MainThread - pynealAnalysis: analyzed vol: 11
+04-27 12:41:33 - DEBUG - MainThread - resultsServer: vol 11 - {'average': 844.87} added to resultsServer
+04-27 12:41:34 - INFO - Thread-1 - scanReceiver: Received vol 12
+04-27 12:41:35 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 12
+04-27 12:41:35 - INFO - MainThread - pynealAnalysis: analyzed vol: 12
+04-27 12:41:35 - DEBUG - MainThread - resultsServer: vol 12 - {'average': 849.32000000000005} added to resultsServer
+04-27 12:41:36 - INFO - Thread-1 - scanReceiver: Received vol 13
+04-27 12:41:37 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 13
+04-27 12:41:37 - INFO - MainThread - pynealAnalysis: analyzed vol: 13
+04-27 12:41:37 - DEBUG - MainThread - resultsServer: vol 13 - {'average': 845.32000000000005} added to resultsServer
+04-27 12:41:38 - INFO - Thread-1 - scanReceiver: Received vol 14
+04-27 12:41:39 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 14
+04-27 12:41:39 - INFO - MainThread - pynealAnalysis: analyzed vol: 14
+04-27 12:41:39 - DEBUG - MainThread - resultsServer: vol 14 - {'average': 861.52999999999997} added to resultsServer
+04-27 12:41:40 - INFO - Thread-1 - scanReceiver: Received vol 15
+04-27 12:41:41 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 15
+04-27 12:41:41 - INFO - MainThread - pynealAnalysis: analyzed vol: 15
+04-27 12:41:41 - DEBUG - MainThread - resultsServer: vol 15 - {'average': 842.90999999999997} added to resultsServer
+04-27 12:41:42 - INFO - Thread-1 - scanReceiver: Received vol 16
+04-27 12:41:43 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 16
+04-27 12:41:43 - INFO - MainThread - pynealAnalysis: analyzed vol: 16
+04-27 12:41:43 - DEBUG - MainThread - resultsServer: vol 16 - {'average': 857.27999999999997} added to resultsServer
+04-27 12:41:44 - INFO - Thread-1 - scanReceiver: Received vol 17
+04-27 12:41:45 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 17
+04-27 12:41:45 - INFO - MainThread - pynealAnalysis: analyzed vol: 17
+04-27 12:41:45 - DEBUG - MainThread - resultsServer: vol 17 - {'average': 847.84000000000003} added to resultsServer
+04-27 12:41:46 - INFO - Thread-1 - scanReceiver: Received vol 18
+04-27 12:41:47 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 18
+04-27 12:41:47 - INFO - MainThread - pynealAnalysis: analyzed vol: 18
+04-27 12:41:47 - DEBUG - MainThread - resultsServer: vol 18 - {'average': 838.91999999999996} added to resultsServer
+04-27 12:41:48 - INFO - Thread-1 - scanReceiver: Received vol 19
+04-27 12:41:49 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 19
+04-27 12:41:49 - INFO - MainThread - pynealAnalysis: analyzed vol: 19
+04-27 12:41:49 - DEBUG - MainThread - resultsServer: vol 19 - {'average': 835.69000000000005} added to resultsServer
+04-27 12:41:50 - INFO - Thread-1 - scanReceiver: Received vol 20
+04-27 12:41:51 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 20
+04-27 12:41:51 - INFO - MainThread - pynealAnalysis: analyzed vol: 20
+04-27 12:41:51 - DEBUG - MainThread - resultsServer: vol 20 - {'average': 847.01999999999998} added to resultsServer
+04-27 12:41:52 - INFO - Thread-1 - scanReceiver: Received vol 21
+04-27 12:41:53 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 21
+04-27 12:41:53 - INFO - MainThread - pynealAnalysis: analyzed vol: 21
+04-27 12:41:53 - DEBUG - MainThread - resultsServer: vol 21 - {'average': 864.86000000000001} added to resultsServer
+04-27 12:41:54 - INFO - Thread-1 - scanReceiver: Received vol 22
+04-27 12:41:55 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 22
+04-27 12:41:55 - INFO - MainThread - pynealAnalysis: analyzed vol: 22
+04-27 12:41:55 - DEBUG - MainThread - resultsServer: vol 22 - {'average': 842.67999999999995} added to resultsServer
+04-27 12:41:56 - INFO - Thread-1 - scanReceiver: Received vol 23
+04-27 12:41:57 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 23
+04-27 12:41:57 - INFO - MainThread - pynealAnalysis: analyzed vol: 23
+04-27 12:41:57 - DEBUG - MainThread - resultsServer: vol 23 - {'average': 839.15999999999997} added to resultsServer
+04-27 12:41:58 - INFO - Thread-1 - scanReceiver: Received vol 24
+04-27 12:41:59 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 24
+04-27 12:41:59 - INFO - MainThread - pynealAnalysis: analyzed vol: 24
+04-27 12:41:59 - DEBUG - MainThread - resultsServer: vol 24 - {'average': 847.23000000000002} added to resultsServer
+04-27 12:42:00 - INFO - Thread-1 - scanReceiver: Received vol 25
+04-27 12:42:01 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 25
+04-27 12:42:01 - INFO - MainThread - pynealAnalysis: analyzed vol: 25
+04-27 12:42:01 - DEBUG - MainThread - resultsServer: vol 25 - {'average': 845.12} added to resultsServer
+04-27 12:42:02 - INFO - Thread-1 - scanReceiver: Received vol 26
+04-27 12:42:03 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 26
+04-27 12:42:03 - INFO - MainThread - pynealAnalysis: analyzed vol: 26
+04-27 12:42:03 - DEBUG - MainThread - resultsServer: vol 26 - {'average': 846.25999999999999} added to resultsServer
+04-27 12:42:04 - INFO - Thread-1 - scanReceiver: Received vol 27
+04-27 12:42:05 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 27
+04-27 12:42:05 - INFO - MainThread - pynealAnalysis: analyzed vol: 27
+04-27 12:42:05 - DEBUG - MainThread - resultsServer: vol 27 - {'average': 841.47000000000003} added to resultsServer
+04-27 12:42:06 - INFO - Thread-1 - scanReceiver: Received vol 28
+04-27 12:42:07 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 28
+04-27 12:42:07 - INFO - MainThread - pynealAnalysis: analyzed vol: 28
+04-27 12:42:07 - DEBUG - MainThread - resultsServer: vol 28 - {'average': 847.94000000000005} added to resultsServer
+04-27 12:42:08 - INFO - Thread-1 - scanReceiver: Received vol 29
+04-27 12:42:09 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 29
+04-27 12:42:09 - INFO - MainThread - pynealAnalysis: analyzed vol: 29
+04-27 12:42:09 - DEBUG - MainThread - resultsServer: vol 29 - {'average': 857.92999999999995} added to resultsServer
+04-27 12:42:10 - INFO - Thread-1 - scanReceiver: Received vol 30
+04-27 12:42:11 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 30
+04-27 12:42:11 - INFO - MainThread - pynealAnalysis: analyzed vol: 30
+04-27 12:42:11 - DEBUG - MainThread - resultsServer: vol 30 - {'average': 847.27999999999997} added to resultsServer
+04-27 12:42:12 - INFO - Thread-1 - scanReceiver: Received vol 31
+04-27 12:42:13 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 31
+04-27 12:42:13 - INFO - MainThread - pynealAnalysis: analyzed vol: 31
+04-27 12:42:13 - DEBUG - MainThread - resultsServer: vol 31 - {'average': 846.61000000000001} added to resultsServer
+04-27 12:42:14 - INFO - Thread-1 - scanReceiver: Received vol 32
+04-27 12:42:15 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 32
+04-27 12:42:15 - INFO - MainThread - pynealAnalysis: analyzed vol: 32
+04-27 12:42:15 - DEBUG - MainThread - resultsServer: vol 32 - {'average': 849.05999999999995} added to resultsServer
+04-27 12:42:16 - INFO - Thread-1 - scanReceiver: Received vol 33
+04-27 12:42:17 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 33
+04-27 12:42:17 - INFO - MainThread - pynealAnalysis: analyzed vol: 33
+04-27 12:42:17 - DEBUG - MainThread - resultsServer: vol 33 - {'average': 849.14999999999998} added to resultsServer
+04-27 12:42:18 - INFO - Thread-1 - scanReceiver: Received vol 34
+04-27 12:42:19 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 34
+04-27 12:42:19 - INFO - MainThread - pynealAnalysis: analyzed vol: 34
+04-27 12:42:19 - DEBUG - MainThread - resultsServer: vol 34 - {'average': 848.34000000000003} added to resultsServer
+04-27 12:42:20 - INFO - Thread-1 - scanReceiver: Received vol 35
+04-27 12:42:21 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 35
+04-27 12:42:21 - INFO - MainThread - pynealAnalysis: analyzed vol: 35
+04-27 12:42:21 - DEBUG - MainThread - resultsServer: vol 35 - {'average': 846.29999999999995} added to resultsServer
+04-27 12:42:22 - INFO - Thread-1 - scanReceiver: Received vol 36
+04-27 12:42:23 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 36
+04-27 12:42:23 - INFO - MainThread - pynealAnalysis: analyzed vol: 36
+04-27 12:42:23 - DEBUG - MainThread - resultsServer: vol 36 - {'average': 852.95000000000005} added to resultsServer
+04-27 12:42:24 - INFO - Thread-1 - scanReceiver: Received vol 37
+04-27 12:42:25 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 37
+04-27 12:42:25 - INFO - MainThread - pynealAnalysis: analyzed vol: 37
+04-27 12:42:25 - DEBUG - MainThread - resultsServer: vol 37 - {'average': 839.62} added to resultsServer
+04-27 12:42:26 - INFO - Thread-1 - scanReceiver: Received vol 38
+04-27 12:42:27 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 38
+04-27 12:42:27 - INFO - MainThread - pynealAnalysis: analyzed vol: 38
+04-27 12:42:27 - DEBUG - MainThread - resultsServer: vol 38 - {'average': 844.02999999999997} added to resultsServer
+04-27 12:42:28 - INFO - Thread-1 - scanReceiver: Received vol 39
+04-27 12:42:29 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 39
+04-27 12:42:29 - INFO - MainThread - pynealAnalysis: analyzed vol: 39
+04-27 12:42:29 - DEBUG - MainThread - resultsServer: vol 39 - {'average': 867.82000000000005} added to resultsServer
+04-27 12:42:30 - INFO - Thread-1 - scanReceiver: Received vol 40
+04-27 12:42:31 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 40
+04-27 12:42:31 - INFO - MainThread - pynealAnalysis: analyzed vol: 40
+04-27 12:42:31 - DEBUG - MainThread - resultsServer: vol 40 - {'average': 851.89999999999998} added to resultsServer
+04-27 12:42:32 - INFO - Thread-1 - scanReceiver: Received vol 41
+04-27 12:42:33 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 41
+04-27 12:42:33 - INFO - MainThread - pynealAnalysis: analyzed vol: 41
+04-27 12:42:33 - DEBUG - MainThread - resultsServer: vol 41 - {'average': 843.77999999999997} added to resultsServer
+04-27 12:42:34 - INFO - Thread-1 - scanReceiver: Received vol 42
+04-27 12:42:35 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 42
+04-27 12:42:35 - INFO - MainThread - pynealAnalysis: analyzed vol: 42
+04-27 12:42:35 - DEBUG - MainThread - resultsServer: vol 42 - {'average': 852.27999999999997} added to resultsServer
+04-27 12:42:36 - INFO - Thread-1 - scanReceiver: Received vol 43
+04-27 12:42:37 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 43
+04-27 12:42:37 - INFO - MainThread - pynealAnalysis: analyzed vol: 43
+04-27 12:42:37 - DEBUG - MainThread - resultsServer: vol 43 - {'average': 850.75} added to resultsServer
+04-27 12:42:38 - INFO - Thread-1 - scanReceiver: Received vol 44
+04-27 12:42:39 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 44
+04-27 12:42:39 - INFO - MainThread - pynealAnalysis: analyzed vol: 44
+04-27 12:42:39 - DEBUG - MainThread - resultsServer: vol 44 - {'average': 848.32000000000005} added to resultsServer
+04-27 12:42:40 - INFO - Thread-1 - scanReceiver: Received vol 45
+04-27 12:42:41 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 45
+04-27 12:42:41 - INFO - MainThread - pynealAnalysis: analyzed vol: 45
+04-27 12:42:41 - DEBUG - MainThread - resultsServer: vol 45 - {'average': 840.74000000000001} added to resultsServer
+04-27 12:42:42 - INFO - Thread-1 - scanReceiver: Received vol 46
+04-27 12:42:43 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 46
+04-27 12:42:43 - INFO - MainThread - pynealAnalysis: analyzed vol: 46
+04-27 12:42:43 - DEBUG - MainThread - resultsServer: vol 46 - {'average': 850.52999999999997} added to resultsServer
+04-27 12:42:44 - INFO - Thread-1 - scanReceiver: Received vol 47
+04-27 12:42:45 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 47
+04-27 12:42:45 - INFO - MainThread - pynealAnalysis: analyzed vol: 47
+04-27 12:42:45 - DEBUG - MainThread - resultsServer: vol 47 - {'average': 848.63999999999999} added to resultsServer
+04-27 12:42:46 - INFO - Thread-1 - scanReceiver: Received vol 48
+04-27 12:42:47 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 48
+04-27 12:42:47 - INFO - MainThread - pynealAnalysis: analyzed vol: 48
+04-27 12:42:47 - DEBUG - MainThread - resultsServer: vol 48 - {'average': 844.86000000000001} added to resultsServer
+04-27 12:42:48 - INFO - Thread-1 - scanReceiver: Received vol 49
+04-27 12:42:49 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 49
+04-27 12:42:49 - INFO - MainThread - pynealAnalysis: analyzed vol: 49
+04-27 12:42:49 - DEBUG - MainThread - resultsServer: vol 49 - {'average': 851.04999999999995} added to resultsServer
+04-27 12:42:50 - INFO - Thread-1 - scanReceiver: Received vol 50
+04-27 12:42:51 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 50
+04-27 12:42:51 - INFO - MainThread - pynealAnalysis: analyzed vol: 50
+04-27 12:42:51 - DEBUG - MainThread - resultsServer: vol 50 - {'average': 853.45000000000005} added to resultsServer
+04-27 12:42:52 - INFO - Thread-1 - scanReceiver: Received vol 51
+04-27 12:42:53 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 51
+04-27 12:42:53 - INFO - MainThread - pynealAnalysis: analyzed vol: 51
+04-27 12:42:53 - DEBUG - MainThread - resultsServer: vol 51 - {'average': 857.20000000000005} added to resultsServer
+04-27 12:42:54 - INFO - Thread-1 - scanReceiver: Received vol 52
+04-27 12:42:55 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 52
+04-27 12:42:55 - INFO - MainThread - pynealAnalysis: analyzed vol: 52
+04-27 12:42:55 - DEBUG - MainThread - resultsServer: vol 52 - {'average': 853.86000000000001} added to resultsServer
+04-27 12:42:56 - INFO - Thread-1 - scanReceiver: Received vol 53
+04-27 12:42:57 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 53
+04-27 12:42:57 - INFO - MainThread - pynealAnalysis: analyzed vol: 53
+04-27 12:42:57 - DEBUG - MainThread - resultsServer: vol 53 - {'average': 841.55999999999995} added to resultsServer
+04-27 12:42:58 - INFO - Thread-1 - scanReceiver: Received vol 54
+04-27 12:43:00 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 54
+04-27 12:43:00 - INFO - MainThread - pynealAnalysis: analyzed vol: 54
+04-27 12:43:00 - DEBUG - MainThread - resultsServer: vol 54 - {'average': 861.46000000000004} added to resultsServer
+04-27 12:43:00 - INFO - Thread-1 - scanReceiver: Received vol 55
+04-27 12:43:01 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 55
+04-27 12:43:01 - INFO - MainThread - pynealAnalysis: analyzed vol: 55
+04-27 12:43:01 - DEBUG - MainThread - resultsServer: vol 55 - {'average': 846.14999999999998} added to resultsServer
+04-27 12:43:02 - INFO - Thread-1 - scanReceiver: Received vol 56
+04-27 12:43:03 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 56
+04-27 12:43:03 - INFO - MainThread - pynealAnalysis: analyzed vol: 56
+04-27 12:43:03 - DEBUG - MainThread - resultsServer: vol 56 - {'average': 848.84000000000003} added to resultsServer
+04-27 12:43:04 - INFO - Thread-1 - scanReceiver: Received vol 57
+04-27 12:43:05 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 57
+04-27 12:43:05 - INFO - MainThread - pynealAnalysis: analyzed vol: 57
+04-27 12:43:05 - DEBUG - MainThread - resultsServer: vol 57 - {'average': 854.27999999999997} added to resultsServer
+04-27 12:43:06 - INFO - Thread-1 - scanReceiver: Received vol 58
+04-27 12:43:07 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 58
+04-27 12:43:07 - INFO - MainThread - pynealAnalysis: analyzed vol: 58
+04-27 12:43:07 - DEBUG - MainThread - resultsServer: vol 58 - {'average': 856.41999999999996} added to resultsServer
+04-27 12:43:08 - INFO - Thread-1 - scanReceiver: Received vol 59
+04-27 12:43:09 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 59
+04-27 12:43:09 - INFO - MainThread - pynealAnalysis: analyzed vol: 59
+04-27 12:43:09 - DEBUG - MainThread - resultsServer: vol 59 - {'average': 845.44000000000005} added to resultsServer
+04-27 12:43:10 - INFO - Thread-1 - scanReceiver: Received vol 60
+04-27 12:43:11 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 60
+04-27 12:43:11 - INFO - MainThread - pynealAnalysis: analyzed vol: 60
+04-27 12:43:11 - DEBUG - MainThread - resultsServer: vol 60 - {'average': 849.48000000000002} added to resultsServer
+04-27 12:43:12 - INFO - Thread-1 - scanReceiver: Received vol 61
+04-27 12:43:13 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 61
+04-27 12:43:13 - INFO - MainThread - pynealAnalysis: analyzed vol: 61
+04-27 12:43:13 - DEBUG - MainThread - resultsServer: vol 61 - {'average': 855.05999999999995} added to resultsServer
+04-27 12:43:14 - INFO - Thread-1 - scanReceiver: Received vol 62
+04-27 12:43:15 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 62
+04-27 12:43:15 - INFO - MainThread - pynealAnalysis: analyzed vol: 62
+04-27 12:43:15 - DEBUG - MainThread - resultsServer: vol 62 - {'average': 847.98000000000002} added to resultsServer
+04-27 12:43:16 - INFO - Thread-1 - scanReceiver: Received vol 63
+04-27 12:43:17 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 63
+04-27 12:43:17 - INFO - MainThread - pynealAnalysis: analyzed vol: 63
+04-27 12:43:17 - DEBUG - MainThread - resultsServer: vol 63 - {'average': 850.52999999999997} added to resultsServer
+04-27 12:43:18 - INFO - Thread-1 - scanReceiver: Received vol 64
+04-27 12:43:19 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 64
+04-27 12:43:19 - INFO - MainThread - pynealAnalysis: analyzed vol: 64
+04-27 12:43:19 - DEBUG - MainThread - resultsServer: vol 64 - {'average': 847.64999999999998} added to resultsServer
+04-27 12:43:20 - INFO - Thread-1 - scanReceiver: Received vol 65
+04-27 12:43:21 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 65
+04-27 12:43:21 - INFO - MainThread - pynealAnalysis: analyzed vol: 65
+04-27 12:43:21 - DEBUG - MainThread - resultsServer: vol 65 - {'average': 856.34000000000003} added to resultsServer
+04-27 12:43:22 - INFO - Thread-1 - scanReceiver: Received vol 66
+04-27 12:43:23 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 66
+04-27 12:43:23 - INFO - MainThread - pynealAnalysis: analyzed vol: 66
+04-27 12:43:23 - DEBUG - MainThread - resultsServer: vol 66 - {'average': 845.86000000000001} added to resultsServer
+04-27 12:43:24 - INFO - Thread-1 - scanReceiver: Received vol 67
+04-27 12:43:25 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 67
+04-27 12:43:25 - INFO - MainThread - pynealAnalysis: analyzed vol: 67
+04-27 12:43:25 - DEBUG - MainThread - resultsServer: vol 67 - {'average': 845.0} added to resultsServer
+04-27 12:43:26 - INFO - Thread-1 - scanReceiver: Received vol 68
+04-27 12:43:27 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 68
+04-27 12:43:27 - INFO - MainThread - pynealAnalysis: analyzed vol: 68
+04-27 12:43:27 - DEBUG - MainThread - resultsServer: vol 68 - {'average': 841.72000000000003} added to resultsServer
+04-27 12:43:28 - INFO - Thread-1 - scanReceiver: Received vol 69
+04-27 12:43:29 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 69
+04-27 12:43:29 - INFO - MainThread - pynealAnalysis: analyzed vol: 69
+04-27 12:43:29 - DEBUG - MainThread - resultsServer: vol 69 - {'average': 847.60000000000002} added to resultsServer
+04-27 12:43:30 - INFO - Thread-1 - scanReceiver: Received vol 70
+04-27 12:43:31 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 70
+04-27 12:43:31 - INFO - MainThread - pynealAnalysis: analyzed vol: 70
+04-27 12:43:31 - DEBUG - MainThread - resultsServer: vol 70 - {'average': 852.84000000000003} added to resultsServer
+04-27 12:43:32 - INFO - Thread-1 - scanReceiver: Received vol 71
+04-27 12:43:33 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 71
+04-27 12:43:33 - INFO - MainThread - pynealAnalysis: analyzed vol: 71
+04-27 12:43:33 - DEBUG - MainThread - resultsServer: vol 71 - {'average': 845.12} added to resultsServer
+04-27 12:43:34 - INFO - Thread-1 - scanReceiver: Received vol 72
+04-27 12:43:35 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 72
+04-27 12:43:35 - INFO - MainThread - pynealAnalysis: analyzed vol: 72
+04-27 12:43:35 - DEBUG - MainThread - resultsServer: vol 72 - {'average': 861.72000000000003} added to resultsServer
+04-27 12:43:36 - INFO - Thread-1 - scanReceiver: Received vol 73
+04-27 12:43:37 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 73
+04-27 12:43:37 - INFO - MainThread - pynealAnalysis: analyzed vol: 73
+04-27 12:43:37 - DEBUG - MainThread - resultsServer: vol 73 - {'average': 845.46000000000004} added to resultsServer
+04-27 12:43:38 - INFO - Thread-1 - scanReceiver: Received vol 74
+04-27 12:43:39 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 74
+04-27 12:43:39 - INFO - MainThread - pynealAnalysis: analyzed vol: 74
+04-27 12:43:39 - DEBUG - MainThread - resultsServer: vol 74 - {'average': 848.46000000000004} added to resultsServer
+04-27 12:43:40 - INFO - Thread-1 - scanReceiver: Received vol 75
+04-27 12:43:41 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 75
+04-27 12:43:41 - INFO - MainThread - pynealAnalysis: analyzed vol: 75
+04-27 12:43:41 - DEBUG - MainThread - resultsServer: vol 75 - {'average': 843.29999999999995} added to resultsServer
+04-27 12:43:42 - INFO - Thread-1 - scanReceiver: Received vol 76
+04-27 12:43:43 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 76
+04-27 12:43:43 - INFO - MainThread - pynealAnalysis: analyzed vol: 76
+04-27 12:43:43 - DEBUG - MainThread - resultsServer: vol 76 - {'average': 848.98000000000002} added to resultsServer
+04-27 12:43:44 - INFO - Thread-1 - scanReceiver: Received vol 77
+04-27 12:43:45 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 77
+04-27 12:43:45 - INFO - MainThread - pynealAnalysis: analyzed vol: 77
+04-27 12:43:45 - DEBUG - MainThread - resultsServer: vol 77 - {'average': 861.97000000000003} added to resultsServer
+04-27 12:43:46 - INFO - Thread-1 - scanReceiver: Received vol 78
+04-27 12:43:47 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 78
+04-27 12:43:47 - INFO - MainThread - pynealAnalysis: analyzed vol: 78
+04-27 12:43:47 - DEBUG - MainThread - resultsServer: vol 78 - {'average': 846.29999999999995} added to resultsServer
+04-27 12:43:48 - INFO - Thread-1 - scanReceiver: Received vol 79
+04-27 12:43:49 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 79
+04-27 12:43:49 - INFO - MainThread - pynealAnalysis: analyzed vol: 79
+04-27 12:43:49 - DEBUG - MainThread - resultsServer: vol 79 - {'average': 847.36000000000001} added to resultsServer
+04-27 12:43:50 - INFO - Thread-1 - scanReceiver: Received vol 80
+04-27 12:43:51 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 80
+04-27 12:43:51 - INFO - MainThread - pynealAnalysis: analyzed vol: 80
+04-27 12:43:51 - DEBUG - MainThread - resultsServer: vol 80 - {'average': 865.13} added to resultsServer
+04-27 12:43:52 - INFO - Thread-1 - scanReceiver: Received vol 81
+04-27 12:43:53 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 81
+04-27 12:43:53 - INFO - MainThread - pynealAnalysis: analyzed vol: 81
+04-27 12:43:53 - DEBUG - MainThread - resultsServer: vol 81 - {'average': 845.36000000000001} added to resultsServer
+04-27 12:43:54 - INFO - Thread-1 - scanReceiver: Received vol 82
+04-27 12:43:55 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 82
+04-27 12:43:55 - INFO - MainThread - pynealAnalysis: analyzed vol: 82
+04-27 12:43:55 - DEBUG - MainThread - resultsServer: vol 82 - {'average': 849.14999999999998} added to resultsServer
+04-27 12:43:56 - INFO - Thread-1 - scanReceiver: Received vol 83
+04-27 12:43:57 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 83
+04-27 12:43:57 - INFO - MainThread - pynealAnalysis: analyzed vol: 83
+04-27 12:43:57 - DEBUG - MainThread - resultsServer: vol 83 - {'average': 845.44000000000005} added to resultsServer
+04-27 12:43:58 - INFO - Thread-1 - scanReceiver: Received vol 84
+04-27 12:43:59 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 84
+04-27 12:43:59 - INFO - MainThread - pynealAnalysis: analyzed vol: 84
+04-27 12:43:59 - DEBUG - MainThread - resultsServer: vol 84 - {'average': 863.5} added to resultsServer
+04-27 12:44:00 - INFO - Thread-1 - scanReceiver: Received vol 85
+04-27 12:44:01 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 85
+04-27 12:44:01 - INFO - MainThread - pynealAnalysis: analyzed vol: 85
+04-27 12:44:01 - DEBUG - MainThread - resultsServer: vol 85 - {'average': 850.96000000000004} added to resultsServer
+04-27 12:44:02 - INFO - Thread-1 - scanReceiver: Received vol 86
+04-27 12:44:03 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 86
+04-27 12:44:03 - INFO - MainThread - pynealAnalysis: analyzed vol: 86
+04-27 12:44:03 - DEBUG - MainThread - resultsServer: vol 86 - {'average': 866.60000000000002} added to resultsServer
+04-27 12:44:04 - INFO - Thread-1 - scanReceiver: Received vol 87
+04-27 12:44:05 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 87
+04-27 12:44:05 - INFO - MainThread - pynealAnalysis: analyzed vol: 87
+04-27 12:44:05 - DEBUG - MainThread - resultsServer: vol 87 - {'average': 857.66999999999996} added to resultsServer
+04-27 12:44:06 - INFO - Thread-1 - scanReceiver: Received vol 88
+04-27 12:44:07 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 88
+04-27 12:44:07 - INFO - MainThread - pynealAnalysis: analyzed vol: 88
+04-27 12:44:07 - DEBUG - MainThread - resultsServer: vol 88 - {'average': 853.96000000000004} added to resultsServer
+04-27 12:44:08 - INFO - Thread-1 - scanReceiver: Received vol 89
+04-27 12:44:09 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 89
+04-27 12:44:09 - INFO - MainThread - pynealAnalysis: analyzed vol: 89
+04-27 12:44:09 - DEBUG - MainThread - resultsServer: vol 89 - {'average': 857.20000000000005} added to resultsServer
+04-27 12:44:10 - INFO - Thread-1 - scanReceiver: Received vol 90
+04-27 12:44:11 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 90
+04-27 12:44:11 - INFO - MainThread - pynealAnalysis: analyzed vol: 90
+04-27 12:44:11 - DEBUG - MainThread - resultsServer: vol 90 - {'average': 860.63} added to resultsServer
+04-27 12:44:12 - INFO - Thread-1 - scanReceiver: Received vol 91
+04-27 12:44:13 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 91
+04-27 12:44:13 - INFO - MainThread - pynealAnalysis: analyzed vol: 91
+04-27 12:44:13 - DEBUG - MainThread - resultsServer: vol 91 - {'average': 850.85000000000002} added to resultsServer
+04-27 12:44:14 - INFO - Thread-1 - scanReceiver: Received vol 92
+04-27 12:44:15 - DEBUG - MainThread - pynealPreprocessing: preprocessed vol: 92
+04-27 12:44:15 - INFO - MainThread - pynealAnalysis: analyzed vol: 92
+04-27 12:44:15 - DEBUG - MainThread - resultsServer: vol 92 - {'average': 846.67999999999995} added to resultsServer

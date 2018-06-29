@@ -1,0 +1,91 @@
+05-02 11:58:22 - [1;36mDEBUG[0m - : [Settings    ] MNI_mask: /Users/jeff/gDrive/jeffCloud/real-time/b2b/data/subject001/masks/motorSphere_5mm_MNI.nii.gz
+05-02 11:58:22 - [1;36mDEBUG[0m - : [Settings    ] MNI_standard: /Users/jeff/gDrive/jeffCloud/real-time/pyneal/utils/MNI_templates/MNI152_T1_1mm_brain.nii.gz
+05-02 11:58:22 - [1;36mDEBUG[0m - : [Settings    ] createFuncBrainMask: True
+05-02 11:58:22 - [1;36mDEBUG[0m - : [Settings    ] outputPrefix: motorSphere_5mm
+05-02 11:58:22 - [1;36mDEBUG[0m - : [Settings    ] skullStrip: True
+05-02 11:58:22 - [1;36mDEBUG[0m - : [Settings    ] subjAnat: /Users/jeff/gDrive/jeffCloud/real-time/b2b/data/subject001/anat_brain.nii.gz
+05-02 11:58:22 - [1;36mDEBUG[0m - : [Settings    ] subjFunc: /Users/jeff/gDrive/jeffCloud/real-time/b2b/data/subject001/pyneal_004/exampleFunc.nii.gz
+05-02 11:58:22 - [1;36mDEBUG[0m - : [Settings    ] transformMaskToFunc: True
+05-02 11:58:22 - [1;32mINFO[0m - : creating exampleFunc image by averaging input func
+05-02 11:58:22 - [1;32mINFO[0m - : [creating whole brain mask from] /Users/jeff/gDrive/jeffCloud/real-time/b2b/data/subject001/pyneal_004/mask_transforms/exampleFunc.nii.gz
+05-02 11:58:23 - [1;32mINFO[0m - : [created func brain mask] /Users/jeff/gDrive/jeffCloud/real-time/b2b/data/subject001/pyneal_004/mask_transforms/FUNC_masks/wholeBrain_FUNC
+05-02 11:58:23 - [1;32mINFO[0m - : transforming MNI mask to functional space
+05-02 11:58:23 - [1;32mINFO[0m - : skull stripping hi-res subject anatomical
+05-02 11:58:26 - [1;32mINFO[0m - : creating mni2hires transformation matrix
+05-02 11:59:03 - [1;32mINFO[0m - : creating hires2func transformation matrix
+05-02 11:59:17 - [1;32mINFO[0m - : concatenating mni2hires and hires2func matrices
+05-02 11:59:17 - [1;32mINFO[0m - : applying mni2func transform to /Users/jeff/gDrive/jeffCloud/real-time/b2b/data/subject001/masks/motorSphere_5mm_MNI.nii.gz
+05-02 11:59:18 - [1;32mINFO[0m - : creating binarized mask of /Users/jeff/gDrive/jeffCloud/real-time/b2b/data/subject001/pyneal_004/mask_transforms/FUNC_masks/motorSphere_5mm_FUNC_weighted
+05-02 11:59:18 - [1;32mINFO[0m - : [Total processing time] 56.064 seconds
+05-02 11:59:56 - [1;36mDEBUG[0m - : [Settings    ] MNI_mask: /Users/jeff/gDrive/jeffCloud/real-time/b2b/data/subject001/masks/imagerySphere_5mm_MNI.nii.gz
+05-02 11:59:56 - [1;36mDEBUG[0m - : [Settings    ] MNI_standard: /Users/jeff/gDrive/jeffCloud/real-time/pyneal/utils/MNI_templates/MNI152_T1_1mm_brain.nii.gz
+05-02 11:59:56 - [1;36mDEBUG[0m - : [Settings    ] createFuncBrainMask: True
+05-02 11:59:56 - [1;36mDEBUG[0m - : [Settings    ] outputPrefix: imagerySphere_5mm
+05-02 11:59:56 - [1;36mDEBUG[0m - : [Settings    ] skullStrip: True
+05-02 11:59:56 - [1;36mDEBUG[0m - : [Settings    ] subjAnat: /Users/jeff/gDrive/jeffCloud/real-time/b2b/data/subject001/anat_brain.nii.gz
+05-02 11:59:56 - [1;36mDEBUG[0m - : [Settings    ] subjFunc: /Users/jeff/gDrive/jeffCloud/real-time/b2b/data/subject001/pyneal_004/exampleFunc.nii.gz
+05-02 11:59:56 - [1;36mDEBUG[0m - : [Settings    ] transformMaskToFunc: True
+05-02 11:59:56 - [1;32mINFO[0m - : creating exampleFunc image by averaging input func
+05-02 11:59:56 - [1;32mINFO[0m - : [using existing] /Users/jeff/gDrive/jeffCloud/real-time/b2b/data/subject001/pyneal_004/mask_transforms/exampleFunc.nii.gz
+05-02 11:59:56 - [1;32mINFO[0m - : [creating whole brain mask from] /Users/jeff/gDrive/jeffCloud/real-time/b2b/data/subject001/pyneal_004/mask_transforms/exampleFunc.nii.gz
+05-02 11:59:57 - [1;32mINFO[0m - : [created func brain mask] /Users/jeff/gDrive/jeffCloud/real-time/b2b/data/subject001/pyneal_004/mask_transforms/FUNC_masks/wholeBrain_FUNC
+05-02 11:59:57 - [1;32mINFO[0m - : transforming MNI mask to functional space
+05-02 11:59:57 - [1;32mINFO[0m - : skull stripping hi-res subject anatomical
+05-02 11:59:57 - [1;32mINFO[0m - : [using existing] /Users/jeff/gDrive/jeffCloud/real-time/b2b/data/subject001/pyneal_004/mask_transforms/hires_brain.nii.gz
+05-02 11:59:57 - [1;32mINFO[0m - : creating mni2hires transformation matrix
+05-02 11:59:57 - [1;32mINFO[0m - : [using existing] /Users/jeff/gDrive/jeffCloud/real-time/b2b/data/subject001/pyneal_004/mask_transforms/mni2hires.mat
+05-02 11:59:57 - [1;32mINFO[0m - : creating hires2func transformation matrix
+05-02 11:59:57 - [1;32mINFO[0m - : [using existing] /Users/jeff/gDrive/jeffCloud/real-time/b2b/data/subject001/pyneal_004/mask_transforms/hires2func.mat
+05-02 11:59:57 - [1;32mINFO[0m - : concatenating mni2hires and hires2func matrices
+05-02 11:59:57 - [1;32mINFO[0m - : [using existing] /Users/jeff/gDrive/jeffCloud/real-time/b2b/data/subject001/pyneal_004/mask_transforms/mni2func.mat
+05-02 11:59:57 - [1;32mINFO[0m - : applying mni2func transform to /Users/jeff/gDrive/jeffCloud/real-time/b2b/data/subject001/masks/imagerySphere_5mm_MNI.nii.gz
+05-02 11:59:58 - [1;32mINFO[0m - : creating binarized mask of /Users/jeff/gDrive/jeffCloud/real-time/b2b/data/subject001/pyneal_004/mask_transforms/FUNC_masks/imagerySphere_5mm_FUNC_weighted
+05-02 11:59:58 - [1;32mINFO[0m - : [Total processing time] 2.142 seconds
+05-07 17:44:30 - [1;36mDEBUG[0m - : [Settings    ] MNI_mask: /Users/jeff/gDrive/jeffCloud/real-time/b2b/data/juelich_prob_GMPrimaryMotorCortexBA4p_L.nii.gz
+05-07 17:44:30 - [1;36mDEBUG[0m - : [Settings    ] MNI_standard: /Users/jeff/gDrive/jeffCloud/real-time/pyneal/utils/MNI_templates/MNI152_T1_1mm_brain.nii.gz
+05-07 17:44:30 - [1;36mDEBUG[0m - : [Settings    ] createFuncBrainMask: True
+05-07 17:44:30 - [1;36mDEBUG[0m - : [Settings    ] outputPrefix: motorCortex
+05-07 17:44:30 - [1;36mDEBUG[0m - : [Settings    ] skullStrip: True
+05-07 17:44:30 - [1;36mDEBUG[0m - : [Settings    ] subjAnat: /Users/jeff/gDrive/jeffCloud/real-time/b2b/data/subject001/anat_brain.nii.gz
+05-07 17:44:30 - [1;36mDEBUG[0m - : [Settings    ] subjFunc: /Users/jeff/gDrive/jeffCloud/real-time/b2b/data/subject001/pyneal_004/exampleFunc.nii.gz
+05-07 17:44:30 - [1;36mDEBUG[0m - : [Settings    ] transformMaskToFunc: True
+05-07 17:44:30 - [1;32mINFO[0m - : creating exampleFunc image by averaging input func
+05-07 17:44:30 - [1;32mINFO[0m - : [using existing] /Users/jeff/gDrive/jeffCloud/real-time/b2b/data/subject001/pyneal_004/mask_transforms/exampleFunc.nii.gz
+05-07 17:44:30 - [1;32mINFO[0m - : [creating whole brain mask from] /Users/jeff/gDrive/jeffCloud/real-time/b2b/data/subject001/pyneal_004/mask_transforms/exampleFunc.nii.gz
+05-07 17:44:31 - [1;32mINFO[0m - : [created func brain mask] /Users/jeff/gDrive/jeffCloud/real-time/b2b/data/subject001/pyneal_004/mask_transforms/FUNC_masks/wholeBrain_FUNC
+05-07 17:44:31 - [1;32mINFO[0m - : transforming MNI mask to functional space
+05-07 17:44:31 - [1;32mINFO[0m - : skull stripping hi-res subject anatomical
+05-07 17:44:31 - [1;32mINFO[0m - : [using existing] /Users/jeff/gDrive/jeffCloud/real-time/b2b/data/subject001/pyneal_004/mask_transforms/hires_brain.nii.gz
+05-07 17:44:31 - [1;32mINFO[0m - : creating mni2hires transformation matrix
+05-07 17:44:31 - [1;32mINFO[0m - : [using existing] /Users/jeff/gDrive/jeffCloud/real-time/b2b/data/subject001/pyneal_004/mask_transforms/mni2hires.mat
+05-07 17:44:31 - [1;32mINFO[0m - : creating hires2func transformation matrix
+05-07 17:44:31 - [1;32mINFO[0m - : [using existing] /Users/jeff/gDrive/jeffCloud/real-time/b2b/data/subject001/pyneal_004/mask_transforms/hires2func.mat
+05-07 17:44:31 - [1;32mINFO[0m - : concatenating mni2hires and hires2func matrices
+05-07 17:44:31 - [1;32mINFO[0m - : [using existing] /Users/jeff/gDrive/jeffCloud/real-time/b2b/data/subject001/pyneal_004/mask_transforms/mni2func.mat
+05-07 17:44:31 - [1;32mINFO[0m - : applying mni2func transform to /Users/jeff/gDrive/jeffCloud/real-time/b2b/data/juelich_prob_GMPrimaryMotorCortexBA4p_L.nii.gz
+05-07 17:44:32 - [1;32mINFO[0m - : creating binarized mask of /Users/jeff/gDrive/jeffCloud/real-time/b2b/data/subject001/pyneal_004/mask_transforms/FUNC_masks/motorCortex_FUNC_weighted
+05-07 17:44:32 - [1;32mINFO[0m - : [Total processing time] 2.027 seconds
+05-07 17:46:22 - [1;36mDEBUG[0m - : [Settings    ] MNI_mask: /Users/jeff/gDrive/jeffCloud/real-time/b2b/data/juelich_prob_GMPrimaryMotorCortexBA4p_L_50prob.nii.gz
+05-07 17:46:22 - [1;36mDEBUG[0m - : [Settings    ] MNI_standard: /Users/jeff/gDrive/jeffCloud/real-time/pyneal/utils/MNI_templates/MNI152_T1_1mm_brain.nii.gz
+05-07 17:46:22 - [1;36mDEBUG[0m - : [Settings    ] createFuncBrainMask: True
+05-07 17:46:22 - [1;36mDEBUG[0m - : [Settings    ] outputPrefix: motorCortex_50prob
+05-07 17:46:22 - [1;36mDEBUG[0m - : [Settings    ] skullStrip: True
+05-07 17:46:22 - [1;36mDEBUG[0m - : [Settings    ] subjAnat: /Users/jeff/gDrive/jeffCloud/real-time/b2b/data/subject001/anat_brain.nii.gz
+05-07 17:46:22 - [1;36mDEBUG[0m - : [Settings    ] subjFunc: /Users/jeff/gDrive/jeffCloud/real-time/b2b/data/subject001/pyneal_004/exampleFunc.nii.gz
+05-07 17:46:22 - [1;36mDEBUG[0m - : [Settings    ] transformMaskToFunc: True
+05-07 17:46:22 - [1;32mINFO[0m - : creating exampleFunc image by averaging input func
+05-07 17:46:22 - [1;32mINFO[0m - : [using existing] /Users/jeff/gDrive/jeffCloud/real-time/b2b/data/subject001/pyneal_004/mask_transforms/exampleFunc.nii.gz
+05-07 17:46:22 - [1;32mINFO[0m - : [creating whole brain mask from] /Users/jeff/gDrive/jeffCloud/real-time/b2b/data/subject001/pyneal_004/mask_transforms/exampleFunc.nii.gz
+05-07 17:46:23 - [1;32mINFO[0m - : [created func brain mask] /Users/jeff/gDrive/jeffCloud/real-time/b2b/data/subject001/pyneal_004/mask_transforms/FUNC_masks/wholeBrain_FUNC
+05-07 17:46:23 - [1;32mINFO[0m - : transforming MNI mask to functional space
+05-07 17:46:23 - [1;32mINFO[0m - : skull stripping hi-res subject anatomical
+05-07 17:46:23 - [1;32mINFO[0m - : [using existing] /Users/jeff/gDrive/jeffCloud/real-time/b2b/data/subject001/pyneal_004/mask_transforms/hires_brain.nii.gz
+05-07 17:46:23 - [1;32mINFO[0m - : creating mni2hires transformation matrix
+05-07 17:46:23 - [1;32mINFO[0m - : [using existing] /Users/jeff/gDrive/jeffCloud/real-time/b2b/data/subject001/pyneal_004/mask_transforms/mni2hires.mat
+05-07 17:46:23 - [1;32mINFO[0m - : creating hires2func transformation matrix
+05-07 17:46:23 - [1;32mINFO[0m - : [using existing] /Users/jeff/gDrive/jeffCloud/real-time/b2b/data/subject001/pyneal_004/mask_transforms/hires2func.mat
+05-07 17:46:23 - [1;32mINFO[0m - : concatenating mni2hires and hires2func matrices
+05-07 17:46:23 - [1;32mINFO[0m - : [using existing] /Users/jeff/gDrive/jeffCloud/real-time/b2b/data/subject001/pyneal_004/mask_transforms/mni2func.mat
+05-07 17:46:23 - [1;32mINFO[0m - : applying mni2func transform to /Users/jeff/gDrive/jeffCloud/real-time/b2b/data/juelich_prob_GMPrimaryMotorCortexBA4p_L_50prob.nii.gz
+05-07 17:46:24 - [1;32mINFO[0m - : creating binarized mask of /Users/jeff/gDrive/jeffCloud/real-time/b2b/data/subject001/pyneal_004/mask_transforms/FUNC_masks/motorCortex_50prob_FUNC_weighted
+05-07 17:46:24 - [1;32mINFO[0m - : [Total processing time] 2.196 seconds
