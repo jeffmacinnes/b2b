@@ -5,15 +5,6 @@ var host = '127.0.0.1';
 var threshBar;
 var senderConnection;
 
-// function preload(){
-//     // get the current port number, open socket
-//     loadJSON('/getPortNum', gotPort);
-// }
-//
-// function gotPort(data){
-//     socketPort = data.port;
-//     console.log(socketPort);
-// }
 
 function setup() {
     createCanvas(600, 600);
@@ -51,6 +42,8 @@ function senderConnected(){
 
 function senderDisconnected(){
     console.log('sender disconnected from site');
+    threshBar.updateProb(0, 0);
+    console.log('now here')
     senderConnection.updateSenderConnection(false);
 }
 
@@ -60,6 +53,7 @@ function draw(){
     senderConnection.display();
     threshBar.display();
 }
+
 
 function SenderConnection(x, y){
     // object representing the indicator for when the sender connects
@@ -116,6 +110,7 @@ function ThresholdTherm(x, y){
         // update the probability
         this.volIdx = newVolIdx;
         this.prob = newProb*100;
+        console.log('got here')
     }
 
     this.display = function(){
