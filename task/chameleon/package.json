@@ -1,0 +1,15 @@
+{
+  "name": "chameleonTask",
+  "version": "1.0.0",
+  "description": "Chameleon Game for B2B",
+  "main": "nodeserver.js",
+  "scripts": {
+    "start": "node nodeserver.js"
+  },
+  "author": "Jeff MacInnes",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.3",
+    "socket.io": "^2.1.1"
+  }
+}

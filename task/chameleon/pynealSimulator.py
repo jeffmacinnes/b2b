@@ -1,5 +1,5 @@
 """ Tool to simulate the Pyneal side of interactions with the remote
-webserver controlling the dashboard
+webserver controlling the task
 
 """
 import random
