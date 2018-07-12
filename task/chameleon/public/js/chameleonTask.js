@@ -3,12 +3,16 @@ var socketPort;
 var host = '127.0.0.1';
 //var host = 'warm-river-88108.herokuapp.com';
 
-
+// lizard vars
 var lizardImg
 var lizardSkinLight = '#f0edcf';
 var lizardSkinDark = '#d6d3ab';
 var eyeCenter = {x: 257, y: 300};
 var eyeRadius = 9;
+
+// bug vars
+var bgBugs = []
+var nBgBugs = 50;
 
 // classes
 var senderConnection;
@@ -26,7 +30,6 @@ function preload(){
 function setup() {
     createCanvas(800, 600);
     frameRate(25);
-    console.log('sketch running');
 
     // set up socket streaming
     socket = io.connect(window.location.origin)
@@ -37,8 +40,11 @@ function setup() {
     // create instance of sender connection indicator
     senderConnection = new SenderConnection(100, 40);
 
+    // create instances of sketch objects
     lizardEye = new LizardEye(eyeCenter.x, eyeCenter.y, eyeRadius);
-
+    for (var i=0; i<=nBgBugs; i++){
+        bgBugs.push(new BgBug());
+    }
 
     // set mode for drawing primitives
     rectMode(CENTER);
@@ -47,6 +53,12 @@ function setup() {
 
 function draw(){
     background(255);
+
+    // update/draw gnats
+    for (var i=0; i<bgBugs.length; i++){
+        bgBugs[i].update();
+        bgBugs[i].display();
+    }
 
     // update/draw eye
     lizardEye.update(mouseX, mouseY);
@@ -70,7 +82,7 @@ function LizardEye(x,y,r){
 
     // ring 1 parameters
     this.ring1_center = {x: x, y: y};
-    this.ring1_radius = .75*r;
+    this.ring1_radius = .85*r;
     this.ring1_maxDist = this.eyeRadius-this.ring1_radius;
 
     // ring 2 parameters
@@ -106,13 +118,13 @@ function LizardEye(x,y,r){
 
         // eye background
         noStroke();
-        fill(lizardSkinLight);
+        fill(190,190,144);
         ellipse(0, 0, this.eyeRadius);
 
         // draw rings------------
         rotate(this.angle);
         stroke(100);
-        noFill();
+        fill(190,190,144);
         ellipse(this.ring1_dist, 0, this.ring1_radius);
 
         fill(253,209,5);
@@ -128,6 +140,29 @@ function LizardEye(x,y,r){
     }
 }
 
+
+function BgBug(){
+    // object representing background bug
+    this.x = random(width)
+    this.xOff = random(0,10)
+    this.y = random(height)
+    this.yOff = random(0,10)
+    this.r = random(2,6)
+    this.speed = random(1,3)
+
+    this.update = function(){
+        this.xOff = this.xOff + 0.01;
+        this.x += random(-noise(this.xOff), noise(this.xOff));
+        this.yOff = this.yOff + 0.01;
+        this.y += random(-noise(this.yOff), noise(this.yOff));
+    }
+
+    this.display = function(){
+        noStroke();
+        fill(120, 100);
+        ellipse(this.x, this.y, this.r);
+    }
+}
 
 function SenderConnection(x, y){
     // object representing the indicator for when the sender connects
