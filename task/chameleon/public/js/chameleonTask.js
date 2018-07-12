@@ -3,6 +3,9 @@ var socketPort;
 var host = '127.0.0.1';
 //var host = 'warm-river-88108.herokuapp.com';
 
+// bgVars
+var BG_yOff;
+
 // lizard vars
 var lizardImg
 var lizardSkinLight = '#f0edcf';
@@ -31,6 +34,9 @@ function setup() {
     createCanvas(800, 600);
     frameRate(25);
 
+    // set offset value for BG noise
+    BG_yOff = random(0,100);
+
     // set up socket streaming
     socket = io.connect(window.location.origin)
     socket.on('senderProb', updateSenderProb);
@@ -47,12 +53,13 @@ function setup() {
     }
 
     // set mode for drawing primitives
-    rectMode(CENTER);
+    rectMode(CORNER);
     ellipseMode(RADIUS);
 }
 
 function draw(){
-    background(255);
+    // draw background
+    drawBackground()
 
     // update/draw gnats
     for (var i=0; i<bgBugs.length; i++){
@@ -74,6 +81,19 @@ function draw(){
 /**
  * Classes and functions to control various aspects of the task
  */
+function drawBackground(){
+    background(175,243,218);
+    fill(148,218,152);
+    var x = 0;
+    var c = 0;
+    while (x<=width){
+        var thisY = noise(BG_yOff+c)*400 + height/2;
+        rect(x, thisY, 20, height-thisY);
+        x += 20;
+        c += .04;
+    }
+}
+
 function LizardEye(x,y,r){
     // object representing the lizards eye
     this.eyeCenter = {x: x, y: y};
@@ -151,15 +171,17 @@ function BgBug(){
     this.speed = random(1,3)
 
     this.update = function(){
-        this.xOff = this.xOff + 0.01;
-        this.x += random(-noise(this.xOff), noise(this.xOff));
-        this.yOff = this.yOff + 0.01;
-        this.y += random(-noise(this.yOff), noise(this.yOff));
+        this.xOff += 0.01;
+        var mx = noise(this.xOff)*2
+        this.x += random(-mx, mx);
+        this.yOff += 0.01;
+        var my = noise(this.yOff)*2
+        this.y += random(-my, my);
     }
 
     this.display = function(){
         noStroke();
-        fill(120, 100);
+        fill(120, 50);
         ellipse(this.x, this.y, this.r);
     }
 }
