@@ -1,7 +1,13 @@
+// script config vars
+var fr;    // framerate
 var socket;
 var socketPort;
 var host = '127.0.0.1';
 //var host = 'warm-river-88108.herokuapp.com';
+
+// task vars
+var trialDur = 8000;  // trial dur in ms
+var taskState = 'goTrial';
 
 // bgVars
 var BG_yOff;
@@ -16,6 +22,8 @@ var eyeRadius = 9;
 // bug vars
 var bgBugs = []
 var nBgBugs = 50;
+var goBug;
+var noGoBug;
 
 // classes
 var senderConnection;
@@ -32,7 +40,6 @@ function preload(){
 
 function setup() {
     createCanvas(800, 600);
-    frameRate(25);
 
     // set offset value for BG noise
     BG_yOff = random(0,100);
@@ -48,9 +55,12 @@ function setup() {
 
     // create instances of sketch objects
     lizardEye = new LizardEye(eyeCenter.x, eyeCenter.y, eyeRadius);
+    goBug = new TrialBug('go');
+    noGoBug = new TrialBug('noGo');
     for (var i=0; i<=nBgBugs; i++){
         bgBugs.push(new BgBug());
     }
+
 
     // set mode for drawing primitives
     rectMode(CORNER);
@@ -58,6 +68,8 @@ function setup() {
 }
 
 function draw(){
+    fr = frameRate();
+
     // draw background
     drawBackground()
 
@@ -67,12 +79,24 @@ function draw(){
         bgBugs[i].display();
     }
 
-    // update/draw eye
-    lizardEye.update(mouseX, mouseY);
-    lizardEye.display();
-
     // draw lizard
     image(lizardImg, 0, 0);
+
+    // draw task state
+    if (taskState == 'goTrial'){
+        // update position of trial bug
+        goBug.update()
+        goBug.display()
+
+        // update lizard eyes to follow
+        bugPos = goBug.getPos();
+        lizardEye.update(bugPos.x, bugPos.y);
+    } else {
+        lizardEye.update(eyeCenter.x, eyeCenter.y);
+    }
+
+    // draw the lizard eye
+    lizardEye.display();
 
 }
 
@@ -83,6 +107,7 @@ function draw(){
  */
 function drawBackground(){
     background(175,243,218);
+    noStroke();
     fill(148,218,152);
     var x = 0;
     var c = 0;
@@ -92,6 +117,62 @@ function drawBackground(){
         x += 20;
         c += .04;
     }
+}
+
+function TrialBug(trialType){
+    // bugs lizard should eat or not eat depending on trial type
+    this.trialType = trialType;
+    if (this.trialType == 'go'){
+        this.bugColor = color(0, 255, 0);
+    } else if (this.trialType == 'noGo'){
+        this.bugColor = color(255, 0, 0);
+    }
+
+    // initial config vars
+    this.trialStarted = false;
+    this.trialSt = 0;
+    this.x = 0;
+    this.y = 0;
+    this.yOff = random(0,10)
+
+    // calculate how far to move on each frame
+    this.xStepDist = width/(trialDur/1000*60);
+
+    this.update = function(){
+        // start trial if necessary
+        if (this.trialStarted != true){
+            this.startTrial()
+        }
+
+        // update position
+        this.x -= this.xStepDist;
+        this.yOff += .06;
+        this.y += (noise(this.yOff)-.5)*10;  // flutters in the y-dim
+
+        console.log(millis()-this.trialSt);
+    }
+
+    this.display = function(){
+        fill(this.bugColor);
+        stroke(100);
+        ellipse(this.x, this.y, 10);
+    }
+
+    this.startTrial = function(){
+        // set starting position of the bug
+        this.x = width;
+        this.y = random(.1*height, .8*height);
+
+        // record start time
+        this.trialSt = millis();
+        this.trialStarted = true;
+    }
+
+    this.getPos = function(){
+        return {x: this.x, y: this.y};
+    }
+
+
 }
 
 function LizardEye(x,y,r){
