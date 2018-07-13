@@ -1,5 +1,5 @@
 // script config vars
-var fr;    // framerate
+var fr = 25;    // framerate
 var socket;
 var socketPort;
 var host = '127.0.0.1';
@@ -7,7 +7,12 @@ var host = '127.0.0.1';
 
 // task vars
 var trialDur = 8000;  // trial dur in ms
-var taskState = 'goTrial';
+var taskState;
+var taskSt;
+var trialNum = 0;
+var trialOrder = ['goTrial', 'noGoTrial']; //, 'goTrial', 'noGoTrial'];
+var taskStarted = false;
+var restSt;
 
 // bgVars
 var BG_yOff;
@@ -33,13 +38,13 @@ var lizardEye
  * Main P5 js functions. These will set up the initial environment and then
  * call the Draw() function on every screen cycle
  */
-
 function preload(){
     lizardImg = loadImage('stimuli/drawing_small.png');
 }
 
 function setup() {
     createCanvas(800, 600);
+    frameRate(fr);
 
     // set offset value for BG noise
     BG_yOff = random(0,100);
@@ -55,12 +60,10 @@ function setup() {
 
     // create instances of sketch objects
     lizardEye = new LizardEye(eyeCenter.x, eyeCenter.y, eyeRadius);
-    goBug = new TrialBug('go');
-    noGoBug = new TrialBug('noGo');
+    trialBug = new TrialBug();
     for (var i=0; i<=nBgBugs; i++){
         bgBugs.push(new BgBug());
     }
-
 
     // set mode for drawing primitives
     rectMode(CORNER);
@@ -68,7 +71,10 @@ function setup() {
 }
 
 function draw(){
-    fr = frameRate();
+
+    if (taskStarted == false){
+        startTask();
+    }
 
     // draw background
     drawBackground()
@@ -82,29 +88,22 @@ function draw(){
     // draw lizard
     image(lizardImg, 0, 0);
 
-    // draw task state
-    if (taskState == 'goTrial'){
-        // update position of trial bug
-        goBug.update()
-        goBug.display()
-
-        // update lizard eyes to follow
-        bugPos = goBug.getPos();
-        lizardEye.update(bugPos.x, bugPos.y);
-    } else {
-        lizardEye.update(eyeCenter.x, eyeCenter.y);
-    }
-
-    // draw the lizard eye
-    lizardEye.display();
+    // draw trial
+    drawCurrentState();
 
 }
-
-
 
 /**
  * Classes and functions to control various aspects of the task
  */
+function startTask(){
+    taskSt = millis();
+    taskStarted = true;
+    taskState = 'rest';
+    restSt = millis();
+}
+
+
 function drawBackground(){
     background(175,243,218);
     noStroke();
@@ -119,59 +118,159 @@ function drawBackground(){
     }
 }
 
-function TrialBug(trialType){
-    // bugs lizard should eat or not eat depending on trial type
-    this.trialType = trialType;
-    if (this.trialType == 'go'){
-        this.bugColor = color(0, 255, 0);
-    } else if (this.trialType == 'noGo'){
-        this.bugColor = color(255, 0, 0);
+
+function drawCurrentState(){
+    // internal logic for what to display on screen based on current task state
+
+    // GO/NO-GO TRIALS -----------------------------
+    if (taskState == 'goTrial' || taskState == 'noGoTrial'){
+        // update the trial bug
+        trialBug.update()
+
+        // if the trial is still alive, update everything else and display
+        if (trialBug.trialStatus == 'alive'){
+            // update and display lizard eye
+            bugPos = trialBug.getPos();
+            lizardEye.update(bugPos.x, bugPos.y);
+            lizardEye.display();
+
+            // display bug
+            trialBug.display(taskState)
+
+        // otherwise, switch to next state
+        } else {
+            nextTaskState(taskState);
+        }
+
+    // REST STATES -----------------------------
+    } else if (taskState == 'rest'){
+        lizardEye.update(eyeCenter.x, eyeCenter.y);
+        lizardEye.display();
+
+        // make sure full task duration has elapsed
+        var restElapsed = millis()-restSt;
+        if (restElapsed >= 2000){
+            nextTaskState();
+        }
+
+    // END STATE -------------------------------
+    } else if (taskState == 'end'){
+        lizardEye.update(eyeCenter.x, eyeCenter.y);
+        lizardEye.display();
+
+        fill(255,100);
+        noStroke();
+        rect(0,0,width,height);
+
+        fill(0,0,255);
+        textSize(32);
+        textAlign(CENTER, CENTER);
+        text('All Done!', width/2, height/2);
+        textSize(24);
+        text('(refresh to restart)', width/2, height*.75);
     }
+}
+
+
+function nextTaskState(){
+    // switch to the next task state
+    switch(taskState){
+        // if the current state is a go or noGo trial, switch to rest
+        case 'goTrial':
+        case 'noGoTrial':
+            taskState = 'rest';
+            restSt = millis();
+            break
+        case 'rest':
+            trialNum += 1;
+            console.log('trial num: ' + trialNum);
+
+            if (trialNum > trialOrder.length){
+                taskState = 'end';
+            } else {
+                taskState = trialOrder[trialNum-1];
+            }
+            break
+    };
+    console.log(taskState);
+}
+
+function TrialBug(){
+    this.bugColor = {'goTrial': color(0,255,0),
+                     'noGoTrial': color(255,0,0)};
 
     // initial config vars
-    this.trialStarted = false;
+    this.trialStatus = 'dead';
     this.trialSt = 0;
+    this.elapsedTime = 0;
     this.x = 0;
     this.y = 0;
-    this.yOff = random(0,10)
-
-    // calculate how far to move on each frame
-    this.xStepDist = width/(trialDur/1000*60);
+    this.yOff = 0;
+    this.bugCaught = false;
+    this.bugVisible = false;
 
     this.update = function(){
         // start trial if necessary
-        if (this.trialStarted != true){
+        if (this.trialStatus == 'dead'){
             this.startTrial()
         }
 
-        // update position
-        this.x -= this.xStepDist;
-        this.yOff += .06;
-        this.y += (noise(this.yOff)-.5)*10;  // flutters in the y-dim
+        // calculate elapsed time
+        this.elapsedTime = millis() - this.trialSt;
 
-        console.log(millis()-this.trialSt);
+        // if trial still alive...
+        if (this.elapsedTime <= trialDur && this.bugCaught == false){
+            // update position. X is function of elapsed time; Y is noise flutter
+            this.x = width - ((millis()-this.trialSt)/trialDur * width);
+            this.yOff += .06;
+            this.y += (noise(this.yOff)-.5)*10;  // flutters in the y-dim
+        } else {
+            this.resetBug();
+        }
     }
 
-    this.display = function(){
-        fill(this.bugColor);
-        stroke(100);
-        ellipse(this.x, this.y, 10);
+    this.display = function(trialType){
+        if (this.bugVisible){
+            fill(this.bugColor[trialType]);
+            stroke(100);
+            ellipse(this.x, this.y, 10);
+        }
     }
 
     this.startTrial = function(){
         // set starting position of the bug
         this.x = width;
         this.y = random(.1*height, .8*height);
+        this.yOff = random(0,10);
+        this.bugVisible = true;
 
         // record start time
         this.trialSt = millis();
-        this.trialStarted = true;
+        this.trialStatus = 'alive';
     }
 
     this.getPos = function(){
+        // return current x,y pos of bug
         return {x: this.x, y: this.y};
     }
 
+    this.catchBug = function(){
+        // set "caught" flag to TRUE
+        this.bugCaught = true;
+        this.bugVisible = false;
+    }
+
+    this.resetBug = function(){
+        // reset all of the bug variables
+        this.trialStatus = 'dead';
+        this.trialSt = 0;
+        this.elapsedTime = 0;
+        this.x = 0;
+        this.y = 0;
+        this.yOff = 0;
+        this.bugCaught = false;
+        this.bugVisible = false;
+    }
 
 }
 
