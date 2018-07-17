@@ -7,7 +7,7 @@ var host = '127.0.0.1';
 
 // task vars
 var trialDur = 8000;  // trial dur in ms
-var taskState;
+var taskState = 'start';
 var taskSt;
 var trialNum = 0;
 var trialOrder = ['goTrial', 'noGoTrial',
@@ -16,6 +16,11 @@ var taskStarted = false;
 var restSt;
 var goScore = 0;
 var noGoScore = 0;
+
+// start button
+var startButton_x
+var startButton_y;
+var startButton_r = 80;
 
 // bgVars
 var BG_yOff;
@@ -59,6 +64,10 @@ function setup() {
     // set offset value for BG noise
     BG_yOff = random(0,100);
 
+    // start button vars
+    startButton_x = width/2;
+    startButton_y = height/2;
+
     // set up socket streaming
     socket = io.connect(window.location.origin)
     socket.on('senderProb', updateSenderProb);
@@ -83,10 +92,6 @@ function setup() {
 
 function draw(){
 
-    if (taskStarted == false){
-        startTask();
-    }
-
     // draw background
     drawBackground()
 
@@ -104,11 +109,13 @@ function draw(){
     lizardBody.update();
     lizardBody.display();
 
+    // show score
+    drawScore();
+
     // draw trial
     drawCurrentState();
 
-    // show score
-    drawScore();
+
 }
 
 /**
@@ -139,9 +146,31 @@ function drawBackground(){
 
 function drawCurrentState(){
     // internal logic for what to display on screen based on current task state
+    // Start Screen
+    if (taskState == 'start'){
+        noStroke();
+        fill(255, 150);
+        rect(0, 0, width, height);
+
+        stroke(100);
+        strokeWeight(1);
+        if (dist(mouseX, mouseY, startButton_x, startButton_y) <= startButton_r){
+            fill(244, 191, 117);
+        } else {
+            fill(255, 141, 0);
+        }
+        ellipse(startButton_x, startButton_y, startButton_r);
+
+        // start instruction text
+        noStroke();
+        fill(255, 141, 0);
+        textSize(50);
+        textFont('Courier');
+        textAlign(CENTER, CENTER);
+        text('click circle to start!', width/2, .2*height);
 
     // GO/NO-GO TRIALS -----------------------------
-    if (taskState == 'goTrial' || taskState == 'noGoTrial'){
+    } else if (taskState == 'goTrial' || taskState == 'noGoTrial'){
         // update the trial bug
         trialBug.update()
 
@@ -224,6 +253,17 @@ function nextTaskState(){
             break
     };
     console.log(taskState);
+}
+
+
+function mousePressed(){
+    // start the task if not started yet and user has clicked in startButton
+    if (taskStarted != true) {
+        var d = dist(mouseX, mouseY, startButton_x, startButton_y);
+        if (d <= startButton_r){
+            startTask();
+        }
+    }
 }
 
 function keyTyped(){
