@@ -18,7 +18,10 @@ var restSt;
 var BG_yOff;
 
 // lizard vars
-var lizardImg
+var lizardImg;
+var mouthOpenImg;
+var mouthClosedImg;
+var mouthIsOpen = false;
 var lizardSkinLight = '#f0edcf';
 var lizardSkinDark = '#d6d3ab';
 var eyeCenter = {x: 257, y: 300};
@@ -40,6 +43,8 @@ var lizardEye
  */
 function preload(){
     lizardImg = loadImage('stimuli/drawing_small.png');
+    mouthOpenImg = loadImage('stimuli/mouthOpen_small.png');
+    mouthClosedImg = loadImage('stimuli/mouthClosed_small.png');
 }
 
 function setup() {
@@ -86,7 +91,7 @@ function draw(){
     }
 
     // draw lizard
-    image(lizardImg, 0, 0);
+    drawLizard();
 
     // draw trial
     drawCurrentState();
@@ -94,7 +99,7 @@ function draw(){
 }
 
 /**
- * Classes and functions to control various aspects of the task
+ * Functions to control various aspects of the task
  */
 function startTask(){
     taskSt = millis();
@@ -118,6 +123,17 @@ function drawBackground(){
     }
 }
 
+function drawLizard(){
+    // place lizard body
+    image(lizardImg, 0, 0);
+
+    // draw mouth
+    if (mouthIsOpen){
+        image(mouthOpenImg, 247, 327);
+    } else {
+        image(mouthClosedImg, 247, 320);
+    };
+}
 
 function drawCurrentState(){
     // internal logic for what to display on screen based on current task state
@@ -178,10 +194,12 @@ function nextTaskState(){
         // if the current state is a go or noGo trial, switch to rest
         case 'goTrial':
         case 'noGoTrial':
+            mouthIsOpen = false;
             taskState = 'rest';
             restSt = millis();
             break
         case 'rest':
+            mouthIsOpen = false;
             trialNum += 1;
             console.log('trial num: ' + trialNum);
 
@@ -194,6 +212,18 @@ function nextTaskState(){
     };
     console.log(taskState);
 }
+
+function keyTyped(){
+    if (key === 'o'){
+        mouthIsOpen = true;
+    } else if (key === 'c'){
+        mouthIsOpen = false;
+    };
+}
+
+/**
+ * Classes to represent various components of the task
+ */
 
 function TrialBug(){
     this.bugColor = {'goTrial': color(0,255,0),
@@ -365,6 +395,7 @@ function BgBug(){
         ellipse(this.x, this.y, this.r);
     }
 }
+
 
 function SenderConnection(x, y){
     // object representing the indicator for when the sender connects
