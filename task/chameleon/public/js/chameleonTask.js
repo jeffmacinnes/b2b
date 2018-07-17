@@ -10,7 +10,8 @@ var trialDur = 8000;  // trial dur in ms
 var taskState;
 var taskSt;
 var trialNum = 0;
-var trialOrder = ['goTrial', 'noGoTrial']; //, 'goTrial', 'noGoTrial'];
+var trialOrder = ['goTrial', 'noGoTrial',
+                    'goTrial', 'noGoTrial']; //, 'goTrial', 'noGoTrial'];
 var taskStarted = false;
 var restSt;
 
@@ -219,7 +220,13 @@ function keyTyped(){
 function catchBug(){
     // make sure it's not a rest trial
     if (taskState == 'goTrial' || taskState == 'noGoTrial'){
-        lizardBody.catchBug();
+        if (lizardBody.mouthIsOpen){
+            lizardBody.catchBug();  // have lizard shoot tongue out
+            trialBug.catchBug();    // update the bug to "caught" status
+        } else {
+            console.log('cannot catch bug, mouth is closed...')
+        }
+
     } else {
         console.log('cannot catch bug, currently a REST trial');
     }
@@ -238,6 +245,8 @@ function LizardBody(lizardImg, mouthOpenImg, mouthClosedImg){
     this.tongueStart = {x: 265, y: 325}
     this.tongueColor = color(225, 170, 120);
     this.tongueEnd = {x: 0, y: 0};
+    this.tongueSt = 0;
+    this.tongueDur = 250;
 
     this.update = function(){
         // update the pos of tongueEnd based on pos
@@ -258,22 +267,19 @@ function LizardBody(lizardImg, mouthOpenImg, mouthClosedImg){
 
         // draw tongue
         if (this.showTongue){
-            stroke(this.tongueColor);
-            strokeWeight(5);
-            line(this.tongueStart.x, this.tongueStart.y,
-                 this.tongueEnd.x, this.tongueEnd.y);
+            var elapsedTongue = millis() - this.tongueSt;
+            if (elapsedTongue <= this.tongueDur){
+                stroke(this.tongueColor);
+                strokeWeight(5);
+                line(this.tongueStart.x, this.tongueStart.y,
+                     this.tongueEnd.x, this.tongueEnd.y);
+            }
         };
-
-
     };
 
     this.catchBug = function(){
-        // make sure the mouth is open, then set flag to show tongue
-        if (this.mouthIsOpen){
-            this.showTongue = true;
-        } else {
-            console.log('cannot catch bug, mouth is closed');
-        };
+        this.showTongue = true;
+        this.tongueSt = millis();
     }
 
     this.reset = function(){
@@ -445,8 +451,6 @@ function TrialBug(){
     }
 
 }
-
-
 
 
 function BgBug(){
