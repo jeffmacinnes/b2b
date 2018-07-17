@@ -22,6 +22,7 @@ var lizardImg;
 var mouthOpenImg;
 var mouthClosedImg;
 var mouthIsOpen = false;
+var showTongue = false;
 var lizardSkinLight = '#f0edcf';
 var lizardSkinDark = '#d6d3ab';
 var eyeCenter = {x: 257, y: 300};
@@ -34,8 +35,9 @@ var goBug;
 var noGoBug;
 
 // classes
+var lizardBody;
 var senderConnection;
-var lizardEye
+var lizardEye;
 
 /**
  * Main P5 js functions. These will set up the initial environment and then
@@ -64,6 +66,7 @@ function setup() {
     senderConnection = new SenderConnection(100, 40);
 
     // create instances of sketch objects
+    lizardBody = new LizardBody(lizardImg, mouthOpenImg, mouthClosedImg);
     lizardEye = new LizardEye(eyeCenter.x, eyeCenter.y, eyeRadius);
     trialBug = new TrialBug();
     for (var i=0; i<=nBgBugs; i++){
@@ -90,12 +93,17 @@ function draw(){
         bgBugs[i].display();
     }
 
-    // draw lizard
-    drawLizard();
+    // draw lizard eye
+    lizardEye.update();
+    lizardEye.display();
+
+    // draw lizard body
+    lizardBody.update();
+    lizardBody.display();
+
 
     // draw trial
     drawCurrentState();
-
 }
 
 /**
@@ -123,17 +131,6 @@ function drawBackground(){
     }
 }
 
-function drawLizard(){
-    // place lizard body
-    image(lizardImg, 0, 0);
-
-    // draw mouth
-    if (mouthIsOpen){
-        image(mouthOpenImg, 247, 327);
-    } else {
-        image(mouthClosedImg, 247, 320);
-    };
-}
 
 function drawCurrentState(){
     // internal logic for what to display on screen based on current task state
@@ -145,10 +142,6 @@ function drawCurrentState(){
 
         // if the trial is still alive, update everything else and display
         if (trialBug.trialStatus == 'alive'){
-            // update and display lizard eye
-            bugPos = trialBug.getPos();
-            lizardEye.update(bugPos.x, bugPos.y);
-            lizardEye.display();
 
             // display bug
             trialBug.display(taskState)
@@ -160,8 +153,6 @@ function drawCurrentState(){
 
     // REST STATES -----------------------------
     } else if (taskState == 'rest'){
-        lizardEye.update(eyeCenter.x, eyeCenter.y);
-        lizardEye.display();
 
         // make sure full task duration has elapsed
         var restElapsed = millis()-restSt;
@@ -178,28 +169,30 @@ function drawCurrentState(){
         noStroke();
         rect(0,0,width,height);
 
-        fill(0,0,255);
-        textSize(32);
+        fill(232,12,122);
+        textFont('Courier')
+        textSize(60);
         textAlign(CENTER, CENTER);
-        text('All Done!', width/2, height/2);
-        textSize(24);
-        text('(refresh to restart)', width/2, height*.75);
+        text('All Done!', width*.5, height*.25);
+        textSize(42);
+        text('(refresh to restart)', width/2, height*.65);
     }
 }
 
 
 function nextTaskState(){
+    // reset the lizard body
+    lizardBody.reset();
+
     // switch to the next task state
     switch(taskState){
         // if the current state is a go or noGo trial, switch to rest
         case 'goTrial':
         case 'noGoTrial':
-            mouthIsOpen = false;
             taskState = 'rest';
             restSt = millis();
             break
         case 'rest':
-            mouthIsOpen = false;
             trialNum += 1;
             console.log('trial num: ' + trialNum);
 
@@ -215,15 +208,163 @@ function nextTaskState(){
 
 function keyTyped(){
     if (key === 'o'){
-        mouthIsOpen = true;
+        lizardBody.mouthIsOpen = true;
     } else if (key === 'c'){
-        mouthIsOpen = false;
+        lizardBody.mouthIsOpen = false;
+    } else if (key == 't'){
+        catchBug();
     };
+}
+
+function catchBug(){
+    // make sure it's not a rest trial
+    if (taskState == 'goTrial' || taskState == 'noGoTrial'){
+        lizardBody.catchBug();
+    } else {
+        console.log('cannot catch bug, currently a REST trial');
+    }
 }
 
 /**
  * Classes to represent various components of the task
  */
+function LizardBody(lizardImg, mouthOpenImg, mouthClosedImg){
+
+    this.lizardImg = lizardImg;
+    this.mouthOpenImg = mouthOpenImg;
+    this.mouthClosedImg = mouthClosedImg;
+    this.mouthIsOpen = false;
+    this.showTongue = false;
+    this.tongueStart = {x: 265, y: 325}
+    this.tongueColor = color(225, 170, 120);
+    this.tongueEnd = {x: 0, y: 0};
+
+    this.update = function(){
+        // update the pos of tongueEnd based on pos
+        var bugPos = trialBug.getPos();
+        this.tongueEnd = {x: bugPos.x, y: bugPos.y}
+    }
+
+    this.display = function(){
+        // place lizard body
+        image(this.lizardImg, 0, 0);
+
+        // draw mouth
+        if (this.mouthIsOpen){
+            image(this.mouthOpenImg, 247, 327);
+        } else {
+            image(mouthClosedImg, 247, 320);
+        };
+
+        // draw tongue
+        if (this.showTongue){
+            stroke(this.tongueColor);
+            strokeWeight(5);
+            line(this.tongueStart.x, this.tongueStart.y,
+                 this.tongueEnd.x, this.tongueEnd.y);
+        };
+
+
+    };
+
+    this.catchBug = function(){
+        // make sure the mouth is open, then set flag to show tongue
+        if (this.mouthIsOpen){
+            this.showTongue = true;
+        } else {
+            console.log('cannot catch bug, mouth is closed');
+        };
+    }
+
+    this.reset = function(){
+        // reset the lizard
+        this.mouthIsOpen = false;
+        this.showTongue = false;
+    }
+}
+
+function LizardEye(x,y,r){
+    // object representing the lizards eye
+    this.eyeCenter = {x: x, y: y};
+    this.eyeRadius = r;
+    this.angle = 0;
+
+    // ring 1 parameters
+    this.ring1_center = {x: x, y: y};
+    this.ring1_radius = .85*r;
+    this.ring1_maxDist = this.eyeRadius-this.ring1_radius;
+
+    // ring 2 parameters
+    this.ring2_center = {x: x, y: y};
+    this.ring2_radius = .55*r;
+    this.ring2_maxDist = this.eyeRadius-this.ring2_radius;
+
+    // pupil parameters
+    this.pupil_center = {x: x, y: y};
+    this.pupil_radius = .3*r;
+    this.pupil_maxDist = this.eyeRadius-this.pupil_radius;
+
+    this.update = function(){
+        // look at bug if one is present
+        if (trialBug.trialStatus == 'alive'){
+            this.lookAt(trialBug.getPos());
+
+        // otherwise set eye to straight ahead
+        } else {
+            this.lookAt(this.eyeCenter);
+        };
+    }
+
+    this.display = function(){
+        push();
+        translate(this.eyeCenter.x, this.eyeCenter.y);
+
+        // eye background
+        noStroke();
+        fill(190,190,144);
+        ellipse(0, 0, this.eyeRadius);
+
+        // draw rings------------
+        rotate(this.angle);
+        stroke(100);
+        strokeWeight(1);
+        fill(190,190,144);
+        ellipse(this.ring1_dist, 0, this.ring1_radius);
+
+        fill(253,209,5);
+        ellipse(this.ring2_dist, 0, this.ring2_radius);
+
+        // draw pupil
+        noStroke();
+        fill(0);
+        ellipse(this.pupil_dist, 0, this.pupil_radius);
+
+        pop();
+    }
+
+    this.lookAt = function(pos){
+        // set the eye to look at the given pos
+        var x = pos.x;
+        var y = pos.y;
+        // rotation angle between target and eye
+        this.angle = atan2(y - this.eyeCenter.y,
+                           x - this.eyeCenter.x);
+
+        // update the distances of each eye component
+        this.ring1_dist = constrain(dist(x, y, this.eyeCenter.x,
+                                               this.eyeCenter.y),
+                                               -this.ring1_maxDist,
+                                               this.ring1_maxDist);
+        this.ring2_dist = constrain(dist(x, y, this.eyeCenter.x,
+                                               this.eyeCenter.y),
+                                               -this.ring2_maxDist,
+                                               this.ring2_maxDist);
+        this.pupil_dist = constrain(dist(x, y, this.eyeCenter.x,
+                                               this.eyeCenter.y),
+                                               -this.pupil_maxDist,
+                                               this.pupil_maxDist);
+    };
+}
 
 function TrialBug(){
     this.bugColor = {'goTrial': color(0,255,0),
@@ -263,6 +404,7 @@ function TrialBug(){
         if (this.bugVisible){
             fill(this.bugColor[trialType]);
             stroke(100);
+            strokeWeight(1);
             ellipse(this.x, this.y, 10);
         }
     }
@@ -304,71 +446,7 @@ function TrialBug(){
 
 }
 
-function LizardEye(x,y,r){
-    // object representing the lizards eye
-    this.eyeCenter = {x: x, y: y};
-    this.eyeRadius = r;
-    this.angle = 0;
 
-    // ring 1 parameters
-    this.ring1_center = {x: x, y: y};
-    this.ring1_radius = .85*r;
-    this.ring1_maxDist = this.eyeRadius-this.ring1_radius;
-
-    // ring 2 parameters
-    this.ring2_center = {x: x, y: y};
-    this.ring2_radius = .55*r;
-    this.ring2_maxDist = this.eyeRadius-this.ring2_radius;
-
-    // pupil parameters
-    this.pupil_center = {x: x, y: y};
-    this.pupil_radius = .3*r;
-    this.pupil_maxDist = this.eyeRadius-this.pupil_radius;
-
-    this.update = function(x,y){
-        // rotation angle between target and eye
-        this.angle = atan2(y - this.eyeCenter.y,
-                           x - this.eyeCenter.x);
-
-        // update the distances of each eye component
-        this.ring1_dist = constrain(dist(x, y, this.eyeCenter.x, this.eyeCenter.y),
-                                    -this.ring1_maxDist,
-                                    this.ring1_maxDist);
-        this.ring2_dist = constrain(dist(x, y, this.eyeCenter.x, this.eyeCenter.y),
-                                    -this.ring2_maxDist,
-                                    this.ring2_maxDist);
-        this.pupil_dist = constrain(dist(x, y, this.eyeCenter.x, this.eyeCenter.y),
-                                    -this.pupil_maxDist,
-                                    this.pupil_maxDist);
-    }
-
-    this.display = function(){
-        push();
-        translate(this.eyeCenter.x, this.eyeCenter.y);
-
-        // eye background
-        noStroke();
-        fill(190,190,144);
-        ellipse(0, 0, this.eyeRadius);
-
-        // draw rings------------
-        rotate(this.angle);
-        stroke(100);
-        fill(190,190,144);
-        ellipse(this.ring1_dist, 0, this.ring1_radius);
-
-        fill(253,209,5);
-        ellipse(this.ring2_dist, 0, this.ring2_radius);
-
-        // draw pupil
-        noStroke();
-        fill(0);
-        ellipse(this.pupil_dist, 0, this.pupil_radius);
-
-        pop();
-
-    }
-}
 
 
 function BgBug(){
@@ -431,55 +509,6 @@ function SenderConnection(x, y){
         }
     }
 }
-
-
-function ThresholdTherm(x, y){
-    // object representing the threshold thermometer bar
-    // initialize location and size of thermometer frame
-    this.centerX = x;
-    this.centerY = y;
-    this.width = 15;
-    this.height = 250;
-    // coords for lower left corner
-    this.cornerX = this.centerX-(this.width/2);
-    this.cornerY = this.centerY+(this.height/2);
-
-    // init prob variable
-    this.prob = 0;
-    this.volIdx = 0;
-
-    this.updateProb = function(newVolIdx, newProb) {
-        // update the probability
-        this.volIdx = newVolIdx;
-        this.prob = newProb*100;
-        console.log('got here')
-    }
-
-    this.display = function(){
-        noStroke();
-
-        // draw the therm rect
-        fill(255);
-        rect(this.centerX, this.centerY, this.width, this.height);
-
-        // draw halfway line
-        fill(255, 12, 132);
-        rect(this.centerX, this.centerY, this.width+20, 3);
-
-        // draw the probability indicator
-        this.probY = map(this.prob, 0, 100, this.cornerY, this.cornerY - this.height)
-        fill(234, 131, 11);
-        ellipse(this.centerX, this.probY, 20, 20);
-
-        // draw the volIdx text
-        fill(255);
-        textSize(24);
-        textAlign(CENTER, CENTER);
-        text('vol: '+ this.volIdx, this.centerX, this.cornerY+40)
-    }
-
-}
-
 
 
 /**
