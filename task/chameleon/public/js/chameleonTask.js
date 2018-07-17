@@ -14,6 +14,8 @@ var trialOrder = ['goTrial', 'noGoTrial',
                     'goTrial', 'noGoTrial']; //, 'goTrial', 'noGoTrial'];
 var taskStarted = false;
 var restSt;
+var goScore = 0;
+var noGoScore = 0;
 
 // bgVars
 var BG_yOff;
@@ -32,8 +34,8 @@ var eyeRadius = 9;
 // bug vars
 var bgBugs = []
 var nBgBugs = 50;
-var goBug;
-var noGoBug;
+var goColor = '#AD81FE';
+var noGoColor = '#DD5044';
 
 // classes
 var lizardBody;
@@ -102,9 +104,11 @@ function draw(){
     lizardBody.update();
     lizardBody.display();
 
-
     // draw trial
     drawCurrentState();
+
+    // show score
+    drawScore();
 }
 
 /**
@@ -181,6 +185,21 @@ function drawCurrentState(){
 }
 
 
+function drawScore(){
+    textFont('Helvetica')
+    textSize(65);
+    stroke(255);
+    strokeWeight(3);
+
+    // go Score
+    fill(goColor);
+    text(goScore, .25*width, .95*height);
+
+    // noGo Score
+    fill(noGoColor);
+    text(noGoScore, .75*width, .95*height);
+}
+
 function nextTaskState(){
     // reset the lizard body
     lizardBody.reset();
@@ -223,6 +242,13 @@ function catchBug(){
         if (lizardBody.mouthIsOpen){
             lizardBody.catchBug();  // have lizard shoot tongue out
             trialBug.catchBug();    // update the bug to "caught" status
+
+            // update the scores
+            if (taskState == 'goTrial'){
+                goScore += 1;
+            } else if (taskState == 'noGoTrial'){
+                noGoScore -= 1;
+            };
         } else {
             console.log('cannot catch bug, mouth is closed...')
         }
@@ -373,8 +399,8 @@ function LizardEye(x,y,r){
 }
 
 function TrialBug(){
-    this.bugColor = {'goTrial': color(0,255,0),
-                     'noGoTrial': color(255,0,0)};
+    this.bugColor = {'goTrial': goColor,
+                     'noGoTrial': noGoColor};
 
     // initial config vars
     this.trialStatus = 'dead';
@@ -401,6 +427,7 @@ function TrialBug(){
             this.x = width - ((millis()-this.trialSt)/trialDur * width);
             this.yOff += .06;
             this.y += (noise(this.yOff)-.5)*10;  // flutters in the y-dim
+            this.y = constrain(this.y, .1*height, .9*height);
         } else {
             this.resetBug();
         }
