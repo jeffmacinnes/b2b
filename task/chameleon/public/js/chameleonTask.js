@@ -70,6 +70,10 @@ function setup() {
 
     // set up socket streaming
     socket = io.connect(window.location.origin)
+    socket.on('startTask', startTask);
+    socket.on('openMouth', openMouth);
+    socket.on('closeMouth', closeMouth);
+    socket.on('catchBug', catchBug);
     socket.on('senderProb', updateSenderProb);
     socket.on('senderConnected', senderConnected);
     socket.on('senderDisconnected', senderDisconnected);
@@ -114,8 +118,6 @@ function draw(){
 
     // draw trial
     drawCurrentState();
-
-
 }
 
 /**
@@ -246,6 +248,7 @@ function nextTaskState(){
             console.log('trial num: ' + trialNum);
 
             if (trialNum > trialOrder.length){
+                sendToServer('end');
                 taskState = 'end';
             } else {
                 taskState = trialOrder[trialNum-1];
@@ -255,26 +258,30 @@ function nextTaskState(){
     console.log(taskState);
 }
 
-
 function mousePressed(){
     // start the task if not started yet and user has clicked in startButton
     if (taskStarted != true) {
         var d = dist(mouseX, mouseY, startButton_x, startButton_y);
         if (d <= startButton_r){
-            startTask();
+            /** because we want the node server to start the task on all connected
+             * clients simultaneously, we send the start message to the server
+             * instead of calling the start function directly.
+             */
+             sendToServer('start');
         }
     }
 }
 
-function keyTyped(){
-    if (key === 'o'){
-        lizardBody.mouthIsOpen = true;
-    } else if (key === 'c'){
-        lizardBody.mouthIsOpen = false;
-    } else if (key == 't'){
-        catchBug();
-    };
+function openMouth(){
+    // open the lizards mouth
+    lizardBody.mouthIsOpen = true;
 }
+
+function closeMouth(){
+    // close the lizards mouth
+    lizardBody.mouthIsOpen = false;
+}
+
 
 function catchBug(){
     // make sure it's not a rest trial
@@ -297,6 +304,24 @@ function catchBug(){
         console.log('cannot catch bug, currently a REST trial');
     }
 }
+
+
+function keyTyped(){
+    /** FOR TESTING PURPOSES.
+     * This function allows us to simulate the types of messages that
+     * Pyneal will send to the node server during a scan
+     */
+    if (key === 'o'){
+        // open the mouth
+        sendToServer('openMouth')
+    } else if (key === 'c'){
+        // close the mouth
+        sendToServer('closeMouth')
+    } else if (key == 't'){
+        sendToServer('catchBug')
+    };
+}
+
 
 /**
  * Classes to represent various components of the task
@@ -588,6 +613,11 @@ function SenderConnection(x, y){
  * connected clients, and these functions are responsible for reading
  * those messages and updating the task behavior accordingly
  */
+function sendToServer(msg){
+    console.log('sending to server: ' + msg)
+    socket.emit(msg);
+}
+
 function updateSenderProb(data){
     console.log('sketch got: ' + data.volIdx + ', ' + data.prob)
     threshBar.updateProb(data.volIdx, data.prob);

@@ -23,7 +23,25 @@ io.sockets.on('connection', newConnection);
 function newConnection(socket){
     var id = socket.id;
     console.log('new socket.io connection received: ' + id);
+
+    // receive start message from one client
+    socket.on('start', function(){
+        console.log('got START signal from client');
+
+        // start the task on all connected clients
+        io.sockets.emit('startTask');
+    })
+
+    // received openMouth message from one client
+    socket.on('openMouth', sendOpenMouth);
+
+    // received closeMouth message from one client
+    socket.on('closeMouth', sendCloseMouth);
+
+    // received catchBug message from one client
+    socket.on('catchBug', sendCatchBug);
 }
+
 
 // set up routes for sending data -----------------
 // method to retrieve the current port number of the nodeserver
@@ -37,7 +55,26 @@ function newConnection(socket){
 //     console.log('sent ' + msg);
 // }
 
-// method for Pyneal to update server with data from sender
+function sendOpenMouth(){
+    // send open mouth command to all connected clients
+    io.sockets.emit('openMouth');
+}
+
+function sendCloseMouth(){
+    // send close mouth command to all connected clients
+    io.sockets.emit('closeMouth');
+}
+
+function sendCatchBug(){
+    // send catch bug command to all connected clients
+    io.sockets.emit('catchBug');
+}
+
+// URL routes that Pyneal can use to update server with data from sender
+app.get('/openMouth', sendOpenMouth);
+app.get('/closeMouth', sendCloseMouth);
+app.get('/catchBug', sendCatchBug);
+
 app.get('/addProb/:volIdx/:prob', sendProbability);
 function sendProbability(request, response){
     // send the volume index and prediction probability to all clients
