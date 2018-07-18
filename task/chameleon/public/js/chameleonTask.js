@@ -124,10 +124,17 @@ function draw(){
  * Functions to control various aspects of the task
  */
 function startTask(){
+    console.log('starting task');
     taskSt = millis();
     taskStarted = true;
     taskState = 'rest';
     restSt = millis();
+
+    trialNum = 0;
+
+    // reset scores
+    goScore = 0;
+    noGoScore = 0;
 }
 
 
@@ -313,12 +320,12 @@ function keyTyped(){
      */
     if (key === 'o'){
         // open the mouth
-        sendToServer('openMouth')
+        sendToServer('openMouth');
     } else if (key === 'c'){
         // close the mouth
-        sendToServer('closeMouth')
-    } else if (key == 't'){
-        sendToServer('catchBug')
+        sendToServer('closeMouth');
+    } else if (key == ' '){
+        sendToServer('catchBug');
     };
 }
 
