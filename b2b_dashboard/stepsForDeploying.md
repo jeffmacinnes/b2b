@@ -44,16 +44,27 @@ as well as a git repository at:
 You now have a `git remote` set up named `heroku` that links to that git repository.
 
 ### Push changes to subtree
-Any time you make changes to your node app and want to re-deploy, you must follow the typical git steps of add and commit:
+Any time you make changes to your node app and want to re-deploy, you must follow the typical git steps of add and commit. Note that you must be in the root level of your main repository to do this
 
 > git add *
 > git commit -m "blah blah blah"
 
-Then, you must push your subtree to the remote heroku repo:
+Then, you must push your subtree to the remote heroku repo. Note that the `--prefix` argument refers to the relative path to your heroku app (relative to the root level of the main repo):
 
 > git subtree push --prefix b2b_dashboard heroku master
 
 where `b2b_dashboard` is the directory containing your node app
+
+## Starting your app
+Once your app is deployed to heroku, make sure the dyno is running by typing:
+
+`heroku ps:scale web=1`
+
+Similarly, after you are done, stop the running dyno by typing:
+
+`heroku ps:scale web=0`
+
+
 
 ## Add'l heroku commands:
 

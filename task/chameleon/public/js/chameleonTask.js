@@ -2,9 +2,6 @@
 var fr = 25;    // framerate
 var socket;
 var socketPort;
-var host = '127.0.0.1';
-//var host = 'warm-river-88108.herokuapp.com';
-//var host = 'vast-bayou-51381.herokuapp.com'
 
 // task vars
 var trialDur = 8000;  // trial dur in ms

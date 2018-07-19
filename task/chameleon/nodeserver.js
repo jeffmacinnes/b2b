@@ -1,5 +1,5 @@
 // set up express to host the static site
-//var port = 8000;
+var port = 8080;
 //var port = process.env.PORT || 8080;   // let port be set by heroku
 //console.log('PORT NUMBER: ' + port);
 var express = require('express');
@@ -9,9 +9,10 @@ var app = express();
 //console.log('node server is running...')
 
 var server = require('http').Server(app);
-server.listen(process.env.PORT || 8080);
+//server.listen(process.env.PORT || 8080);
+server.listen(port)
 app.use(express.static('public'))   // host files in the 'public' dir
-console.log('node server is running...')
+console.log('node server is listening on port ' + port);
 
 
 // set up socket.io
@@ -40,57 +41,43 @@ function newConnection(socket){
 
     // received catchBug message from one client
     socket.on('catchBug', sendCatchBug);
-}
+};
 
 
-// set up routes for sending data -----------------
-// method to retrieve the current port number of the nodeserver
-// app.get('/getPortNum', getPortNum);
-// function getPortNum(request, response){
-//     var msg = {
-//         port: port
-//     };
-//     //msg = JSON.stringify(msg)
-//     response.send(msg);
-//     console.log('sent ' + msg);
-// }
 
+// Functions to send socket messages to ALL clients
 function sendOpenMouth(){
     // send open mouth command to all connected clients
     io.sockets.emit('openMouth');
-}
+};
 
 function sendCloseMouth(){
     // send close mouth command to all connected clients
     io.sockets.emit('closeMouth');
-}
+};
 
 function sendCatchBug(){
     // send catch bug command to all connected clients
     io.sockets.emit('catchBug');
-}
+};
+
 
 // URL routes that Pyneal can use to update server with data from sender
-app.get('/openMouth', sendOpenMouth);
-app.get('/closeMouth', sendCloseMouth);
-app.get('/catchBug', sendCatchBug);
+app.get('/openMouth', function(request, response){
+    sendOpenMouth();
+    response.send('node server got openMouth');
+});
 
-app.get('/addProb/:volIdx/:prob', sendProbability);
-function sendProbability(request, response){
-    // send the volume index and prediction probability to all clients
-    var data = request.params;
-    var msg = {
-        volIdx: Number(data.volIdx),
-        prob: Number(data.prob)
-    };
-    console.log('received from pyneal: ' + JSON.stringify(msg));
+app.get('/closeMouth', function(request, response){
+    sendCloseMouth();
+    response.send('node server got closeMouth');
+});
 
-    // broadcast to clients
-    io.sockets.emit('senderProb', msg);
+app.get('/catchBug', function(request, response){
+    sendCatchBug();
+    response.send('node server got catchBug');
+});
 
-    // send message back to sender, just cuz
-    response.send(msg);
-}
 
 app.get('/senderConnect', senderConnect);
 function senderConnect(request, response){
@@ -103,7 +90,7 @@ function senderConnect(request, response){
 
     // send message back to sender, just cuz
     response.send(msg);
-}
+};
 
 app.get('/senderDisconnect', senderDisconnect);
 function senderDisconnect(request, response){
@@ -116,4 +103,4 @@ function senderDisconnect(request, response){
 
     // send message back to sender, just cuz
     response.send(msg);
-}
+};
