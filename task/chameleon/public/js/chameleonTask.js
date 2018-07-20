@@ -16,8 +16,8 @@ var goScore = 0;
 var noGoScore = 0;
 
 // start button
-var startButton_x
-var startButton_y;
+var startButtonPos_sender;
+var startButtonPos_receiver;
 var startButton_r = 80;
 
 // bgVars
@@ -61,10 +61,6 @@ function setup() {
 
     // set offset value for BG noise
     BG_yOff = random(0,100);
-
-    // start button vars
-    startButton_x = width/2;
-    startButton_y = height/2;
 
     // set up socket streaming
     socket = io.connect(window.location.origin)
@@ -155,26 +151,41 @@ function drawCurrentState(){
     // internal logic for what to display on screen based on current task state
     // Start Screen
     if (taskState == 'start'){
+        // white transparent overlay
         noStroke();
-        fill(255, 150);
+        fill(255, 200);
         rect(0, 0, width, height);
 
+        // sender start button
+        startButtonPos_sender = {x: .25*width, y: height/2};
         stroke(100);
         strokeWeight(1);
-        if (dist(mouseX, mouseY, startButton_x, startButton_y) <= startButton_r){
-            fill(244, 191, 117);
-        } else {
+        if (dist(mouseX, mouseY, startButtonPos_sender.x, startButtonPos_sender.y) <= startButton_r){
             fill(255, 141, 0);
+        } else {
+            fill(244, 191, 117);
         }
-        ellipse(startButton_x, startButton_y, startButton_r);
+        ellipse(startButtonPos_sender.x, startButtonPos_sender.y, startButton_r);
+
+        // receiver start button
+        startButtonPos_receiver = {x: .75*width, y: height/2};
+        stroke(100);
+        strokeWeight(1);
+        if (dist(mouseX, mouseY, startButtonPos_receiver.x, startButtonPos_receiver.y) <= startButton_r){
+            fill(255, 141, 0);
+        } else {
+            fill(244, 191, 117);
+        }
+        ellipse(startButtonPos_receiver.x, startButtonPos_receiver.y, startButton_r);
 
         // start instruction text
         noStroke();
         fill(255, 141, 0);
-        textSize(50);
+        textSize(30);
         textFont('Courier');
         textAlign(CENTER, CENTER);
-        text('click circle to start!', width/2, .2*height);
+        text('START (as sender)', startButtonPos_sender.x, .3*height);
+        text('START (as receiver)', startButtonPos_receiver.x, .3*height);
 
     // GO/NO-GO TRIALS -----------------------------
     } else if (taskState == 'goTrial' || taskState == 'noGoTrial'){
@@ -265,15 +276,24 @@ function nextTaskState(){
 
 function mousePressed(){
     // start the task if not started yet and user has clicked in startButton
+    /** because we want the node server to start the task on all connected
+     * clients simultaneously, we send the start message to the server
+     * instead of calling the start function directly. Different messages
+     * are sent to server depending on which button was pressed, in order
+     * to identify the client (i.e. SENDER or RECEIVER) to the server
+     */
     if (taskStarted != true) {
-        var d = dist(mouseX, mouseY, startButton_x, startButton_y);
+        // check if sender start button was pressed
+        var d = dist(mouseX, mouseY, startButtonPos_sender.x, startButtonPos_sender.y);
         if (d <= startButton_r){
-            /** because we want the node server to start the task on all connected
-             * clients simultaneously, we send the start message to the server
-             * instead of calling the start function directly.
-             */
-             sendToServer('start');
-        }
+             sendToServer('startFromSender');
+        };
+
+        // check if receiver start button was pressed
+        d = dist(mouseX, mouseY, startButtonPos_receiver.x, startButtonPos_receiver.y);
+        if (d <= startButton_r){
+            sendToServer('startFromReceiver');
+        };
     }
 }
 

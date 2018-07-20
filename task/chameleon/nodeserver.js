@@ -8,41 +8,59 @@ server.listen(port)
 app.use(express.static('public'))   // host files in the 'public' dir
 console.log('node server is listening on port ' + port);
 
+var senderID;
+var receiverID;
+
 // task logging vars
 var fs = require('fs');
-var logObj = {
-    logs: []
-};
-var logObj = [];
+var logs = [];
 var taskStart;
-
-for (i=0; i<10; i++){
-    logObj.push({id: i, time: Date.now()});
-}
-var json = JSON.stringify(logObj, null, 3);
-fs.writeFile('testJsonLogs.json', json, 'utf-8');
+//
+// for (i=0; i<10; i++){
+//     logObj.push({id: i, time: Date.now()});
+// }
+// var json = JSON.stringify(logObj, null, 3);
+// fs.writeFile('testJsonLogs.json', json, 'utf-8');
 
 
 // set up socket.io
 var socket = require('socket.io');
 var io = socket(server)  // connect socket function to the express server obj
 
-// socket events
+// socket events between 
 io.sockets.on('connection', newConnection);
 function newConnection(socket){
     var id = socket.id;
     console.log('new socket.io connection received: ' + id);
 
-    // receive start message from one client
-    socket.on('start', function(){
-        console.log('got START signal from client');
+    /** receive start message
+     * The SENDER is the only client who should send the startMessage, but
+     * just to be sure, the task script has separate start buttons for
+     * SENDER and RECEIVER, attached to unique functions that send a io.socket
+     * message that correctly identifies them. NOTE that only the SENDER will
+     * actually start the task
+     */
+    socket.on('startFromSender', function(){
+        senderID = id;
+        console.log('got START signal from SENDER. ID: ' + senderID);
 
         // start the task on all connected clients
         io.sockets.emit('startTask');
     })
+    socket.on('startFromReceiver', function(){
+        receiverID = id;
+        console.log('got START signal from RECEIVER. ID: ' + receiverID);
+    })
 
     // received openMouth message from one client
-    socket.on('openMouth', sendOpenMouth);
+    socket.on('openMouth', function(){
+        if (id == senderID){
+            console.log('got openMouth from SENDER')
+        } else {
+            console.log('got openMouth from RECEIVER')
+        };
+        sendOpenMouth()
+    });
 
     // received closeMouth message from one client
     socket.on('closeMouth', sendCloseMouth);
