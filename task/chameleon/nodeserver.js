@@ -1,18 +1,26 @@
 // set up express to host the static site
 var port = 8080;
-//var port = process.env.PORT || 8080;   // let port be set by heroku
-//console.log('PORT NUMBER: ' + port);
 var express = require('express');
 var app = express();
 
-//var server = app.listen(port);
-//console.log('node server is running...')
-
 var server = require('http').Server(app);
-//server.listen(process.env.PORT || 8080);
 server.listen(port)
 app.use(express.static('public'))   // host files in the 'public' dir
 console.log('node server is listening on port ' + port);
+
+// task logging vars
+var fs = require('fs');
+var logObj = {
+    logs: []
+};
+var logObj = [];
+var taskStart;
+
+for (i=0; i<10; i++){
+    logObj.push({id: i, time: Date.now()});
+}
+var json = JSON.stringify(logObj, null, 3);
+fs.writeFile('testJsonLogs.json', json, 'utf-8');
 
 
 // set up socket.io
