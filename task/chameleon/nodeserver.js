@@ -8,8 +8,7 @@ server.listen(port)
 app.use(express.static('public'))   // host files in the 'public' dir
 console.log('node server is listening on port ' + port);
 
-var senderID;
-var receiverID;
+
 
 // task logging vars
 var fs = require('fs');
@@ -26,12 +25,21 @@ var taskStart;
 // set up socket.io
 var socket = require('socket.io');
 var io = socket(server)  // connect socket function to the express server obj
+var senderID;
+var receiverID;
+var connectionCounter = 0;
 
-// socket events between 
+// socket events between
 io.sockets.on('connection', newConnection);
 function newConnection(socket){
+    // increment connection counter, and start clock, if necessary
+    connectionCounter++;
+    if (connectionCounter == 1){
+        serverStart = Date.now();
+    }
+
     var id = socket.id;
-    console.log('new socket.io connection received: ' + id);
+    console.log('new socket.io connection received: ' + id + '; total: ' + connectionCounter);
 
     /** receive start message
      * The SENDER is the only client who should send the startMessage, but
@@ -44,62 +52,112 @@ function newConnection(socket){
         senderID = id;
         console.log('got START signal from SENDER. ID: ' + senderID);
 
+        // reset the logs array
+        logs = [];
+        addLog('incoming', 'SENDER', 'startFromSender');
+
         // start the task on all connected clients
         io.sockets.emit('startTask');
-    })
+        addLog('outgoing', 'NodeServer', 'startTask');
+    });
+
     socket.on('startFromReceiver', function(){
         receiverID = id;
         console.log('got START signal from RECEIVER. ID: ' + receiverID);
     })
 
-    // received openMouth message from one client
+    // received openMouth message from JS client
     socket.on('openMouth', function(){
         if (id == senderID){
-            console.log('got openMouth from SENDER')
+            var source = 'SENDER'
         } else {
-            console.log('got openMouth from RECEIVER')
+            var source = 'RECEIVER'
         };
-        sendOpenMouth()
+        addLog('incoming', source, 'openMouth');
+
+        // send command to all clients
+        sendOpenMouth();
     });
 
     // received closeMouth message from one client
-    socket.on('closeMouth', sendCloseMouth);
+    socket.on('closeMouth', function(){
+        if (id == senderID){
+            var source = 'SENDER'
+        } else {
+            var source = 'RECEIVER'
+        };
+        addLog('incoming', source, 'closeMouth');
+        sendCloseMouth();
+    });
 
     // received catchBug message from one client
-    socket.on('catchBug', sendCatchBug);
+    socket.on('catchBug', function(){
+        if (id == senderID){
+            var source = 'SENDER'
+        } else {
+            var source = 'RECEIVER'
+        };
+        addLog('incoming', source, 'catchBug');
+        sendCatchBug();
+    });
+
+
+    // socket disconnects
+    socket.on('disconnect', function(){
+        connectionCounter--;
+        console.log('socket id ' + socket.id + ' disconnected; total: ' + connectionCounter);
+    })
 };
 
-
+function addLog(direction, source, message){
+    /** add new log entry.
+     * direction: incoming/outgoing
+     * source: which component sent the message
+     * message: the message type
+     */
+     logs.push({timestamp: Date.now()-serverStart,
+                direction: direction,
+                source: source,
+                message: message
+            });
+    console.log(logs);
+}
 
 // Functions to send socket messages to ALL clients
 function sendOpenMouth(){
     // send open mouth command to all connected clients
     io.sockets.emit('openMouth');
+    addLog('outgoing', 'NodeServer', 'openMouth');
 };
 
 function sendCloseMouth(){
     // send close mouth command to all connected clients
     io.sockets.emit('closeMouth');
+    addLog('outgoing', 'NodeServer', 'closeMouth');
 };
 
 function sendCatchBug(){
     // send catch bug command to all connected clients
     io.sockets.emit('catchBug');
+    addLog('outgoing', 'NodeServer', 'catchBug');
 };
 
 
 // URL routes that Pyneal can use to update server with data from sender
 app.get('/openMouth', function(request, response){
+    addLog('incoming', 'webRoute', 'openMouth');
     sendOpenMouth();
     response.send('node server got openMouth');
 });
 
 app.get('/closeMouth', function(request, response){
+    addLog('incoming', 'webRoute', 'closeMouth');
     sendCloseMouth();
     response.send('node server got closeMouth');
 });
 
 app.get('/catchBug', function(request, response){
+    addLog('incoming', 'webRoute', 'catchBug');
     sendCatchBug();
     response.send('node server got catchBug');
 });
@@ -108,25 +166,27 @@ app.get('/catchBug', function(request, response){
 app.get('/senderConnect', senderConnect);
 function senderConnect(request, response){
     // indicate that sender (aka Pyneal) has initialized a connection
-    msg = 'sender connected'
-    console.log('sender connected!')
+    addLog('incoming', 'webRoute', 'pynealConnected');
+    console.log('sender connected!');
 
     // broadcast to clients
     io.sockets.emit('senderConnected');
+    addLog('outgoing', 'NodeServer', 'senderConnected');
 
     // send message back to sender, just cuz
-    response.send(msg);
+    response.send('sender connected');
 };
 
 app.get('/senderDisconnect', senderDisconnect);
 function senderDisconnect(request, response){
     // indicate that sender (aka Pyneal) has disconnected
-    msg = 'sender disconnected'
+    addLog('incoming', 'webRoute', 'pynealConnected')
     console.log('sender disconnected!')
 
     // broadcast to clients
     io.sockets.emit('senderDisconnected');
+    addLog('outgoing', 'NodeServer', 'senderDisconnected')
 
     // send message back to sender, just cuz
-    response.send(msg);
+    response.send('sender disconnected');
 };
