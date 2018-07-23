@@ -68,11 +68,7 @@ function newConnection(socket){
 
     // received openMouth message from JS client
     socket.on('openMouth', function(){
-        if (id == senderID){
-            var source = 'SENDER'
-        } else {
-            var source = 'RECEIVER'
-        };
+        var source = (id == senderID) ? 'SENDER' : 'RECEIVER';
         addLog('incoming', source, 'openMouth');
 
         // send command to all clients
@@ -81,26 +77,27 @@ function newConnection(socket){
 
     // received closeMouth message from one client
     socket.on('closeMouth', function(){
-        if (id == senderID){
-            var source = 'SENDER'
-        } else {
-            var source = 'RECEIVER'
-        };
+        var source = (id == senderID) ? 'SENDER' : 'RECEIVER';
+
         addLog('incoming', source, 'closeMouth');
         sendCloseMouth();
     });
 
     // received catchBug message from one client
     socket.on('catchBug', function(){
-        if (id == senderID){
-            var source = 'SENDER'
-        } else {
-            var source = 'RECEIVER'
-        };
+        var source = (id == senderID) ? 'SENDER' : 'RECEIVER';
+
         addLog('incoming', source, 'catchBug');
         sendCatchBug();
     });
 
+    // received endTask message from client
+    socket.on('endTask', function(){
+        var source = (id == senderID) ? 'SENDER' : 'RECEIVER';
+
+        addLog('incoming', source, 'endTask');
+        endTask();
+    });
 
     // socket disconnects
     socket.on('disconnect', function(){
@@ -142,6 +139,24 @@ function sendCatchBug(){
     addLog('outgoing', 'NodeServer', 'catchBug');
 };
 
+function endTask(){
+    // ask each client for all data
+
+    // save all data to disk
+    var json = JSON.stringify(logs, null, 3);
+    var today = new Date();
+    var fname = today.getFullYear() + '-' +
+                today.getMonth() + '-' +
+                today.getDate() + '_' +
+                today.getHours() + ':' +
+                today.getMinutes() + ':' + 
+                today.getSeconds() + '.json';
+    fs.writeFile(fname, json, 'utf-8');
+
+}
+var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+var dateTime = date+' '+time;
 
 // URL routes that Pyneal can use to update server with data from sender
 app.get('/openMouth', function(request, response){
