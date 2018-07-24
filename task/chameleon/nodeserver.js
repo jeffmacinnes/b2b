@@ -1,6 +1,7 @@
 // set up express to host the static site
 var port = 8080;
 var express = require('express');
+var path = require('path');
 var app = express();
 
 var server = require('http').Server(app);
@@ -8,19 +9,10 @@ server.listen(port)
 app.use(express.static('public'))   // host files in the 'public' dir
 console.log('node server is listening on port ' + port);
 
-
-
 // task logging vars
 var fs = require('fs');
 var logs = [];
 var taskStart;
-//
-// for (i=0; i<10; i++){
-//     logObj.push({id: i, time: Date.now()});
-// }
-// var json = JSON.stringify(logObj, null, 3);
-// fs.writeFile('testJsonLogs.json', json, 'utf-8');
-
 
 // set up socket.io
 var socket = require('socket.io');
@@ -37,7 +29,6 @@ function newConnection(socket){
     if (connectionCounter == 1){
         serverStart = Date.now();
     }
-
     var id = socket.id;
     console.log('new socket.io connection received: ' + id + '; total: ' + connectionCounter);
 
@@ -117,7 +108,6 @@ function addLog(direction, source, message){
                 source: source,
                 message: message
             });
-    console.log(logs);
 }
 
 // Functions to send socket messages to ALL clients
@@ -143,20 +133,19 @@ function endTask(){
     // ask each client for all data
 
     // save all data to disk
-    var json = JSON.stringify(logs, null, 3);
     var today = new Date();
-    var fname = today.getFullYear() + '-' +
-                today.getMonth() + '-' +
+    var dateString = today.getFullYear() + '-' +
+                today.getMonth()+1 + '-' +
                 today.getDate() + '_' +
                 today.getHours() + ':' +
-                today.getMinutes() + ':' + 
-                today.getSeconds() + '.json';
-    fs.writeFile(fname, json, 'utf-8');
+                today.getMinutes() + ':' +
+                today.getSeconds();
 
+    var nodeServerJSON = JSON.stringify(logs, null, 3);
+    var nodeServer_fname = 'taskLogs/' + dateString + '_nodeServer.json';
+    fs.writeFile(nodeServer_fname, nodeServerJSON, 'utf-8');
 }
-var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-var dateTime = date+' '+time;
+
 
 // URL routes that Pyneal can use to update server with data from sender
 app.get('/openMouth', function(request, response){
@@ -177,6 +166,11 @@ app.get('/catchBug', function(request, response){
     response.send('node server got catchBug');
 });
 
+
+app.get('/sender', function(request, response){
+    console.log('sender is connected!')
+    response.sendFile(path.join(__dirname + '/public/task.html'));
+})
 
 app.get('/senderConnect', senderConnect);
 function senderConnect(request, response){

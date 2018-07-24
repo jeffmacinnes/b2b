@@ -84,7 +84,7 @@ A goal of this scan is to confirm that we can send remote triggers to the TMS se
 2. Open a terminal and type: `ipconfig` to get the IPv4 address assigned to the `Wireless LAN adapter Wireless Network Connection`. Record this address and share with the folks on the fMRI side, as this is the address that **Pyneal** will use to send triggers to. 
 3. Confirm that the Arduino is plugged into the USB on the PC and get the COM port number. (Start Menu -> Devices and Printers). 
 4. Open `TMS_server.py` in text editor and confirm that correct COM/serial port is assigned (around line 23). 
-5. From the terminal, type: `C:\Python27\python.exe python TMS_server.py` to start the server listening, and confirm that it prints the correct port number to stdOut. 
+5. From the terminal, type: `C:\Python27\python.exe TMS_server.py` to start the server listening, and confirm that it prints the correct port number to stdOut. 
 
 ### Set up on IBIC side
 For a quick and dirty test, navigate to `.../b2b/TMS_server` and open up `sendTrigger2Server.py` in a text editor. 

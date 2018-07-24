@@ -264,7 +264,7 @@ function nextTaskState(){
             console.log('trial num: ' + trialNum);
 
             if (trialNum > trialOrder.length){
-                sendToServer('end');
+                sendToServer('endTask');
                 taskState = 'end';
             } else {
                 taskState = trialOrder[trialNum-1];
@@ -566,7 +566,6 @@ function TrialBug(){
         this.bugCaught = false;
         this.bugVisible = false;
     }
-
 }
 
 

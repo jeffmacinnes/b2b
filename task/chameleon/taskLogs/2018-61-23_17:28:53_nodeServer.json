@@ -1,0 +1,26 @@
+[
+   {
+      "timestamp": 205409,
+      "direction": "incoming",
+      "source": "SENDER",
+      "message": "startFromSender"
+   },
+   {
+      "timestamp": 205409,
+      "direction": "outgoing",
+      "source": "NodeServer",
+      "message": "startTask"
+   },
+   {
+      "timestamp": 247701,
+      "direction": "incoming",
+      "source": "RECEIVER",
+      "message": "endTask"
+   },
+   {
+      "timestamp": 247762,
+      "direction": "incoming",
+      "source": "SENDER",
+      "message": "endTask"
+   }
+]
