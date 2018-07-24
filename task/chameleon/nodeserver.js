@@ -20,6 +20,8 @@ var io = socket(server)  // connect socket function to the express server obj
 var senderID;
 var receiverID;
 var connectionCounter = 0;
+var connectedClients = {sender: false, receiver:false};
+
 
 // socket events between
 io.sockets.on('connection', newConnection);
@@ -90,6 +92,8 @@ function newConnection(socket){
         endTask();
     });
 
+    socket.on('getConnections', sendConnections);
+
     // socket disconnects
     socket.on('disconnect', function(){
         connectionCounter--;
@@ -129,6 +133,10 @@ function sendCatchBug(){
     addLog('outgoing', 'NodeServer', 'catchBug');
 };
 
+function sendConnections(){
+    io.sockets.emit('connections', connectedClients);
+};
+
 function endTask(){
     // ask each client for all data
 
@@ -145,7 +153,6 @@ function endTask(){
     var nodeServer_fname = 'taskLogs/' + dateString + '_nodeServer.json';
     fs.writeFile(nodeServer_fname, nodeServerJSON, 'utf-8');
 }
-
 
 // URL routes that Pyneal can use to update server with data from sender
 app.get('/openMouth', function(request, response){
@@ -170,6 +177,13 @@ app.get('/catchBug', function(request, response){
 app.get('/sender', function(request, response){
     console.log('sender is connected!')
     response.sendFile(path.join(__dirname + '/public/task.html'));
+    connectedClients.sender = true;
+})
+
+app.get('/receiver', function(request, response){
+    console.log(request)
+    response.sendFile(path.join(__dirname + '/public/task.html'));
+    connectedClients.receiver = true;
 })
 
 app.get('/senderConnect', senderConnect);

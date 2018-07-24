@@ -642,6 +642,8 @@ function sendToServer(msg){
     socket.emit(msg);
 }
 
+
+
 function updateSenderProb(data){
     console.log('sketch got: ' + data.volIdx + ', ' + data.prob)
     threshBar.updateProb(data.volIdx, data.prob);
