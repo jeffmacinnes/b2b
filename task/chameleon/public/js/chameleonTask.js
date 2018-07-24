@@ -42,7 +42,6 @@ var noGoColor = '#DD5044';
 
 // classes
 var lizardBody;
-var senderConnection;
 var lizardEye;
 
 /**
