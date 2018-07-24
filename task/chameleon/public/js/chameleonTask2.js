@@ -32,6 +32,8 @@ var taskStarted = false;
 var BG_yOff;
 var taskState = 'startScreen';
 var score = {go: 0, noGo: 0};
+var startButtonPos = {x: 400, y: 300};
+var startButtonRad = 80;
 
 /**
  * MAIN P5 SETUP/DRAW FUNCTIONS ----------------------------------------------
@@ -62,14 +64,7 @@ function setup(){
     });
 
     // buttons to identify as sender/receiver
-    senderButton = createButton('sender');
-    senderButton.position(.35*width - 32, .28*height);
-    senderButton.parent('taskSketchDiv')
-    senderButton.mousePressed(senderCheckedIn);
-    receiverButton = createButton('receiver');
-    receiverButton.position(.65*width - 37, .28*height);
-    receiverButton.parent('taskSketchDiv');
-    receiverButton.mousePressed(receiverCheckedIn);
+    createCheckInButtons();
 
     // create instances of sketch objects
     lizardBody = new LizardBody(lizardImg, mouthOpenImg, mouthClosedImg);
@@ -96,6 +91,19 @@ function draw(){
     // draw current state
     drawCurrentState();
 };
+
+function createCheckInButtons(){
+    // create the buttons that will allow each client to check in w/ roles to node server
+    senderButton = createButton('sender');
+    senderButton.position(.35*width - 32, .28*height);
+    senderButton.parent('taskSketchDiv')
+    senderButton.mousePressed(senderCheckedIn);
+    receiverButton = createButton('receiver');
+    receiverButton.position(.65*width - 37, .28*height);
+    receiverButton.parent('taskSketchDiv');
+    receiverButton.mousePressed(receiverCheckedIn);
+}
+
 
 /**
  * DRAW FUNCTIONS FOR TASK STAGES -------------------------------------------
@@ -165,6 +173,9 @@ function drawStartScreen(){
     // draw connection indicators for sender and receiver
     var connectedColor = color(84, 174, 80, 255);
     var disconnectedColor = color(84, 174, 80, 40);
+    fill(connectedColor);
+    textSize(24);
+    text('start button will appear once SENDER and RECEIVER both sign in', width/2, .1*height);
     stroke(120);
     senderIsConnected ? fill(connectedColor) : fill(disconnectedColor); // sender
     ellipse(.35*width, .2*height, 20);
@@ -172,6 +183,15 @@ function drawStartScreen(){
     ellipse(.65*width, .2*height, 20);
 
     // show start button if both sender & receiver are checked in
+    if (senderIsConnected && receiverIsConnected){
+        var d = dist(mouseX, mouseY, startButtonPos.x, startButtonPos.y);
+        (d <= startButtonRad) ? fill(255, 141, 0) : fill(244, 191, 117);
+        ellipse(startButtonPos.x, startButtonPos.y, startButtonRad);
+        fill(255);
+        noStroke();
+        textSize(32);
+        text('start!', startButtonPos.x, startButtonPos.y);
+    }
 }
 
 
