@@ -23,17 +23,17 @@ var senderID;
 var receiverID;
 
 // Task control vars
-var trialDur = 8000;  // trial dur in ms
-var taskState = 'start';
+var dummyScanDur = 1000;
+var trialDur = 2000;  // trial dur in ms
+var taskState = 'startScreen';
+var trialIncrementor;
 var taskSt;
 var trialNum = 0;
-var trialOrder = ['goTrial', 'noGoTrial',
-                    'goTrial', 'noGoTrial'];
+var trialOrder = ['goTrial', 'noGoTrial'];
 
 
-/** Set up socket function to fire in response to new clients
- * connecting. The socket function will also contain all of the event handlers
- * for possible messages that the socket may receive from each client
+/**
+ * DEFINE SOCKETS AND HANDLERS ********************************************
  */
 io.sockets.on('connection', function(socket){
     // increment connection counter, send currently connected clients
@@ -41,9 +41,12 @@ io.sockets.on('connection', function(socket){
     console.log('# connected clients: ' + connectionCounter);
     sendConnectedClients();
 
+    // tell the clients the current task state
+    sendTaskState();
+
     var id = socket.id;     // unique id of the connected client
 
-    /** SOCKET EVENT HANDLERS **/
+    /** SOCKET EVENT HANDLERS **********************************************/
     // client identifies as sender
     socket.on('senderCheckIn', function(){
         // set that the sender has connected
@@ -64,6 +67,11 @@ io.sockets.on('connection', function(socket){
         sendConnectedClients();
     })
 
+    // client sends start task command
+    socket.on('startTask', function(){
+        startTask();
+    });
+
     // client disconnects
     socket.on('disconnect', function(){
         // reduce connectionCounter
@@ -74,40 +82,13 @@ io.sockets.on('connection', function(socket){
         var source = (id == senderID) ? 'SENDER' : 'RECEIVER';
 
         // set the appropriate flag in connectedClients var
-        if (id == senderID){
-            connectedClients.sender = false;
-        } else if (id == receiverID){
-            connectedClients.receiver = false;
-        }
+        if (id == senderID){ connectedClients.sender = false; };
+        if (id == receiverID){ connectedClients.receiver = false; };
 
         // send the updated connectedClients obj to all clients
         sendConnectedClients();
     });
 
-    /** receive start message
-     * The SENDER is the only client who should send the startMessage, but
-     * just to be sure, the task script has separate start buttons for
-     * SENDER and RECEIVER, attached to unique functions that send a io.socket
-     * message that correctly identifies them. NOTE that only the SENDER will
-     * actually start the task
-     */
-    // socket.on('startFromSender', function(){
-    //     senderID = id;
-    //     console.log('got START signal from SENDER. ID: ' + senderID);
-    //
-    //     // reset the logs array
-    //     logs = [];
-    //     addLog('incoming', 'SENDER', 'startFromSender');
-    //
-    //     // start the task on all connected clients
-    //     io.sockets.emit('startTask');
-    //     addLog('outgoing', 'NodeServer', 'startTask');
-    // });
-    //
-    // socket.on('startFromReceiver', function(){
-    //     receiverID = id;
-    //     console.log('got START signal from RECEIVER. ID: ' + receiverID);
-    // })
     //
     // // received openMouth message from JS client
     // socket.on('openMouth', function(){
@@ -151,15 +132,19 @@ io.sockets.on('connection', function(socket){
     // })
 });
 
-/** SOCKET EMIT FUNCTIONS
- * These functions will handle sending information to all connected clients.
- * In many cases, theres more than one way to trigger these functions. For
- * instance, the client might elicit it via a incoming socket message, OR a
- * 3rd party can trigger it via a web route (for instance, command from Pyneal)
+/**
+ * OUTGOING SOCKET MESSAGE HANDLERS *******************************************
  */
 function sendConnectedClients(){
     // send the connectedClients obj to all clients
     io.sockets.emit('connectedClients', connectedClients);
+}
+
+function sendTaskState(){
+    // send the current task state to connected clients
+    io.sockets.emit('setTaskState', taskState);
+
+    console.log('emitting task state: ' + taskState);
 }
 
  function sendOpenMouth(){
@@ -179,6 +164,46 @@ function sendConnectedClients(){
      io.sockets.emit('catchBug');
      addLog('outgoing', 'NodeServer', 'catchBug');
  };
+
+ /**
+  * INCOMING WEB ROUTE FUNCTIONS *********************************************
+  */
+
+
+
+ /**
+  * TASK CONTROL FUNCTIONS ***************************************************
+  */
+function startTask(){
+    // set task state to 'dummyScans' for all clients;
+    taskState = 'dummyScans';
+    sendTaskState();
+
+    // after dummy scan duration, start the trials
+    setTimeout(startTrials, dummyScanDur);
+}
+
+function startTrials(){
+    // start the first trial
+    nextTrial();
+
+}
+
+function nextTrial(){
+    if (trialNum >= trialOrder.length){
+        taskState = 'end';
+        sendTaskState();
+    } else {
+        taskState = trialOrder[trialNum];
+        sendTaskState();
+
+        // increment trial counter
+        trialNum++;
+
+        // call it again after trial interval
+        setTimeout(nextTrial, trialDur);
+    }
+}
 
 //
 //

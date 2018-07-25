@@ -30,7 +30,7 @@ var cnv;
 var fr = 25;
 var taskStarted = false;
 var BG_yOff;
-var taskState = 'startScreen';
+var taskState;// = 'startScreen';
 var score = {go: 0, noGo: 0};
 var startButtonPos = {x: 400, y: 300};
 var startButtonRad = 80;
@@ -58,10 +58,8 @@ function setup(){
 
     /* SETUP SOCKET AND EVENT HANDLERS */
     socket = io.connect(window.location.origin)
-    socket.on('connectedClients', function(msg){
-        senderIsConnected = msg.sender;
-        receiverIsConnected = msg.receiver;
-    });
+    socket.on('connectedClients', updateConnectedClients);
+    socket.on('setTaskState', setTaskState);
 
     // buttons to identify as sender/receiver
     createCheckInButtons();
@@ -94,12 +92,12 @@ function draw(){
 
 function createCheckInButtons(){
     // create the buttons that will allow each client to check in w/ roles to node server
-    senderButton = createButton('sender');
-    senderButton.position(.35*width - 32, .28*height);
+    senderButton = createButton('choose');
+    senderButton.position(.35*width - 32, .3*height);
     senderButton.parent('taskSketchDiv')
     senderButton.mousePressed(senderCheckedIn);
-    receiverButton = createButton('receiver');
-    receiverButton.position(.65*width - 37, .28*height);
+    receiverButton = createButton('choose');
+    receiverButton.position(.65*width - 30, .3*height);
     receiverButton.parent('taskSketchDiv');
     receiverButton.mousePressed(receiverCheckedIn);
 }
@@ -161,6 +159,8 @@ function drawCurrentState(){
         case 'startScreen':
             drawStartScreen();
             break;
+        case 'dummyScans':
+            drawRestScreen();
     }
 }
 
@@ -176,6 +176,9 @@ function drawStartScreen(){
     fill(connectedColor);
     textSize(24);
     text('start button will appear once SENDER and RECEIVER both sign in', width/2, .1*height);
+    textSize(18);
+    text('sender', .35*width, .27*height);
+    text('receiver', .65*width, .27*height);
     stroke(120);
     senderIsConnected ? fill(connectedColor) : fill(disconnectedColor); // sender
     ellipse(.35*width, .2*height, 20);
@@ -194,6 +197,9 @@ function drawStartScreen(){
     }
 }
 
+function drawRestScreen(){
+    var a = 3;
+}
 
 /**
  * INTERACTIVITY (MOUSE/KEY PRESSES) ------------------------------------------
@@ -202,22 +208,66 @@ function drawStartScreen(){
 function keyTyped(){
     if (key == 's'){
         senderCheckedIn()
-    } else if (key == 'r'){
-        receiverCheckedIn();
-    }
+    };
 };
 
+function mousePressed(){
+    if (taskStarted === false){
+        if (senderIsConnected && receiverIsConnected){
+            var d = dist(mouseX, mouseY, startButtonPos.x, startButtonPos.y);
+            if (d <= startButtonRad){
+                sendMsgToServer('startTask');
+            };
+        };
+    };
+}
+
+
 /**
- * OUTGOING SOCKET MESSAGES --------------------------------------------------
+ * INCOMING SOCKET MESSAGE HANDLERS -------------------------------------------
  */
+function updateConnectedClients(msg){
+    // update which clients are connected to the node server
+    senderIsConnected = msg.sender;
+    receiverIsConnected = msg.receiver;
+
+    if (senderIsConnected) {
+        senderButton.hide();
+    } else {
+        senderButton.show();
+    };
+
+    if (receiverIsConnected){
+        receiverButton.hide();
+    } else {
+        receiverButton.show();
+    };
+};
+
+function setTaskState(msg){
+    // set the current task state to the state represented in msg
+    taskState = msg;
+    console.log('task state set as: ' + taskState);
+}
+
+
+/**
+ * OUTGOING SOCKET MESSAGE HANDLERS -------------------------------------------
+ */
+function sendMsgToServer(msg){
+    // send the specified msg to the server
+    socket.emit(msg);
+}
+
 function senderCheckedIn(){
     // tell node server that sender has checked in
-    socket.emit('senderCheckIn');
+    sendMsgToServer('senderCheckIn');
 };
 
 function  receiverCheckedIn(){
     // tell node server that receiver has checked in
-    socket.emit('receiverCheckIn');
+    sendMsgToServer('receiverCheckIn');
+
 };
 
 
