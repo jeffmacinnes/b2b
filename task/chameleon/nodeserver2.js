@@ -29,7 +29,9 @@ var taskState = 'startScreen';
 var trialIncrementor;
 var taskSt;
 var trialNum = 0;
-var trialOrder = ['goTrial', 'noGoTrial'];
+var trialOrder = ['goTrial', 'noGoTrial',
+                    'goTrial', 'noGoTrial'];
+var restDur = 2000;
 
 
 /**
@@ -175,6 +177,10 @@ function sendTaskState(){
   * TASK CONTROL FUNCTIONS ***************************************************
   */
 function startTask(){
+    // shuffle the trialOrder array
+    //trialOrder = shuffle(trialOrder);
+    //console.log(trialOrder);
+
     // set task state to 'dummyScans' for all clients;
     taskState = 'dummyScans';
     sendTaskState();
@@ -191,9 +197,11 @@ function startTrials(){
 
 function nextTrial(){
     if (trialNum >= trialOrder.length){
+        // if all trials have elapsed, send end
         taskState = 'end';
         sendTaskState();
     } else {
+        // otherwise send the next trial in the trial order
         taskState = trialOrder[trialNum];
         sendTaskState();
 
@@ -201,9 +209,37 @@ function nextTrial(){
         trialNum++;
 
         // call it again after trial interval
-        setTimeout(nextTrial, trialDur);
+        setTimeout(restTrial, trialDur);
     }
 }
+
+function restTrial(){
+    // send a rest trial to the task
+    taskState = 'rest'
+    sendTaskState();
+
+    // after rest interval, call next trial
+    setTimeout(nextTrial, restDur);
+}
+
+function shuffle(array) {
+    var currentIndex = array.length, temporaryValue, randomIndex;
+
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+
+        // And swap it with the current element.
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+    }
+    return array;
+};
+
 
 //
 //

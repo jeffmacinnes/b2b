@@ -34,6 +34,7 @@ var taskState;// = 'startScreen';
 var score = {go: 0, noGo: 0};
 var startButtonPos = {x: 400, y: 300};
 var startButtonRad = 80;
+var trialDur = 8000;
 
 /**
  * MAIN P5 SETUP/DRAW FUNCTIONS ----------------------------------------------
@@ -160,7 +161,12 @@ function drawCurrentState(){
             drawStartScreen();
             break;
         case 'dummyScans':
+        case 'rest':
             drawRestScreen();
+            break;
+        case 'goTrial':
+        case 'noGoTrial':
+            drawTrialScreen();
     }
 }
 
@@ -199,6 +205,12 @@ function drawStartScreen(){
 
 function drawRestScreen(){
     var a = 3;
+}
+
+function drawTrialScreen(){
+    // update and display the position of the target bug on the screen
+    trialBug.update();
+    trialBug.display();
 }
 
 /**
@@ -247,6 +259,17 @@ function updateConnectedClients(msg){
 function setTaskState(msg){
     // set the current task state to the state represented in msg
     taskState = msg;
+    if (taskState == 'goTrial' || taskState == 'noGoTrial'){
+        // reset the trialBug and set according to taskState
+        trialBug.setBugType(taskState)
+    } else if (taskState == 'rest'){
+        // reset the trialBug
+        trialBug.resetBug()
+
+        // reset the trialBug and set as a new noGoTrial Bug
+        lizardEye.resetEye();
+    };
+
     console.log('task state set as: ' + taskState);
 }
 
@@ -409,6 +432,11 @@ function LizardEye(x,y,r){
                                                -this.pupil_maxDist,
                                                this.pupil_maxDist);
     };
+
+    this.resetEye = function(){
+        // reset the eye to look at center again
+        this.lookAt(this.eyeCenter.x, this.eyeCenter.y);
+    }
 }
 
 function TrialBug(){
@@ -423,7 +451,6 @@ function TrialBug(){
     this.y = 0;
     this.yOff = 0;
     this.bugCaught = false;
-    this.bugVisible = false;
 
     this.update = function(){
         // start trial if necessary
@@ -432,23 +459,22 @@ function TrialBug(){
         }
 
         // calculate elapsed time
-        this.elapsedTime = millis() - this.trialSt;
+        //this.elapsedTime = millis() - this.trialSt;
 
         // if trial still alive...
-        if (this.elapsedTime <= trialDur && this.bugCaught == false){
+        //if (this.elapsedTime <= trialDur && this.bugCaught == false){
+        if (this.bugCaught === false){
             // update position. X is function of elapsed time; Y is noise flutter
             this.x = width - ((millis()-this.trialSt)/trialDur * width);
             this.yOff += .06;
             this.y += (noise(this.yOff)-.5)*10;  // flutters in the y-dim
             this.y = constrain(this.y, .1*height, .9*height);
-        } else {
-            this.resetBug();
         }
     }
 
-    this.display = function(trialType){
+    this.display = function(){
         if (this.bugVisible){
-            fill(this.bugColor[trialType]);
+            fill(this.bugColor[this.bugType]);
             stroke(100);
             strokeWeight(1);
             ellipse(this.x, this.y, 10);
@@ -475,7 +501,11 @@ function TrialBug(){
     this.catchBug = function(){
         // set "caught" flag to TRUE
         this.bugCaught = true;
-        this.bugVisible = false;
+    }
+
+    this.setBugType = function(bugType){
+        // set the bug type
+        this.bugType = bugType;
     }
 
     this.resetBug = function(){
@@ -487,7 +517,6 @@ function TrialBug(){
         this.y = 0;
         this.yOff = 0;
         this.bugCaught = false;
-        this.bugVisible = false;
     }
 }
 
