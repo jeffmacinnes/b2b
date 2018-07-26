@@ -33,6 +33,7 @@ var trialOrder = ['goTrial', 'noGoTrial',
                     'goTrial', 'noGoTrial'];
 var restDur = 2000;
 var mouthState = 'closed';
+var score;
 
 
 /**
@@ -95,12 +96,17 @@ io.sockets.on('connection', function(socket){
     // received openMouth command from client
     socket.on('openMouth', function(){
         updateMouth('openMouth');
-    })
+    });
 
     // received closeMouth command from client
     socket.on('closeMouth', function(){
         updateMouth('closeMouth');
-    })
+    });
+
+    // received catchBug command from client
+    socket.on('catchBug', function(){
+        catchBug();
+    });
 
     //
     // // received openMouth message from JS client
@@ -178,10 +184,23 @@ function sendTaskState(){
      //addLog('outgoing', 'NodeServer', 'catchBug');
  };
 
+function sendScore(){
+    // send the score object to all connected clients
+    io.sockets.emit('updateScore', score)
+}
+
  /**
   * INCOMING WEB ROUTE FUNCTIONS *********************************************
   */
+app.get('/openMouth', function(request, response){
+    //addLog('incoming', 'webRoute', 'openMouth');
+    updateMouth('openMouth');
+});
 
+app.get('/closeMouth', function(request, response){
+    //addLog('incoming', 'webRoute', 'closeMouth');
+    updateMouth('closeMouth');
+});
 
 
  /**
@@ -191,6 +210,9 @@ function startTask(){
     // shuffle the trialOrder array
     //trialOrder = shuffle(trialOrder);
     //console.log(trialOrder);
+
+    // reset score
+    score = {goTrial: 0, noGoTrial: 0}
 
     // set task state to 'dummyScans' for all clients;
     taskState = 'dummyScans';
@@ -240,16 +262,38 @@ function updateMouth(cmd){
     // update the mouthState, if necessary
     if (cmd == 'openMouth'){
         if (mouthState == 'closed'){
-            mouthState = 'open'
+            mouthState = 'open';
             sendOpenMouth();
         } else {
             console.log('mouth already open');
-        }
+        };
     } else if (cmd == 'closeMouth'){
         if (mouthState == 'open'){
             mouthState = 'closed';
             sendCloseMouth();
         }
+    }
+};
+
+function catchBug(){
+    // confirm that the conditions are met to catch the bug
+    if (mouthState === 'open'){
+        switch (taskState){
+            case 'goTrial':
+                score.goTrial++;
+                break;
+            case 'noGoTrial':
+                score.noGoTrial--;
+                break;
+            default:
+                console.log('currently no bug to catch');
+        };
+
+        // send command to catch bug and update score
+        sendCatchBug();
+        sendScore();
+    } else {
+        console.log('cannot catch bug, mouth is not open');
     }
 }
 
@@ -275,8 +319,6 @@ function shuffle(array) {
 /**
  * LOG FUNCTIONS *************************************************************
  */
-
-
 function addLog(direction, source, message){
     /** add new log entry.
      * direction: incoming/outgoing
@@ -308,17 +350,7 @@ function addLog(direction, source, message){
 // }
 //
 // // URL routes that Pyneal can use to update server with data from sender
-// app.get('/openMouth', function(request, response){
-//     addLog('incoming', 'webRoute', 'openMouth');
-//     sendOpenMouth();
-//     response.send('node server got openMouth');
-// });
-//
-// app.get('/closeMouth', function(request, response){
-//     addLog('incoming', 'webRoute', 'closeMouth');
-//     sendCloseMouth();
-//     response.send('node server got closeMouth');
-// });
+
 //
 // app.get('/catchBug', function(request, response){
 //     addLog('incoming', 'webRoute', 'catchBug');

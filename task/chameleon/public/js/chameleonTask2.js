@@ -31,7 +31,7 @@ var fr = 25;
 var taskStarted = false;
 var BG_yOff;
 var taskState;// = 'startScreen';
-var score = {go: 0, noGo: 0};
+var score = {goTrial: 0, noGoTrial: 0};
 var startButtonPos = {x: 400, y: 300};
 var startButtonRad = 80;
 var trialDur = 8000;
@@ -63,6 +63,7 @@ function setup(){
     socket.on('setTaskState', setTaskState);
     socket.on('openMouth', openMouth);
     socket.on('closeMouth', closeMouth);
+    socket.on('updateScore', updateScore);
 
     // buttons to identify as sender/receiver
     createCheckInButtons();
@@ -150,11 +151,11 @@ function drawScore(){
 
     // go Score
     fill(goColor);
-    text(score.go, .25*width, .95*height);
+    text(score.goTrial, .25*width, .95*height);
 
     // noGo Score
     fill(noGoColor);
-    text(score.noGo, .75*width, .95*height);
+    text(score.noGoTrial, .75*width, .95*height);
 }
 
 function drawCurrentState(){
@@ -226,6 +227,8 @@ function keyTyped(){
         sendMsgToServer('openMouth');
     } else if (key == 'c'){
         sendMsgToServer('closeMouth');
+    } else if (key == ' '){
+        sendMsgToServer('catchBug');
     }
 };
 
@@ -287,6 +290,11 @@ function openMouth(){
 function closeMouth(){
     // close the lizard's mouth
     lizardBody.mouthIsOpen = false;
+}
+
+function updateScore(newScore){
+    // update score with newScore obj from nodeserver
+    score = newScore;
 }
 
 
