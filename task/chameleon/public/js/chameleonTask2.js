@@ -64,6 +64,7 @@ function setup(){
     socket.on('openMouth', openMouth);
     socket.on('closeMouth', closeMouth);
     socket.on('updateScore', updateScore);
+    socket.on('catchBug', catchBug);
 
     // buttons to identify as sender/receiver
     createCheckInButtons();
@@ -233,7 +234,7 @@ function keyTyped(){
 };
 
 function mousePressed(){
-    if (taskStarted === false){
+    if (taskState == 'startScreen'){
         if (senderIsConnected && receiverIsConnected){
             var d = dist(mouseX, mouseY, startButtonPos.x, startButtonPos.y);
             if (d <= startButtonRad){
@@ -270,7 +271,8 @@ function setTaskState(msg){
     taskState = msg;
     if (taskState == 'goTrial' || taskState == 'noGoTrial'){
         // reset the trialBug and set according to taskState
-        trialBug.setBugType(taskState)
+        trialBug.startNewTrial(taskState)
+
     } else if (taskState == 'rest'){
         // reset the trialBug
         trialBug.resetBug()
@@ -297,6 +299,11 @@ function updateScore(newScore){
     score = newScore;
 }
 
+function catchBug(){
+    lizardBody.catchBug();
+    trialBug.catchBug();
+    lizardEye.resetEye();
+}
 
 /**
  * OUTGOING SOCKET MESSAGE HANDLERS -------------------------------------------
@@ -331,7 +338,7 @@ function LizardBody(lizardImg, mouthOpenImg, mouthClosedImg){
     this.tongueColor = color(225, 170, 120);
     this.tongueEnd = {x: 0, y: 0};
     this.tongueSt = 0;
-    this.tongueDur = 250;
+    this.tongueDur = 150;
 
     this.update = function(){
         // update the pos of tongueEnd based on pos
@@ -358,6 +365,9 @@ function LizardBody(lizardImg, mouthOpenImg, mouthClosedImg){
                 strokeWeight(5);
                 line(this.tongueStart.x, this.tongueStart.y,
                      this.tongueEnd.x, this.tongueEnd.y);
+            } else {
+                // reset the body after the tongue window has elapsed
+                this.reset();
             }
         };
     };
@@ -397,10 +407,12 @@ function LizardEye(x,y,r){
 
     this.update = function(){
         // look at bug if one is present
-        if (trialBug.trialStatus == 'alive'){
-            this.lookAt(trialBug.getPos());
-
-        // otherwise set eye to straight ahead
+        if (taskState == 'goTrial' || taskState == 'noGoTrial'){
+            if (trialBug.bugCaught == false){
+                this.lookAt(trialBug.getPos());
+            } else {
+                this.lookAt(this.eyeCenter);
+            }
         } else {
             this.lookAt(this.eyeCenter);
         };
@@ -458,7 +470,7 @@ function LizardEye(x,y,r){
 
     this.resetEye = function(){
         // reset the eye to look at center again
-        this.lookAt(this.eyeCenter.x, this.eyeCenter.y);
+        this.lookAt(this.eyeCenter);
     }
 }
 
@@ -467,7 +479,6 @@ function TrialBug(){
                      'noGoTrial': noGoColor};
 
     // initial config vars
-    this.trialStatus = 'dead';
     this.trialSt = 0;
     this.elapsedTime = 0;
     this.x = 0;
@@ -476,27 +487,21 @@ function TrialBug(){
     this.bugCaught = false;
 
     this.update = function(){
-        // start trial if necessary
-        if (this.trialStatus == 'dead'){
-            this.startTrial()
-        }
-
         // calculate elapsed time
         //this.elapsedTime = millis() - this.trialSt;
 
         // if trial still alive...
-        //if (this.elapsedTime <= trialDur && this.bugCaught == false){
         if (this.bugCaught === false){
             // update position. X is function of elapsed time; Y is noise flutter
             this.x = width - ((millis()-this.trialSt)/trialDur * width);
             this.yOff += .06;
             this.y += (noise(this.yOff)-.5)*10;  // flutters in the y-dim
             this.y = constrain(this.y, .1*height, .9*height);
-        }
+        };
     }
 
     this.display = function(){
-        if (this.bugVisible){
+        if (this.bugCaught == false){
             fill(this.bugColor[this.bugType]);
             stroke(100);
             strokeWeight(1);
@@ -504,16 +509,18 @@ function TrialBug(){
         }
     }
 
-    this.startTrial = function(){
+    this.startNewTrial = function(bugType){
+        // set the new bug type for this trial
+        this.bugType = bugType;
+
         // set starting position of the bug
         this.x = width;
         this.y = random(.1*height, .8*height);
         this.yOff = random(0,10);
-        this.bugVisible = true;
 
-        // record start time
+        // trial control vars
         this.trialSt = millis();
-        this.trialStatus = 'alive';
+        this.bugCaught = false;
     }
 
     this.getPos = function(){
@@ -533,9 +540,6 @@ function TrialBug(){
 
     this.resetBug = function(){
         // reset all of the bug variables
-        this.trialStatus = 'dead';
-        this.trialSt = 0;
-        this.elapsedTime = 0;
         this.x = 0;
         this.y = 0;
         this.yOff = 0;

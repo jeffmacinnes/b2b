@@ -24,7 +24,7 @@ var receiverID;
 
 // Task control vars
 var dummyScanDur = 1000;
-var trialDur = 2000;  // trial dur in ms
+var trialDur = 8000;  // trial dur in ms
 var taskState = 'startScreen';
 var trialIncrementor;
 var taskSt;
@@ -33,7 +33,7 @@ var trialOrder = ['goTrial', 'noGoTrial',
                     'goTrial', 'noGoTrial'];
 var restDur = 2000;
 var mouthState = 'closed';
-var score;
+var score = {goTrial: 0, noGoTrial: 0}
 
 
 /**
@@ -45,8 +45,9 @@ io.sockets.on('connection', function(socket){
     console.log('# connected clients: ' + connectionCounter);
     sendConnectedClients();
 
-    // tell the clients the current task state
+    // tell the clients the current task state and score
     sendTaskState();
+    sendScore();
 
     var id = socket.id;     // unique id of the connected client
 
@@ -201,6 +202,11 @@ app.get('/closeMouth', function(request, response){
     //addLog('incoming', 'webRoute', 'closeMouth');
     updateMouth('closeMouth');
 });
+
+app.get('/catchBug', function(request, response){
+    //addLog('incoming', 'webroute', 'catchBug');
+    catchBug();
+})
 
 
  /**
