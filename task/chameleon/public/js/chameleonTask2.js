@@ -61,6 +61,8 @@ function setup(){
     socket = io.connect(window.location.origin)
     socket.on('connectedClients', updateConnectedClients);
     socket.on('setTaskState', setTaskState);
+    socket.on('openMouth', openMouth);
+    socket.on('closeMouth', closeMouth);
 
     // buttons to identify as sender/receiver
     createCheckInButtons();
@@ -220,7 +222,11 @@ function drawTrialScreen(){
 function keyTyped(){
     if (key == 's'){
         senderCheckedIn()
-    };
+    } else if (key == 'o'){
+        sendMsgToServer('openMouth');
+    } else if (key == 'c'){
+        sendMsgToServer('closeMouth');
+    }
 };
 
 function mousePressed(){
@@ -273,6 +279,16 @@ function setTaskState(msg){
     console.log('task state set as: ' + taskState);
 }
 
+function openMouth(){
+    // open the lizard's mouth
+    lizardBody.mouthIsOpen = true;
+}
+
+function closeMouth(){
+    // close the lizard's mouth
+    lizardBody.mouthIsOpen = false;
+}
+
 
 /**
  * OUTGOING SOCKET MESSAGE HANDLERS -------------------------------------------
@@ -287,10 +303,9 @@ function senderCheckedIn(){
     sendMsgToServer('senderCheckIn');
 };
 
-function  receiverCheckedIn(){
+function receiverCheckedIn(){
     // tell node server that receiver has checked in
     sendMsgToServer('receiverCheckIn');
-
 };
 
 
@@ -531,11 +546,11 @@ function BgBug(){
     this.speed = random(1,3)
 
     this.update = function(){
-        this.xOff += 0.01;
-        var mx = noise(this.xOff)*2
+        this.xOff += 0.001;
+        var mx = noise(this.xOff)*3
         this.x += random(-mx, mx);
-        this.yOff += 0.01;
-        var my = noise(this.yOff)*2
+        this.yOff += 0.001;
+        var my = noise(this.yOff)*3
         this.y += random(-my, my);
     }
 

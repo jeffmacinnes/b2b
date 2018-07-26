@@ -32,6 +32,7 @@ var trialNum = 0;
 var trialOrder = ['goTrial', 'noGoTrial',
                     'goTrial', 'noGoTrial'];
 var restDur = 2000;
+var mouthState = 'closed';
 
 
 /**
@@ -90,6 +91,16 @@ io.sockets.on('connection', function(socket){
         // send the updated connectedClients obj to all clients
         sendConnectedClients();
     });
+
+    // received openMouth command from client
+    socket.on('openMouth', function(){
+        updateMouth('openMouth');
+    })
+
+    // received closeMouth command from client
+    socket.on('closeMouth', function(){
+        updateMouth('closeMouth');
+    })
 
     //
     // // received openMouth message from JS client
@@ -152,19 +163,19 @@ function sendTaskState(){
  function sendOpenMouth(){
      // send open mouth command to all connected clients
      io.sockets.emit('openMouth');
-     addLog('outgoing', 'NodeServer', 'openMouth');
+     //addLog('outgoing', 'NodeServer', 'openMouth');
  };
 
  function sendCloseMouth(){
      // send close mouth command to all connected clients
      io.sockets.emit('closeMouth');
-     addLog('outgoing', 'NodeServer', 'closeMouth');
+     //addLog('outgoing', 'NodeServer', 'closeMouth');
  };
 
  function sendCatchBug(){
      // send catch bug command to all connected clients
      io.sockets.emit('catchBug');
-     addLog('outgoing', 'NodeServer', 'catchBug');
+     //addLog('outgoing', 'NodeServer', 'catchBug');
  };
 
  /**
@@ -218,8 +229,28 @@ function restTrial(){
     taskState = 'rest'
     sendTaskState();
 
+    // make sure the lizards mouth is closed
+    updateMouth('closeMouth');
+
     // after rest interval, call next trial
     setTimeout(nextTrial, restDur);
+}
+
+function updateMouth(cmd){
+    // update the mouthState, if necessary
+    if (cmd == 'openMouth'){
+        if (mouthState == 'closed'){
+            mouthState = 'open'
+            sendOpenMouth();
+        } else {
+            console.log('mouth already open');
+        }
+    } else if (cmd == 'closeMouth'){
+        if (mouthState == 'open'){
+            mouthState = 'closed';
+            sendCloseMouth();
+        }
+    }
 }
 
 function shuffle(array) {
@@ -241,23 +272,23 @@ function shuffle(array) {
 };
 
 
-//
-//
-//
-//
-//
-// function addLog(direction, source, message){
-//     /** add new log entry.
-//      * direction: incoming/outgoing
-//      * source: which component sent the message
-//      * message: the message type
-//      */
-//      logs.push({timestamp: Date.now()-serverStart,
-//                 direction: direction,
-//                 source: source,
-//                 message: message
-//             });
-// }
+/**
+ * LOG FUNCTIONS *************************************************************
+ */
+
+
+function addLog(direction, source, message){
+    /** add new log entry.
+     * direction: incoming/outgoing
+     * source: which component sent the message
+     * message: the message type
+     */
+     logs.push({timestamp: Date.now()-serverStart,
+                direction: direction,
+                source: source,
+                message: message
+            });
+}
 //
 // function endTask(){
 //     // ask each client for all data
