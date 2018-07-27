@@ -28,10 +28,13 @@ var dummyScanDur = 1000;
 var trialDur = 2000;  // trial dur in ms
 var taskState = 'startScreen';
 var trialIncrementor;
-var taskSt;
-var trialNum = 0;
-var trialOrder = ['goTrial', 'noGoTrial',
-                    'goTrial', 'noGoTrial'];
+var taskStart;
+var trialNum = -1;      // note: -1, so nextTrial works correctly
+var trialOrder = ['goTrial', 'noGoTrial'];
+                    //'goTrial', 'noGoTrial'];
+var trialStarts = [];       // trial start times
+var trialOutcomes = [];     // trial outcomes
+var trialCatchTimes = [];     // bug catch times
 var restDur = 2000;
 var mouthState = 'closed';
 var score = {goTrial: 0, noGoTrial: 0}
@@ -217,12 +220,16 @@ app.get('/catchBug', function(request, response){
   * TASK CONTROL FUNCTIONS ***************************************************
   */
 function startTask(){
-    // shuffle the trialOrder array
-    //trialOrder = shuffle(trialOrder);
-    //console.log(trialOrder);
+    // record start time (Note: this time is BEFORE the dummyScans)
+    taskStart = Date.now();
 
-    // reset score
-    score = {goTrial: 0, noGoTrial: 0}
+    // shuffle the trialOrder array
+    trialOrder = shuffle(trialOrder);
+
+    // reset relevant vars for the task
+    resetTaskVars();
+
+    // send reset score to all clients
     sendScore();
 
     // set task state to 'dummyScans' for all clients;
@@ -236,10 +243,12 @@ function startTask(){
 function startTrials(){
     // start the first trial
     nextTrial();
-
 }
 
 function nextTrial(){
+    // increment the trial counter
+    trialNum++;
+
     // make sure mouth is closed at beginning of each trial
     updateMouth('closeMouth');
 
@@ -254,11 +263,15 @@ function nextTrial(){
     } else {
         // otherwise send the next trial in the trial order
         taskState = trialOrder[trialNum];
-        thisTrialCaught = false;
-        sendTaskState();
 
-        // increment trial counter
-        trialNum++;
+        // initialize vars for this trial
+        trialStarts[trialNum] = Date.now()-taskStart;
+        trialOutcomes[trialNum] = 'uncaught';
+        trialCatchTimes[trialNum] = 'NA';
+        thisTrialCaught = false;
+
+        // send new task state to clients
+        sendTaskState();
 
         // call it again after trial interval
         setTimeout(restTrial, trialDur);
@@ -284,16 +297,19 @@ function finishTask(){
     logs = [];
 
     // reset the server task vars
-    resetTask();
+    resetTaskVars();
 }
 
-function resetTask(){
+function resetTaskVars(){
     // reset all of the task vars so the next task can begin all over
-    console.log('reseting task on server')
+    console.log('resetting task on server')
     taskState = 'startScreen';
-    trialNum = 0;
+    trialNum = -1;      // -1 so the first time nextTrial is called it starts at 0
     mouthState = 'closed';
-    score = {goTrial: 0, noGoTrial: 0}
+    score = {goTrial: 0, noGoTrial: 0};
+    trialStarts = [];
+    trialOutcomes = [];
+    bugCatchTimes = [];
     thisTrialCaught = false;
 }
 
@@ -331,6 +347,8 @@ function catchBug(){
                 };
                 // update status and send command to catch bug and update score
                 thisTrialCaught = true;
+                trialOutcomes[trialNum] = 'caught';
+                trialCatchTimes[trialNum] = Date.now() - taskStart;
                 sendCatchBug();
                 sendScore();
             } else {
@@ -388,75 +406,46 @@ function saveData(){
                 today.getSeconds();
     console.log(dateString)
 
-    // save logs;
-    var nodeServerJSON = JSON.stringify(logs, null, 3);
-    var nodeServer_fname = 'taskLogs/' + dateString + '_serverLogs.json';
-    fs.writeFile(nodeServer_fname, nodeServerJSON, 'utf-8');
-}
-//
-// function endTask(){
-//     // ask each client for all data
-//
-//     // save all data to disk
-//     var today = new Date();
-//     var dateString = today.getFullYear() + '-' +
-//                 today.getMonth()+1 + '-' +
-//                 today.getDate() + '_' +
-//                 today.getHours() + ':' +
-//                 today.getMinutes() + ':' +
-//                 today.getSeconds();
-//
-//     var nodeServerJSON = JSON.stringify(logs, null, 3);
-//     var nodeServer_fname = 'taskLogs/' + dateString + '_nodeServer.json';
-//     fs.writeFile(nodeServer_fname, nodeServerJSON, 'utf-8');
-// }
-//
-// // URL routes that Pyneal can use to update server with data from sender
+    /** SAVE SERVER LOGS**/
+    var nodeServerLog_fname = 'taskLogs/' + dateString + '_serverLogs.tsv';
 
-//
-// app.get('/catchBug', function(request, response){
-//     addLog('incoming', 'webRoute', 'catchBug');
-//     sendCatchBug();
-//     response.send('node server got catchBug');
-// });
-//
-//
-// app.get('/sender', function(request, response){
-//     console.log('sender is connected!')
-//     response.sendFile(path.join(__dirname + '/public/task.html'));
-//     connectedClients.sender = true;
-// })
-//
-// app.get('/receiver', function(request, response){
-//     console.log(request)
-//     response.sendFile(path.join(__dirname + '/public/task.html'));
-//     connectedClients.receiver = true;
-// })
-//
-// app.get('/senderConnect', senderConnect);
-// function senderConnect(request, response){
-//     // indicate that sender (aka Pyneal) has initialized a connection
-//     addLog('incoming', 'webRoute', 'pynealConnected');
-//     console.log('sender connected!');
-//
-//     // broadcast to clients
-//     io.sockets.emit('senderConnected');
-//     addLog('outgoing', 'NodeServer', 'senderConnected');
-//
-//     // send message back to sender, just cuz
-//     response.send('sender connected');
-// };
-//
-// app.get('/senderDisconnect', senderDisconnect);
-// function senderDisconnect(request, response){
-//     // indicate that sender (aka Pyneal) has disconnected
-//     addLog('incoming', 'webRoute', 'pynealConnected')
-//     console.log('sender disconnected!')
-//
-//     // broadcast to clients
-//     io.sockets.emit('senderDisconnected');
-//     addLog('outgoing', 'NodeServer', 'senderDisconnected')
-//
-//     // send message back to sender, just cuz
-//     response.send('sender disconnected');
-// };
+    // header
+    var logHeader = 'timestamp' + '\t' + 'direction'+ '\t' + 'source' + '\t' + 'message' + '\n';
+    fs.open(nodeServerLog_fname, 'w', function(err, fd){
+        fs.write(fd, logHeader, function(){
+            fs.close(fd);
+        });
+    });
+    // write output data
+    for (var l = 0; l < logs.length; l++) {
+        var thisLine =  logs[l].timestamp + '\t' +
+                        logs[l].direction + '\t' +
+                        logs[l].source + '\t' +
+                        logs[l].message + '\n'
+        fs.appendFile(nodeServerLog_fname, thisLine);
+    };
+
+    // var nodeServerJSON = JSON.stringify(logs, null, 3);
+    // var nodeServerLog_fname = 'taskLogs/' + dateString + '_serverLogs.json';
+    // fs.writeFile(nodeServerLog_fname, nodeServerJSON, 'utf-8');
+
+    /** SAVE TASK OUTPUT**/
+    taskOutput_fname = 'taskLogs/' + dateString + '_taskOutput.tsv';
+
+    // write header
+    var taskOutputHeader = 'trialNum' + '\t' + 'trialType'+ '\t' + 'startTime' + '\t' + 'outcome' + '\t' + 'catchTime' + '\n';
+    fs.open(taskOutput_fname, 'w', function(err, fd){
+        fs.write(fd, taskOutputHeader, function(){
+            fs.close(fd);
+        });
+    });
+    // write output data
+    for (var i = 0; i < trialOrder.length; i++) {
+        var thisLine =  (i+1) + '\t' +
+                        trialOrder[i] + '\t' +
+                        trialStarts[i] + '\t' +
+                        trialOutcomes[i] + '\t' +
+                        trialCatchTimes[i] + '\n'
+        fs.appendFile(taskOutput_fname, thisLine);
+    };
+}
