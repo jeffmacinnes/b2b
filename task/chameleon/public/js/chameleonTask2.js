@@ -221,7 +221,7 @@ function drawTrialScreen(){
 }
 
 function drawEndScreen(){
-    fill(255,100);
+    fill(255,150);
     noStroke();
     rect(0,0,width,height);
 
@@ -385,6 +385,7 @@ function LizardBody(lizardImg, mouthOpenImg, mouthClosedImg){
             } else {
                 // reset the body after the tongue window has elapsed
                 this.resetTongue();
+                this.mouthIsOpen = false;
             }
         };
     };

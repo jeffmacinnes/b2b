@@ -8,6 +8,7 @@ var server = require('http').Server(app);
 server.listen(port)
 app.use(express.static('public'))   // host files in the 'public' dir
 console.log('node server is listening on port ' + port);
+var serverStart = Date.now();
 
 // task logging vars
 var fs = require('fs');
@@ -19,8 +20,8 @@ var socket = require('socket.io');
 var io = socket(server)  // connect socket function to the express server obj
 var connectedClients = {sender: false, receiver:false};
 var connectionCounter = 0;
-var senderID;
-var receiverID;
+var senderID = '';
+var receiverID = '';
 
 // Task control vars
 var dummyScanDur = 1000;
@@ -61,6 +62,7 @@ io.sockets.on('connection', function(socket){
 
         // send the connectedClients obj to all clients
         sendConnectedClients();
+        addLog('incoming', 'SENDER', 'senderCheckIn');
     });
 
     // client identifies as receiver
@@ -71,11 +73,16 @@ io.sockets.on('connection', function(socket){
 
         // send the connectedClients obj to all clients
         sendConnectedClients();
+        addLog('incoming', 'RECEIVER', 'receiverCheckIn')
     })
 
     // client sends start task command
     socket.on('startTask', function(){
         startTask();
+
+        // log
+        var source = getSource(id);
+        addLog('incoming', source, 'startTask')
     });
 
     // client disconnects
@@ -84,74 +91,67 @@ io.sockets.on('connection', function(socket){
         connectionCounter--;
         console.log('# connected clients: ' + connectionCounter);
 
-        // figure out which client this is
-        var source = (id == senderID) ? 'SENDER' : 'RECEIVER';
-
-        // set the appropriate flag in connectedClients var
-        if (id == senderID){ connectedClients.sender = false; };
-        if (id == receiverID){ connectedClients.receiver = false; };
+        // set the appropriate flag in connectedClients var, clear IDs
+        if (id == senderID){
+            connectedClients.sender = false;
+            senderID = '';
+        }
+        if (id == receiverID){
+            connectedClients.receiver = false;
+            receiverID = '';
+        };
 
         // send the updated connectedClients obj to all clients
         sendConnectedClients();
+
+        // log
+        var source = getSource(id);
+        addLog('incoming', source, 'disconnected')
     });
 
     // received openMouth command from client
     socket.on('openMouth', function(){
         updateMouth('openMouth');
+
+        // log
+        var source = getSource(id);
+        addLog('incoming', source, 'openMouth')
     });
 
     // received closeMouth command from client
     socket.on('closeMouth', function(){
         updateMouth('closeMouth');
+
+        // log
+        var source = getSource(id);
+        addLog('incoming', source, 'closeMouth')
     });
 
     // received catchBug command from client
     socket.on('catchBug', function(){
         catchBug();
+
+        // log
+        var source = getSource(id);
+        addLog('incoming', source, 'catchBug');
     });
 
-    //
-    // // received openMouth message from JS client
-    // socket.on('openMouth', function(){
-    //     var source = (id == senderID) ? 'SENDER' : 'RECEIVER';
-    //     addLog('incoming', source, 'openMouth');
-    //
-    //     // send command to all clients
-    //     sendOpenMouth();
-    // });
-    //
-    // // received closeMouth message from one client
-    // socket.on('closeMouth', function(){
-    //     var source = (id == senderID) ? 'SENDER' : 'RECEIVER';
-    //
-    //     addLog('incoming', source, 'closeMouth');
-    //     sendCloseMouth();
-    // });
-    //
-    // // received catchBug message from one client
-    // socket.on('catchBug', function(){
-    //     var source = (id == senderID) ? 'SENDER' : 'RECEIVER';
-    //
-    //     addLog('incoming', source, 'catchBug');
-    //     sendCatchBug();
-    // });
-    //
-    // // received endTask message from client
-    // socket.on('endTask', function(){
-    //     var source = (id == senderID) ? 'SENDER' : 'RECEIVER';
-    //
-    //     addLog('incoming', source, 'endTask');
-    //     endTask();
-    // });
-    //
-    // socket.on('getConnections', sendConnections);
-    //
-    // // socket disconnects
-    // socket.on('disconnect', function(){
-    //     connectionCounter--;
-    //     console.log('socket id ' + socket.id + ' disconnected; total: ' + connectionCounter);
-    // })
 });
+
+function getSource(id){
+    // assign a meaniningful name to the given socket ID
+    switch (id){
+        case senderID:
+            var source = 'SENDER';
+            break;
+        case receiverID:
+            var source = 'RECEIVER';
+            break;
+        default:
+            var source = 'extraClient';
+    }
+    return source;
+}
 
 /**
  * OUTGOING SOCKET MESSAGE HANDLERS *******************************************
@@ -159,11 +159,13 @@ io.sockets.on('connection', function(socket){
 function sendConnectedClients(){
     // send the connectedClients obj to all clients
     io.sockets.emit('connectedClients', connectedClients);
+    addLog('outgoing', 'nodeServer', 'connectedClients');
 }
 
 function sendTaskState(){
     // send the current task state to connected clients
     io.sockets.emit('setTaskState', taskState);
+    addLog('outgoing', 'nodeServer', 'setTaskState: ' + taskState);
 
     console.log('emitting task state: ' + taskState);
 }
@@ -171,41 +173,42 @@ function sendTaskState(){
  function sendOpenMouth(){
      // send open mouth command to all connected clients
      io.sockets.emit('openMouth');
-     //addLog('outgoing', 'NodeServer', 'openMouth');
+     addLog('outgoing', 'nodeServer', 'openMouth');
  };
 
  function sendCloseMouth(){
      // send close mouth command to all connected clients
      io.sockets.emit('closeMouth');
-     //addLog('outgoing', 'NodeServer', 'closeMouth');
+     addLog('outgoing', 'nodeServer', 'closeMouth');
  };
 
  function sendCatchBug(){
      // send catch bug command to all connected clients
      io.sockets.emit('catchBug');
-     //addLog('outgoing', 'NodeServer', 'catchBug');
+     addLog('outgoing', 'nodeServer', 'catchBug');
  };
 
 function sendScore(){
     // send the score object to all connected clients
     io.sockets.emit('updateScore', score)
+    addLog('outgoing', 'nodeServer', 'updateScore');
 }
 
  /**
   * INCOMING WEB ROUTE FUNCTIONS *********************************************
   */
 app.get('/openMouth', function(request, response){
-    //addLog('incoming', 'webRoute', 'openMouth');
+    addLog('incoming', 'webRoute', 'openMouth');
     updateMouth('openMouth');
 });
 
 app.get('/closeMouth', function(request, response){
-    //addLog('incoming', 'webRoute', 'closeMouth');
+    addLog('incoming', 'webRoute', 'closeMouth');
     updateMouth('closeMouth');
 });
 
 app.get('/catchBug', function(request, response){
-    //addLog('incoming', 'webroute', 'catchBug');
+    addLog('incoming', 'webRoute', 'catchBug');
     catchBug();
 })
 
@@ -237,6 +240,9 @@ function startTrials(){
 }
 
 function nextTrial(){
+    // make sure mouth is closed at beginning of each trial
+    updateMouth('closeMouth');
+
     if (trialNum >= trialOrder.length){
         // if all trials have elapsed, send end
         taskState = 'end';
@@ -250,7 +256,6 @@ function nextTrial(){
         taskState = trialOrder[trialNum];
         thisTrialCaught = false;
         sendTaskState();
-        updateMouth('closeMouth');
 
         // increment trial counter
         trialNum++;
@@ -275,6 +280,8 @@ function restTrial(){
 function finishTask(){
     // after the task has completed run through all of these steps to finish up
     // save logs and data files
+    saveData();
+    logs = [];
 
     // reset the server task vars
     resetTask();
@@ -326,9 +333,6 @@ function catchBug(){
                 thisTrialCaught = true;
                 sendCatchBug();
                 sendScore();
-
-                // and close the mouth
-                updateMouth('closeMouth');
             } else {
                 console.log('already caught the bug on this trial');
             };
@@ -371,6 +375,23 @@ function addLog(direction, source, message){
                 source: source,
                 message: message
             });
+};
+
+function saveData(){
+    // fname prefix based on datetime
+    var today = new Date();
+    var dateString = today.getFullYear() + '-' +
+                (today.getMonth()+1) + '-' +
+                today.getDate() + '_' +
+                today.getHours() + '-' +
+                today.getMinutes() + '-' +
+                today.getSeconds();
+    console.log(dateString)
+
+    // save logs;
+    var nodeServerJSON = JSON.stringify(logs, null, 3);
+    var nodeServer_fname = 'taskLogs/' + dateString + '_serverLogs.json';
+    fs.writeFile(nodeServer_fname, nodeServerJSON, 'utf-8');
 }
 //
 // function endTask(){

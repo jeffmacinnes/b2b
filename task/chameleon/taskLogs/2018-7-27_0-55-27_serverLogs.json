@@ -1,0 +1,308 @@
+[
+   {
+      "timestamp": 4266,
+      "direction": "outgoing",
+      "source": "nodeServer",
+      "message": "connectedClients"
+   },
+   {
+      "timestamp": 4267,
+      "direction": "outgoing",
+      "source": "nodeServer",
+      "message": "setTaskState: startScreen"
+   },
+   {
+      "timestamp": 4267,
+      "direction": "outgoing",
+      "source": "nodeServer",
+      "message": "updateScore"
+   },
+   {
+      "timestamp": 4500,
+      "direction": "outgoing",
+      "source": "nodeServer",
+      "message": "connectedClients"
+   },
+   {
+      "timestamp": 4500,
+      "direction": "incoming",
+      "source": "extraClient",
+      "message": "disconnected"
+   },
+   {
+      "timestamp": 4691,
+      "direction": "outgoing",
+      "source": "nodeServer",
+      "message": "connectedClients"
+   },
+   {
+      "timestamp": 4691,
+      "direction": "outgoing",
+      "source": "nodeServer",
+      "message": "setTaskState: startScreen"
+   },
+   {
+      "timestamp": 4691,
+      "direction": "outgoing",
+      "source": "nodeServer",
+      "message": "updateScore"
+   },
+   {
+      "timestamp": 5714,
+      "direction": "outgoing",
+      "source": "nodeServer",
+      "message": "connectedClients"
+   },
+   {
+      "timestamp": 5714,
+      "direction": "incoming",
+      "source": "SENDER",
+      "message": "senderCheckIn"
+   },
+   {
+      "timestamp": 6367,
+      "direction": "outgoing",
+      "source": "nodeServer",
+      "message": "connectedClients"
+   },
+   {
+      "timestamp": 6367,
+      "direction": "incoming",
+      "source": "RECEIVER",
+      "message": "receiverCheckIn"
+   },
+   {
+      "timestamp": 6881,
+      "direction": "outgoing",
+      "source": "nodeServer",
+      "message": "updateScore"
+   },
+   {
+      "timestamp": 6881,
+      "direction": "outgoing",
+      "source": "nodeServer",
+      "message": "setTaskState: dummyScans"
+   },
+   {
+      "timestamp": 6881,
+      "direction": "incoming",
+      "source": "SENDER",
+      "message": "startTask"
+   },
+   {
+      "timestamp": 7884,
+      "direction": "outgoing",
+      "source": "nodeServer",
+      "message": "setTaskState: goTrial"
+   },
+   {
+      "timestamp": 8450,
+      "direction": "outgoing",
+      "source": "nodeServer",
+      "message": "openMouth"
+   },
+   {
+      "timestamp": 8450,
+      "direction": "incoming",
+      "source": "SENDER",
+      "message": "openMouth"
+   },
+   {
+      "timestamp": 8634,
+      "direction": "outgoing",
+      "source": "nodeServer",
+      "message": "catchBug"
+   },
+   {
+      "timestamp": 8634,
+      "direction": "outgoing",
+      "source": "nodeServer",
+      "message": "updateScore"
+   },
+   {
+      "timestamp": 8634,
+      "direction": "incoming",
+      "source": "SENDER",
+      "message": "catchBug"
+   },
+   {
+      "timestamp": 9887,
+      "direction": "outgoing",
+      "source": "nodeServer",
+      "message": "setTaskState: rest"
+   },
+   {
+      "timestamp": 9888,
+      "direction": "outgoing",
+      "source": "nodeServer",
+      "message": "closeMouth"
+   },
+   {
+      "timestamp": 11252,
+      "direction": "outgoing",
+      "source": "nodeServer",
+      "message": "openMouth"
+   },
+   {
+      "timestamp": 11252,
+      "direction": "incoming",
+      "source": "SENDER",
+      "message": "openMouth"
+   },
+   {
+      "timestamp": 11889,
+      "direction": "outgoing",
+      "source": "nodeServer",
+      "message": "closeMouth"
+   },
+   {
+      "timestamp": 11889,
+      "direction": "outgoing",
+      "source": "nodeServer",
+      "message": "setTaskState: noGoTrial"
+   },
+   {
+      "timestamp": 12634,
+      "direction": "outgoing",
+      "source": "nodeServer",
+      "message": "openMouth"
+   },
+   {
+      "timestamp": 12634,
+      "direction": "incoming",
+      "source": "SENDER",
+      "message": "openMouth"
+   },
+   {
+      "timestamp": 13226,
+      "direction": "outgoing",
+      "source": "nodeServer",
+      "message": "catchBug"
+   },
+   {
+      "timestamp": 13226,
+      "direction": "outgoing",
+      "source": "nodeServer",
+      "message": "updateScore"
+   },
+   {
+      "timestamp": 13226,
+      "direction": "incoming",
+      "source": "SENDER",
+      "message": "catchBug"
+   },
+   {
+      "timestamp": 13895,
+      "direction": "outgoing",
+      "source": "nodeServer",
+      "message": "setTaskState: rest"
+   },
+   {
+      "timestamp": 13896,
+      "direction": "outgoing",
+      "source": "nodeServer",
+      "message": "closeMouth"
+   },
+   {
+      "timestamp": 15900,
+      "direction": "outgoing",
+      "source": "nodeServer",
+      "message": "setTaskState: goTrial"
+   },
+   {
+      "timestamp": 16305,
+      "direction": "outgoing",
+      "source": "nodeServer",
+      "message": "openMouth"
+   },
+   {
+      "timestamp": 16305,
+      "direction": "incoming",
+      "source": "SENDER",
+      "message": "openMouth"
+   },
+   {
+      "timestamp": 16729,
+      "direction": "outgoing",
+      "source": "nodeServer",
+      "message": "catchBug"
+   },
+   {
+      "timestamp": 16729,
+      "direction": "outgoing",
+      "source": "nodeServer",
+      "message": "updateScore"
+   },
+   {
+      "timestamp": 16729,
+      "direction": "incoming",
+      "source": "SENDER",
+      "message": "catchBug"
+   },
+   {
+      "timestamp": 17903,
+      "direction": "outgoing",
+      "source": "nodeServer",
+      "message": "setTaskState: rest"
+   },
+   {
+      "timestamp": 17903,
+      "direction": "outgoing",
+      "source": "nodeServer",
+      "message": "closeMouth"
+   },
+   {
+      "timestamp": 19908,
+      "direction": "outgoing",
+      "source": "nodeServer",
+      "message": "setTaskState: noGoTrial"
+   },
+   {
+      "timestamp": 20313,
+      "direction": "outgoing",
+      "source": "nodeServer",
+      "message": "openMouth"
+   },
+   {
+      "timestamp": 20313,
+      "direction": "incoming",
+      "source": "SENDER",
+      "message": "openMouth"
+   },
+   {
+      "timestamp": 20896,
+      "direction": "outgoing",
+      "source": "nodeServer",
+      "message": "catchBug"
+   },
+   {
+      "timestamp": 20896,
+      "direction": "outgoing",
+      "source": "nodeServer",
+      "message": "updateScore"
+   },
+   {
+      "timestamp": 20896,
+      "direction": "incoming",
+      "source": "SENDER",
+      "message": "catchBug"
+   },
+   {
+      "timestamp": 21912,
+      "direction": "outgoing",
+      "source": "nodeServer",
+      "message": "setTaskState: rest"
+   },
+   {
+      "timestamp": 21912,
+      "direction": "outgoing",
+      "source": "nodeServer",
+      "message": "closeMouth"
+   },
+   {
+      "timestamp": 23916,
+      "direction": "outgoing",
+      "source": "nodeServer",
+      "message": "setTaskState: end"
+   }
+]
