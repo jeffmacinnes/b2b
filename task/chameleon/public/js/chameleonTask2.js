@@ -367,7 +367,7 @@ function LizardBody(lizardImg, mouthOpenImg, mouthClosedImg){
                      this.tongueEnd.x, this.tongueEnd.y);
             } else {
                 // reset the body after the tongue window has elapsed
-                this.reset();
+                this.resetTongue();
             }
         };
     };
@@ -377,9 +377,8 @@ function LizardBody(lizardImg, mouthOpenImg, mouthClosedImg){
         this.tongueSt = millis();
     }
 
-    this.reset = function(){
+    this.resetTongue = function(){
         // reset the lizard
-        this.mouthIsOpen = false;
         this.showTongue = false;
     }
 }

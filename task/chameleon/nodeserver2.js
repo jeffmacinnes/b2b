@@ -34,6 +34,7 @@ var trialOrder = ['goTrial', 'noGoTrial',
 var restDur = 2000;
 var mouthState = 'closed';
 var score = {goTrial: 0, noGoTrial: 0}
+var thisTrialCaught = false;
 
 
 /**
@@ -219,6 +220,7 @@ function startTask(){
 
     // reset score
     score = {goTrial: 0, noGoTrial: 0}
+    sendScore();
 
     // set task state to 'dummyScans' for all clients;
     taskState = 'dummyScans';
@@ -242,7 +244,9 @@ function nextTrial(){
     } else {
         // otherwise send the next trial in the trial order
         taskState = trialOrder[trialNum];
+        thisTrialCaught = false;
         sendTaskState();
+        updateMouth('closeMouth');
 
         // increment trial counter
         trialNum++;
@@ -283,24 +287,32 @@ function updateMouth(cmd){
 
 function catchBug(){
     // confirm that the conditions are met to catch the bug
-    if (mouthState === 'open'){
-        switch (taskState){
-            case 'goTrial':
-                score.goTrial++;
-                break;
-            case 'noGoTrial':
-                score.noGoTrial--;
-                break;
-            default:
-                console.log('currently no bug to catch');
-        };
+    if (taskState == 'goTrial' || taskState == 'noGoTrial'){
+        if (mouthState === 'open'){
+            if (thisTrialCaught == false){
+                // increment or decrement the score based on taskState
+                switch (taskState){
+                    case 'goTrial':
+                        score.goTrial++;
+                        break;
+                    case 'noGoTrial':
+                        score.noGoTrial--;
+                        break;
+                };
+                // update status and send command to catch bug and update score
+                thisTrialCaught = true;
+                sendCatchBug();
+                sendScore();
 
-        // send command to catch bug and update score
-        sendCatchBug();
-        sendScore();
-    } else {
-        console.log('cannot catch bug, mouth is not open');
-    }
+                // and close the mouth
+                updateMouth('closeMouth');
+            } else {
+                console.log('already caught the bug on this trial');
+            };
+        } else {
+            console.log('cannot catch bug, mouth is not open');
+        };
+    };
 }
 
 function shuffle(array) {
