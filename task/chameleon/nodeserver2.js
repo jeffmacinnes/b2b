@@ -24,7 +24,7 @@ var receiverID;
 
 // Task control vars
 var dummyScanDur = 1000;
-var trialDur = 8000;  // trial dur in ms
+var trialDur = 2000;  // trial dur in ms
 var taskState = 'startScreen';
 var trialIncrementor;
 var taskSt;
@@ -241,6 +241,10 @@ function nextTrial(){
         // if all trials have elapsed, send end
         taskState = 'end';
         sendTaskState();
+
+        // run through all of the finish up steps
+        finishTask();
+
     } else {
         // otherwise send the next trial in the trial order
         taskState = trialOrder[trialNum];
@@ -267,6 +271,25 @@ function restTrial(){
     // after rest interval, call next trial
     setTimeout(nextTrial, restDur);
 }
+
+function finishTask(){
+    // after the task has completed run through all of these steps to finish up
+    // save logs and data files
+
+    // reset the server task vars
+    resetTask();
+}
+
+function resetTask(){
+    // reset all of the task vars so the next task can begin all over
+    console.log('reseting task on server')
+    taskState = 'startScreen';
+    trialNum = 0;
+    mouthState = 'closed';
+    score = {goTrial: 0, noGoTrial: 0}
+    thisTrialCaught = false;
+}
+
 
 function updateMouth(cmd){
     // update the mouthState, if necessary

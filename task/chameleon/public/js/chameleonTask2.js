@@ -171,6 +171,9 @@ function drawCurrentState(){
         case 'goTrial':
         case 'noGoTrial':
             drawTrialScreen();
+            break;
+        case 'end':
+            drawEndScreen();
     }
 }
 
@@ -215,6 +218,20 @@ function drawTrialScreen(){
     // update and display the position of the target bug on the screen
     trialBug.update();
     trialBug.display();
+}
+
+function drawEndScreen(){
+    fill(255,100);
+    noStroke();
+    rect(0,0,width,height);
+
+    fill(232,12,122);
+    textFont('Courier')
+    textSize(60);
+    textAlign(CENTER, CENTER);
+    text('All Done!', width*.5, height*.25);
+    textSize(42);
+    text('(refresh to restart)', width/2, height*.65);
 }
 
 /**
