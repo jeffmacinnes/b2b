@@ -59,7 +59,7 @@ def sendToNodeServer(msg):
 TR = 2
 activeDur = 8
 restDur = 2
-nReps = 4
+nReps = 6
 activeTrial = ['active'] * int((activeDur/TR))
 restTrial = ['rest'] * int((restDur/TR))
 trialStructure = (activeTrial + restTrial) * 4

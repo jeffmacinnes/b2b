@@ -69,6 +69,7 @@ function setup(){
     /* SETUP SOCKET AND EVENT HANDLERS */
     socket = io.connect(window.location.origin)
     socket.on('connectedClients', updateConnectedClients);
+    socket.on('startTask', startTask);
     socket.on('setTaskState', setTaskState);
     socket.on('openMouth', openMouth);
     socket.on('closeMouth', closeMouth);
@@ -316,6 +317,11 @@ function updateConnectedClients(msg){
     // log
     addLog('incoming', 'updateConnectedClients');
 };
+
+function startTask(){
+    // log that the startTask message arrived from server
+    addLog('incoming', 'startTask');
+}
 
 function setTaskState(msg){
     // set the current task state to the state represented in msg

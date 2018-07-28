@@ -1,35 +1,45 @@
 timestamp	direction	message
-55	incoming	updateConnectedClients
-55	incoming	setTaskState: startScreen
-55	incoming	updateScore
-458	incoming	updateConnectedClients
-459	incoming	setTaskState: startScreen
-459	incoming	updateScore
-2139	incoming	openMouth
-11842	incoming	updateConnectedClients
-11844	incoming	setTaskState: startScreen
-11844	incoming	updateScore
-12405	incoming	updateConnectedClients
-12405	incoming	setTaskState: startScreen
-12405	incoming	updateScore
-27871	outgoing	senderCheckIn
-27876	incoming	updateConnectedClients
-28759	outgoing	receiverCheckIn
-28760	incoming	updateConnectedClients
-29603	outgoing	startTask: run#1
-29605	incoming	updateScore
-29605	incoming	setTaskState: dummyScans
-30609	incoming	setTaskState: noGoTrial
-38613	incoming	setTaskState: rest
-40618	incoming	setTaskState: noGoTrial
-41164	incoming	openMouth
-48621	incoming	setTaskState: rest
-48621	incoming	closeMouth
-50626	incoming	setTaskState: goTrial
-58631	incoming	setTaskState: rest
-60637	incoming	setTaskState: goTrial
-68640	incoming	setTaskState: rest
-70644	incoming	setTaskState: goTrial
-78648	incoming	setTaskState: rest
-80654	incoming	setTaskState: noGoTrial
-88659	incoming	setTaskState: rest
+63	incoming	updateConnectedClients
+64	incoming	setTaskState: startScreen
+65	incoming	updateScore
+1877	incoming	updateConnectedClients
+2178	incoming	updateConnectedClients
+2179	incoming	setTaskState: startScreen
+2179	incoming	updateScore
+5390	outgoing	senderCheckIn
+5395	incoming	updateConnectedClients
+7394	incoming	updateConnectedClients
+12996	outgoing	startTask: run#1
+13001	incoming	updateScore
+13002	incoming	startTask
+13003	incoming	setTaskState: dummyScans
+14007	incoming	setTaskState: goTrial
+16396	incoming	openMouth
+16891	incoming	catchBug
+16891	incoming	updateScore
+18403	incoming	closeMouth
+20410	incoming	openMouth
+22012	incoming	setTaskState: rest
+22012	incoming	closeMouth
+24016	incoming	setTaskState: noGoTrial
+26425	incoming	openMouth
+28431	incoming	closeMouth
+30436	incoming	openMouth
+32020	incoming	setTaskState: rest
+32020	incoming	closeMouth
+34025	incoming	setTaskState: goTrial
+36453	incoming	openMouth
+38460	incoming	closeMouth
+40466	incoming	openMouth
+42030	incoming	setTaskState: rest
+42030	incoming	closeMouth
+44035	incoming	setTaskState: noGoTrial
+46483	incoming	openMouth
+48490	incoming	closeMouth
+50496	incoming	openMouth
+52041	incoming	setTaskState: rest
+52041	incoming	closeMouth
+54042	incoming	setTaskState: goTrial
+62046	incoming	setTaskState: rest
+64051	incoming	setTaskState: noGoTrial
+72056	incoming	setTaskState: rest

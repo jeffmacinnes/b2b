@@ -185,6 +185,12 @@ function sendConnectedClients(){
     addLog('outgoing', 'nodeServer', 'connectedClients');
 }
 
+function sendStartTask(){
+    // send the taskStarted flag to all clients
+    io.sockets.emit('startTask');
+    addLog('outgoing', 'nodeServer', 'startTask');
+}
+
 function sendTaskState(){
     // send the current task state to connected clients
     io.sockets.emit('setTaskState', taskState);
@@ -260,6 +266,9 @@ function startTask(){
 
     // send reset score to all clients
     sendScore();
+
+    // send start task
+    sendStartTask();
 
     // set task state to 'dummyScans' for all clients;
     taskState = 'dummyScans';

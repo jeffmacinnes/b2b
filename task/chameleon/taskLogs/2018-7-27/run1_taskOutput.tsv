@@ -1,7 +1,0 @@
-trialNum	trialType	startTime	outcome	catchTime
-1	noGoTrial	1007	caught	2404
-2	goTrial	11018	caught	12299
-3	noGoTrial	21028	caught	21931
-4	noGoTrial	31038	caught	31818
-5	goTrial	41047	caught	42596
-6	goTrial	51057	caught	52123
