@@ -27,13 +27,14 @@ var receiverID = '';
 
 // Task control vars
 var dummyScanDur = 1000;
-var trialDur = 2000;  // trial dur in ms
+var trialDur = 8000;  // trial dur in ms
 var taskState = 'startScreen';
 var trialIncrementor;
 var taskStart;
 var trialNum = -1;      // note: -1, so nextTrial works correctly
-var trialOrder = ['goTrial', 'noGoTrial'];
-                    //'goTrial', 'noGoTrial'];
+var trialOrder = ['goTrial', 'noGoTrial',
+                    'goTrial', 'noGoTrial',
+                    'goTrial', 'noGoTrial',];
 var trialStarts = [];       // trial start times
 var trialOutcomes = [];     // trial outcomes
 var trialCatchTimes = [];     // bug catch times

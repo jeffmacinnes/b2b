@@ -414,8 +414,6 @@ function receiverCheckedIn(){
 function sendLogsToServer(){
     // send this clients logs to the server
     socket.emit('logData', logs);
-    console.log('SENT LOGS')
-    console.log(logs);
 }
 
 /**

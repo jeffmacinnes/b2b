@@ -1,0 +1,17 @@
+timestamp	direction	source	message
+764605	outgoing	nodeServer	updateScore
+764605	outgoing	nodeServer	setTaskState: dummyScans
+764605	incoming	SENDER	startTask: run#1
+765609	outgoing	nodeServer	setTaskState: goTrial
+773614	outgoing	nodeServer	setTaskState: rest
+775620	outgoing	nodeServer	setTaskState: noGoTrial
+783626	outgoing	nodeServer	setTaskState: rest
+785631	outgoing	nodeServer	setTaskState: noGoTrial
+793636	outgoing	nodeServer	setTaskState: rest
+795641	outgoing	nodeServer	setTaskState: goTrial
+803646	outgoing	nodeServer	setTaskState: rest
+805653	outgoing	nodeServer	setTaskState: noGoTrial
+813657	outgoing	nodeServer	setTaskState: rest
+815663	outgoing	nodeServer	setTaskState: goTrial
+823668	outgoing	nodeServer	setTaskState: rest
+825673	outgoing	nodeServer	setTaskState: end

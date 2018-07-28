@@ -1,0 +1,53 @@
+timestamp	direction	source	message
+679587	outgoing	nodeServer	updateScore
+679587	outgoing	nodeServer	setTaskState: dummyScans
+679588	incoming	SENDER	startTask: run#4
+680592	outgoing	nodeServer	setTaskState: goTrial
+681347	outgoing	nodeServer	openMouth
+681347	incoming	SENDER	openMouth
+681578	outgoing	nodeServer	catchBug
+681578	outgoing	nodeServer	updateScore
+681578	incoming	SENDER	catchBug
+688597	outgoing	nodeServer	setTaskState: rest
+688597	outgoing	nodeServer	closeMouth
+690603	outgoing	nodeServer	setTaskState: noGoTrial
+691138	outgoing	nodeServer	openMouth
+691138	incoming	SENDER	openMouth
+691689	outgoing	nodeServer	catchBug
+691689	outgoing	nodeServer	updateScore
+691689	incoming	SENDER	catchBug
+698607	outgoing	nodeServer	setTaskState: rest
+698607	outgoing	nodeServer	closeMouth
+700612	outgoing	nodeServer	setTaskState: goTrial
+701090	outgoing	nodeServer	openMouth
+701090	incoming	SENDER	openMouth
+701482	outgoing	nodeServer	catchBug
+701482	outgoing	nodeServer	updateScore
+701482	incoming	SENDER	catchBug
+708616	outgoing	nodeServer	setTaskState: rest
+708616	outgoing	nodeServer	closeMouth
+710621	outgoing	nodeServer	setTaskState: goTrial
+711073	outgoing	nodeServer	openMouth
+711073	incoming	SENDER	openMouth
+711376	outgoing	nodeServer	catchBug
+711376	outgoing	nodeServer	updateScore
+711376	incoming	SENDER	catchBug
+718623	outgoing	nodeServer	setTaskState: rest
+718623	outgoing	nodeServer	closeMouth
+720627	outgoing	nodeServer	setTaskState: noGoTrial
+721132	outgoing	nodeServer	openMouth
+721132	incoming	SENDER	openMouth
+721538	outgoing	nodeServer	catchBug
+721538	outgoing	nodeServer	updateScore
+721538	incoming	SENDER	catchBug
+728631	outgoing	nodeServer	setTaskState: rest
+728632	outgoing	nodeServer	closeMouth
+730637	outgoing	nodeServer	setTaskState: noGoTrial
+731169	outgoing	nodeServer	openMouth
+731169	incoming	SENDER	openMouth
+731768	outgoing	nodeServer	catchBug
+731768	outgoing	nodeServer	updateScore
+731768	incoming	SENDER	catchBug
+738641	outgoing	nodeServer	setTaskState: rest
+738642	outgoing	nodeServer	closeMouth
+740646	outgoing	nodeServer	setTaskState: end
