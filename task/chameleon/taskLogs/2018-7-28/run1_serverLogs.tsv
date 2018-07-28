@@ -1,0 +1,20 @@
+timestamp	direction	source	message
+18253	outgoing	nodeServer	updateScore
+18253	outgoing	nodeServer	setTaskState: dummyScans
+18253	incoming	SENDER	startTask: run#1
+19257	outgoing	nodeServer	setTaskState: noGoTrial
+27259	outgoing	nodeServer	setTaskState: rest
+29264	outgoing	nodeServer	setTaskState: noGoTrial
+29812	incoming	webRoute	openMouth
+29812	outgoing	nodeServer	openMouth
+37269	outgoing	nodeServer	setTaskState: rest
+37269	outgoing	nodeServer	closeMouth
+39273	outgoing	nodeServer	setTaskState: goTrial
+47278	outgoing	nodeServer	setTaskState: rest
+49283	outgoing	nodeServer	setTaskState: goTrial
+57286	outgoing	nodeServer	setTaskState: rest
+59291	outgoing	nodeServer	setTaskState: goTrial
+67295	outgoing	nodeServer	setTaskState: rest
+69300	outgoing	nodeServer	setTaskState: noGoTrial
+77304	outgoing	nodeServer	setTaskState: rest
+79309	outgoing	nodeServer	setTaskState: end

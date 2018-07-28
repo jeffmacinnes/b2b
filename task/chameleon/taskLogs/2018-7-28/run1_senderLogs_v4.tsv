@@ -1,0 +1,31 @@
+timestamp	direction	message
+61	incoming	updateConnectedClients
+62	incoming	setTaskState: startScreen
+62	incoming	updateScore
+1128	outgoing	senderCheckIn
+1131	incoming	updateConnectedClients
+2230	outgoing	receiverCheckIn
+2232	incoming	updateConnectedClients
+9041	outgoing	startTask: run#1
+9044	incoming	updateScore
+9044	incoming	setTaskState: dummyScans
+10050	incoming	setTaskState: goTrial
+10754	incoming	openMouth
+18057	incoming	setTaskState: rest
+18057	incoming	closeMouth
+20062	incoming	setTaskState: noGoTrial
+24791	incoming	openMouth
+26798	incoming	closeMouth
+28066	incoming	setTaskState: rest
+30071	incoming	setTaskState: goTrial
+36819	incoming	openMouth
+38076	incoming	setTaskState: rest
+38076	incoming	closeMouth
+40081	incoming	setTaskState: goTrial
+40828	incoming	openMouth
+44840	incoming	closeMouth
+48084	incoming	setTaskState: rest
+50090	incoming	setTaskState: noGoTrial
+58095	incoming	setTaskState: rest
+60099	incoming	setTaskState: noGoTrial
+68104	incoming	setTaskState: rest

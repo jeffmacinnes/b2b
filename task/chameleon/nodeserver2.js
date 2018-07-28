@@ -34,7 +34,7 @@ var taskStart;
 var trialNum = -1;      // note: -1, so nextTrial works correctly
 var trialOrder = ['goTrial', 'noGoTrial',
                     'goTrial', 'noGoTrial',
-                    'goTrial', 'noGoTrial',];
+                    'goTrial', 'noGoTrial'];
 var trialStarts = [];       // trial start times
 var trialOutcomes = [];     // trial outcomes
 var trialCatchTimes = [];     // bug catch times
@@ -229,16 +229,19 @@ function getClientLogs(){
 app.get('/openMouth', function(request, response){
     addLog('incoming', 'webRoute', 'openMouth');
     updateMouth('openMouth');
+    response.send('node server got openMouth');
 });
 
 app.get('/closeMouth', function(request, response){
     addLog('incoming', 'webRoute', 'closeMouth');
     updateMouth('closeMouth');
+    response.send('node server got closeMouth');
 });
 
 app.get('/catchBug', function(request, response){
     addLog('incoming', 'webRoute', 'catchBug');
     catchBug();
+    response.send('node server got catchBug')
 })
 
 

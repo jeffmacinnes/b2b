@@ -332,6 +332,8 @@ function setTaskState(msg){
         lizardEye.resetEye();
     } else if (taskState == 'end'){
         sendLogsToServer();
+    } else if (taskState == 'startScreen'){
+        runNumSel.show();
     }
 
     // hide input buttons if not start screen

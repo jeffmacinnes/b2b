@@ -17,41 +17,70 @@ import urllib.request
 
 TR = 1
 
-#taskHost = '127.0.0.1'
-taskHost = 'http://ec2-54-236-226-138.compute-1.amazonaws.com'
+taskHost = 'http://127.0.0.1'
+#taskHost = 'http://ec2-54-236-226-138.compute-1.amazonaws.com'
 taskPort = 8080
 taskBaseURL = '{}:{}'.format(taskHost, taskPort)
 print(taskBaseURL)
 
 
 
-def connectToServer():
-    # connect to task server
-    url = '{}/senderConnect'.format(taskBaseURL)
-    print('connecting to: {}'.format(url))
-    urllib.request.urlopen(url)
-
-def disconnectFromServer():
-    urllib.request.urlopen('{}/senderDisconnect'.format(taskBaseURL))
-atexit.register(disconnectFromServer)
+# def connectToServer():
+#     # connect to task server
+#     url = '{}/senderConnect'.format(taskBaseURL)
+#     print('connecting to: {}'.format(url))
+#     urllib.request.urlopen(url)
+#
+# def disconnectFromServer():
+#     urllib.request.urlopen('{}/senderDisconnect'.format(taskBaseURL))
+# atexit.register(disconnectFromServer)
 
 
 def sendToNodeServer(msg):
     url = '{}/{}'.format(taskBaseURL, msg)
     print('sending to node server: /{}'.format(msg))
+    print(url)
     urllib.request.urlopen(url)
 
 
 # establish connection to task server
-connectToServer()
+# connectToServer()
 
-time.sleep(.5)
-print('sending openMouth')
-sendToNodeServer('openMouth')
+# time.sleep(.5)
+# print('sending openMouth')
+# sendToNodeServer('openMouth')
+#
+# time.sleep(.5)
+# print('sending closeMouth')
+# sendToNodeServer('closeMouth')
 
-time.sleep(.5)
-print('sending closeMouth')
-sendToNodeServer('closeMouth')
+
+# set up a list defining each timept in the run
+TR = 2
+activeDur = 8
+restDur = 2
+nReps = 4
+activeTrial = ['active'] * int((activeDur/TR))
+restTrial = ['rest'] * int((restDur/TR))
+trialStructure = (activeTrial + restTrial) * 4
+
+cmd = 'openMouth'
+a = input('press any key to start')
+for trial in trialStructure:
+    if trial == 'active':
+        # choose command at random, simulating the classifier output
+        shouldOpen = random.randint(0,1)
+        if cmd == 'openMouth':
+            cmd = 'closeMouth'
+        elif cmd == 'closeMouth':
+            cmd = 'openMouth'
+
+        print('sending cmd: {}'.format(cmd))
+        sendToNodeServer(cmd)
+    else:
+        print('rest trial, nothing sent')
+
+    time.sleep(TR)
 
 # print('Press ESC to quit...')
 # orig_settings = termios.tcgetattr(sys.stdin)
