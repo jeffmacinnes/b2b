@@ -27,14 +27,20 @@ var noGoColor = '#DD5044';
 
 /* TASK CONTROL VARS */
 var cnv;
+var runNumSel;
+var runNum;
 var fr = 25;
 var taskStarted = false;
 var BG_yOff;
-var taskState;// = 'startScreen';
+var taskState;
 var score = {goTrial: 0, noGoTrial: 0};
-var startButtonPos = {x: 400, y: 300};
+var startButtonPos = {x: 400, y: 380};
 var startButtonRad = 80;
 var trialDur = 8000;
+var clientStart;
+
+// task logging vars
+var logs = [];
 
 /**
  * MAIN P5 SETUP/DRAW FUNCTIONS ----------------------------------------------
@@ -54,6 +60,9 @@ function setup(){
     textAlign(CENTER, CENTER);
     frameRate(fr);
 
+    // record a timestamp for when the client started
+    clientStart = Date.now();
+
     // set offset value for procedural BG hills
     BG_yOff = random(0,100);
 
@@ -65,9 +74,13 @@ function setup(){
     socket.on('closeMouth', closeMouth);
     socket.on('updateScore', updateScore);
     socket.on('catchBug', catchBug);
+    socket.on('getClientLogs', sendLogsToServer);
 
     // buttons to identify as sender/receiver
     createCheckInButtons();
+
+    // create run number selection
+    createRunNumSelection();
 
     // create instances of sketch objects
     lizardBody = new LizardBody(lizardImg, mouthOpenImg, mouthClosedImg);
@@ -107,6 +120,20 @@ function createCheckInButtons(){
     receiverButton.mousePressed(receiverCheckedIn);
 }
 
+
+function createRunNumSelection(){
+    runNumSel = createSelect();
+    runNumSel.position(width/2, .35*height-9)
+    runNumSel.parent('taskSketchDiv');
+    for (var r = 1; r < 6; r++){
+        runNumSel.option(r);
+    }
+    runNumSel.changed(setRunNum);
+}
+
+function setRunNum(){
+    runNum = runNumSel.value();
+}
 
 /**
  * DRAW FUNCTIONS FOR TASK STAGES -------------------------------------------
@@ -198,6 +225,11 @@ function drawStartScreen(){
     receiverIsConnected ? fill(connectedColor) : fill(disconnectedColor); // receiver
     ellipse(.65*width, .2*height, 20);
 
+    // run number text
+    noStroke();
+    fill(connectedColor);
+    text('run #:', .46*width, .35*height);
+
     // show start button if both sender & receiver are checked in
     if (senderIsConnected && receiverIsConnected){
         var d = dist(mouseX, mouseY, startButtonPos.x, startButtonPos.y);
@@ -255,12 +287,11 @@ function mousePressed(){
         if (senderIsConnected && receiverIsConnected){
             var d = dist(mouseX, mouseY, startButtonPos.x, startButtonPos.y);
             if (d <= startButtonRad){
-                sendMsgToServer('startTask');
+                sendStartTask();
             };
         };
     };
 }
-
 
 /**
  * INCOMING SOCKET MESSAGE HANDLERS -------------------------------------------
@@ -281,6 +312,9 @@ function updateConnectedClients(msg){
     } else {
         receiverButton.show();
     };
+
+    // log
+    addLog('incoming', 'updateConnectedClients');
 };
 
 function setTaskState(msg){
@@ -296,38 +330,75 @@ function setTaskState(msg){
 
         // reset the trialBug and set as a new noGoTrial Bug
         lizardEye.resetEye();
-    };
+    } else if (taskState == 'end'){
+        sendLogsToServer();
+    }
 
+    // hide input buttons if not start screen
+    if (taskState != 'startScreen'){
+        runNumSel.hide();
+        senderButton.hide();
+        receiverButton.hide();
+    }
+
+    // log
     console.log('task state set as: ' + taskState);
+    addLog('incoming', 'setTaskState: ' + taskState);
 }
 
 function openMouth(){
     // open the lizard's mouth
     lizardBody.mouthIsOpen = true;
+
+    // log
+    addLog('incoming', 'openMouth');
 }
 
 function closeMouth(){
     // close the lizard's mouth
     lizardBody.mouthIsOpen = false;
+
+    // log
+    addLog('incoming', 'closeMouth');
 }
 
 function updateScore(newScore){
     // update score with newScore obj from nodeserver
     score = newScore;
+
+    // log
+    addLog('incoming', 'updateScore');
 }
 
 function catchBug(){
     lizardBody.catchBug();
     trialBug.catchBug();
     lizardEye.resetEye();
+
+    // log
+    addLog('incoming', 'catchBug');
 }
 
 /**
  * OUTGOING SOCKET MESSAGE HANDLERS -------------------------------------------
  */
 function sendMsgToServer(msg){
-    // send the specified msg to the server
+    // generic fn for sending single message to server
     socket.emit(msg);
+
+    // log
+    addLog('outgoing', msg);
+}
+
+function sendStartTask(){
+    // send start message along with the run number
+    runNum = runNumSel.value();
+    console.log('runNum is: ' + runNum)
+
+    socket.emit('startTask', runNum);
+
+    // log
+    addLog('outgoing', 'startTask: run#' + runNum);
 }
 
 function senderCheckedIn(){
@@ -340,6 +411,26 @@ function receiverCheckedIn(){
     sendMsgToServer('receiverCheckIn');
 };
 
+function sendLogsToServer(){
+    // send this clients logs to the server
+    socket.emit('logData', logs);
+    console.log('SENT LOGS')
+    console.log(logs);
+}
+
+/**
+ * LOGGING FUNCTIONS --------------------------------------------------------
+ */
+function addLog(direction, message){
+    /** add new log entry.
+     * direction: incoming/outgoing
+     * message: the message that was sent
+     */
+     logs.push({timestamp: Date.now()-clientStart,
+                direction: direction,
+                message: message
+            });
+};
 
 /**
  * CLASSES -------------------------------------------------------------------

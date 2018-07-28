@@ -12,7 +12,9 @@ var serverStart = Date.now();
 
 // task logging vars
 var fs = require('fs');
-var logs = [];
+var serverLogs = [];
+var senderLogs;
+var receiverLogs;
 var taskStart;
 
 // set up socket.io
@@ -36,6 +38,7 @@ var trialStarts = [];       // trial start times
 var trialOutcomes = [];     // trial outcomes
 var trialCatchTimes = [];     // bug catch times
 var restDur = 2000;
+var runNum = 0;
 var mouthState = 'closed';
 var score = {goTrial: 0, noGoTrial: 0}
 var thisTrialCaught = false;
@@ -80,12 +83,16 @@ io.sockets.on('connection', function(socket){
     })
 
     // client sends start task command
-    socket.on('startTask', function(){
+    socket.on('startTask', function(runNumber){
+        // set the run number
+        runNum = runNumber;
+        console.log('run number: ' + runNum);
+
         startTask();
 
         // log
         var source = getSource(id);
-        addLog('incoming', source, 'startTask')
+        addLog('incoming', source, 'startTask: run#' + runNum);
     });
 
     // client disconnects
@@ -139,6 +146,18 @@ io.sockets.on('connection', function(socket){
         addLog('incoming', source, 'catchBug');
     });
 
+    // received logs obj from client
+    socket.on('logData', function(clientLogs){
+
+        // figure out which client this is
+        var source = getSource(id);
+
+        // save the logs to disk
+        saveClientLogs(clientLogs, source);
+
+        // log
+        addLog('incoming', source, 'logData');
+    })
 });
 
 function getSource(id){
@@ -195,6 +214,12 @@ function sendScore(){
     // send the score object to all connected clients
     io.sockets.emit('updateScore', score)
     addLog('outgoing', 'nodeServer', 'updateScore');
+}
+
+function getClientLogs(){
+    // send request for clients to return their logs
+    io.sockets.emit('getClientLogs')
+    addLog('outgoing', 'nodeServer', 'getClientLogs');
 }
 
  /**
@@ -292,9 +317,14 @@ function restTrial(){
 
 function finishTask(){
     // after the task has completed run through all of these steps to finish up
+    // getClientLogs();
+    // console.log('SENDER LOGS')
+    // console.log(senderLogs)
+    // console.log('RECEIVER LOGS')
+    // console.log(receiverLogs)
+
     // save logs and data files
     saveData();
-    logs = [];
 
     // reset the server task vars
     resetTaskVars();
@@ -311,6 +341,8 @@ function resetTaskVars(){
     trialOutcomes = [];
     bugCatchTimes = [];
     thisTrialCaught = false;
+
+    serverLogs = []
 }
 
 
@@ -388,57 +420,81 @@ function addLog(direction, source, message){
      * source: which component sent the message
      * message: the message type
      */
-     logs.push({timestamp: Date.now()-serverStart,
+     serverLogs.push({timestamp: Date.now()-serverStart,
                 direction: direction,
                 source: source,
                 message: message
             });
 };
 
-function saveData(){
-    // fname prefix based on datetime
+function getOutputDir(){
+    /** CREATE OUTPUT DIR**///
     var today = new Date();
     var dateString = today.getFullYear() + '-' +
                 (today.getMonth()+1) + '-' +
-                today.getDate() + '_' +
-                today.getHours() + '-' +
-                today.getMinutes() + '-' +
-                today.getSeconds();
-    console.log(dateString)
+                today.getDate();
+    var outputDir = 'taskLogs/' + dateString;
+    if (fs.existsSync(outputDir) == false){
+        fs.mkdirSync(outputDir);
+    }
+    return outputDir;
+}
+
+function makeValidOutputFname(idealFname){
+    // To avoid overwriting existing file, append new vers numbers
+    var thisFname = idealFname;
+    var keepChecking = true;
+    var fnameHead = thisFname.split('.')[0];
+    var fnameExt = thisFname.split('.')[1];
+    var versNum = 2; // starting vers number
+
+    while (keepChecking){
+        if (fs.existsSync(thisFname)){
+            // make new fname
+            thisFname = fnameHead + '_v' + versNum + '.' + fnameExt;
+            versNum++;
+        } else {
+            keepChecking = false;
+        }
+    }
+
+    return thisFname;
+}
+
+function saveData(){
+    // set the correct output dir;
+    var outputDir = getOutputDir();
 
     /** SAVE SERVER LOGS**/
-    var nodeServerLog_fname = 'taskLogs/' + dateString + '_serverLogs.tsv';
+    var nodeServerLog_fname = makeValidOutputFname(outputDir + '/run' + runNum + '_serverLogs.tsv');
 
-    // header
-    var logHeader = 'timestamp' + '\t' + 'direction'+ '\t' + 'source' + '\t' + 'message' + '\n';
-    fs.open(nodeServerLog_fname, 'w', function(err, fd){
-        fs.write(fd, logHeader, function(){
-            fs.close(fd);
-        });
-    });
-    // write output data
-    for (var l = 0; l < logs.length; l++) {
-        var thisLine =  logs[l].timestamp + '\t' +
-                        logs[l].direction + '\t' +
-                        logs[l].source + '\t' +
-                        logs[l].message + '\n'
-        fs.appendFile(nodeServerLog_fname, thisLine);
+    // write header
+    var logHeader = 'timestamp' + '\t' +
+                    'direction'+ '\t' +
+                    'source' + '\t' +
+                    'message' + '\n';
+    var fd = fs.openSync(nodeServerLog_fname, 'w');
+    fs.writeSync(fd, logHeader);
+    fs.close(fd);
+
+    // write all server logs
+    for (var l = 0; l < serverLogs.length; l++) {
+        var thisLine =  serverLogs[l].timestamp + '\t' +
+                        serverLogs[l].direction + '\t' +
+                        serverLogs[l].source + '\t' +
+                        serverLogs[l].message + '\n'
+        fs.appendFileSync(nodeServerLog_fname, thisLine);
     };
 
-    // var nodeServerJSON = JSON.stringify(logs, null, 3);
-    // var nodeServerLog_fname = 'taskLogs/' + dateString + '_serverLogs.json';
-    // fs.writeFile(nodeServerLog_fname, nodeServerJSON, 'utf-8');
-
     /** SAVE TASK OUTPUT**/
-    taskOutput_fname = 'taskLogs/' + dateString + '_taskOutput.tsv';
+    var taskOutput_fname = makeValidOutputFname(outputDir + '/run' + runNum + '_taskOutput.tsv');
 
     // write header
     var taskOutputHeader = 'trialNum' + '\t' + 'trialType'+ '\t' + 'startTime' + '\t' + 'outcome' + '\t' + 'catchTime' + '\n';
-    fs.open(taskOutput_fname, 'w', function(err, fd){
-        fs.write(fd, taskOutputHeader, function(){
-            fs.close(fd);
-        });
-    });
+    var fd = fs.openSync(taskOutput_fname, 'w');
+    fs.writeSync(fd, taskOutputHeader);
+    fs.close(fd);
+
     // write output data
     for (var i = 0; i < trialOrder.length; i++) {
         var thisLine =  (i+1) + '\t' +
@@ -446,6 +502,33 @@ function saveData(){
                         trialStarts[i] + '\t' +
                         trialOutcomes[i] + '\t' +
                         trialCatchTimes[i] + '\n'
-        fs.appendFile(taskOutput_fname, thisLine);
+        fs.appendFileSync(taskOutput_fname, thisLine);
     };
+}
+
+function saveClientLogs(clientLogs, source){
+    // only store the log data for SENDER and RECEIVER
+    if (source == 'SENDER' || source == 'RECEIVER'){
+        // set the correct output dir;
+        var outputDir = getOutputDir();
+
+        /** SAVE SERVER LOGS**/
+        var clientLog_fname = makeValidOutputFname(outputDir + '/run' + runNum + '_' + source.toLowerCase() + 'Logs.tsv');
+
+        // write header
+        var logHeader = 'timestamp' + '\t' +
+                        'direction'+ '\t' +
+                        'message' + '\n';
+        var fd = fs.openSync(clientLog_fname, 'w');
+        fs.writeSync(fd, logHeader);
+        fs.close(fd);
+
+        // write all server logs
+        for (var l = 0; l < clientLogs.length; l++) {
+            var thisLine =  clientLogs[l].timestamp + '\t' +
+                            clientLogs[l].direction + '\t' +
+                            clientLogs[l].message + '\n'
+            fs.appendFileSync(clientLog_fname, thisLine);
+        };
+    }
 }
