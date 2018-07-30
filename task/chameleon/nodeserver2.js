@@ -26,7 +26,7 @@ var senderID = '';
 var receiverID = '';
 
 // Task control vars
-var dummyScanDur = 1000;
+var dummyScanDur = 2000;
 var trialDur = 8000;  // trial dur in ms
 var taskState = 'startScreen';
 var trialIncrementor;
