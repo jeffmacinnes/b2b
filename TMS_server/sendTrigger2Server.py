@@ -1,7 +1,7 @@
 
 import zmq
 
-socketHost = '10.19.84.82'
+socketHost = '10.19.156.166'
 socketPort = 6666
 
 

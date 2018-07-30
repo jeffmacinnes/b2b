@@ -1,0 +1,7 @@
+trialNum	trialType	startTime	outcome	catchTime
+1	noGoTrial	2004	uncaught	NA
+2	goTrial	12005	uncaught	NA
+3	goTrial	22008	uncaught	NA
+4	noGoTrial	32013	uncaught	NA
+5	goTrial	42015	uncaught	NA
+6	noGoTrial	52026	uncaught	NA

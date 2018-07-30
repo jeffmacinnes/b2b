@@ -13,19 +13,19 @@ import numpy as np
 import urllib.request
 
 ## TMS server configuration vars
-socketHost = '10.19.84.82'
+socketHost = '10.19.156.166'
 socketPort = 6666
 
 ## webRoute configuration vars
-taskHost = 'http://127.0.0.1'
-#taskHost = 'http://ec2-54-236-226-138.compute-1.amazonaws.com'
+#taskHost = 'http://127.0.0.1'
+taskHost = 'http://ec2-54-236-226-138.compute-1.amazonaws.com'
 taskPort = 8080
 taskBaseURL = '{}:{}'.format(taskHost, taskPort)
 print(taskBaseURL)
 
 ## Simulated task settings
 TR = 2
-dummyDur = 4
+dummyDur = 2
 activeDur = 8
 restDur = 2
 nReps = 6
@@ -69,7 +69,7 @@ def sendToNodeServer(msg):
 
 
 # object to send triggers to the TMS server
-#pynealSim = PynealSim(socketHost, socketPort)
+pynealSim = PynealSim(socketHost, socketPort)
 
 
 tmptCounter = 0
