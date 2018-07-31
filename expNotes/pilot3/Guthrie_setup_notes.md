@@ -44,6 +44,8 @@
 * At the start screen, choose `Receiver`: ![](images/chameleonStartScreen.png)
 (don't worry about the run number)
 
+* **Make sure browser window with the game remains the active window and receives cursor input. You may want to view the console browser as well during this, but make sure you always click back to the game as well**
+
 * That's it! Sit back and watch
 
 * At the end of the task, when it brings you back to the start screen, hit refresh, and re-choose `Receiver`

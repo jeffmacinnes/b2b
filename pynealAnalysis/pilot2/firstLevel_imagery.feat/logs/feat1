@@ -1,0 +1,21 @@
+
+/bin/cp /tmp/feat_6uttgC.fsf design.fsf
+
+/usr/local/fsl/bin/feat_model design
+
+mkdir .files;cp /usr/local/fsl/doc/fsl.css .files;cp -r /usr/local/fsl/doc/images .files/images
+
+/usr/local/fsl/bin/fsl_sub -T 10 -l logs -N feat0_init   /usr/local/fsl/bin/feat /Users/jeff/gDrive/jeffCloud/real-time/b2b/pynealAnalysis/pilot2/firstLevel_imagery.feat/design.fsf -D /Users/jeff/gDrive/jeffCloud/real-time/b2b/pynealAnalysis/pilot2/firstLevel_imagery.feat -I 1 -init
+25381
+
+/usr/local/fsl/bin/fsl_sub -T 13 -l logs -N feat2_pre -j 25381  /usr/local/fsl/bin/feat /Users/jeff/gDrive/jeffCloud/real-time/b2b/pynealAnalysis/pilot2/firstLevel_imagery.feat/design.fsf -D /Users/jeff/gDrive/jeffCloud/real-time/b2b/pynealAnalysis/pilot2/firstLevel_imagery.feat -I 1 -prestats
+25473
+
+/usr/local/fsl/bin/fsl_sub -T 1 -l logs -N feat3_film -j 25473  /usr/local/fsl/bin/feat /Users/jeff/gDrive/jeffCloud/real-time/b2b/pynealAnalysis/pilot2/firstLevel_imagery.feat/design.fsf -D /Users/jeff/gDrive/jeffCloud/real-time/b2b/pynealAnalysis/pilot2/firstLevel_imagery.feat -I 1 -stats
+25886
+
+/usr/local/fsl/bin/fsl_sub -T 119 -l logs -N feat4_post -j 25886  /usr/local/fsl/bin/feat /Users/jeff/gDrive/jeffCloud/real-time/b2b/pynealAnalysis/pilot2/firstLevel_imagery.feat/design.fsf -D /Users/jeff/gDrive/jeffCloud/real-time/b2b/pynealAnalysis/pilot2/firstLevel_imagery.feat -poststats 0 
+26097
+
+/usr/local/fsl/bin/fsl_sub -T 1 -l logs -N feat5_stop -j 25473,25886,26097  /usr/local/fsl/bin/feat /Users/jeff/gDrive/jeffCloud/real-time/b2b/pynealAnalysis/pilot2/firstLevel_imagery.feat/design.fsf -D /Users/jeff/gDrive/jeffCloud/real-time/b2b/pynealAnalysis/pilot2/firstLevel_imagery.feat -stop
+26735

@@ -1,0 +1,6 @@
+</pre><hr>Initialisation<br><pre>
+
+/usr/local/fsl/bin/fslmaths /Users/jeff/gDrive/jeffCloud/real-time/b2b/pilotScans/pilot2_offline/func_0003 prefiltered_func_data -odt float
+Total original volumes = 132
+
+/usr/local/fsl/bin/fslroi prefiltered_func_data example_func 66 1
