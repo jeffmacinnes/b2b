@@ -36,7 +36,7 @@ var taskState;
 var score = {goTrial: 0, noGoTrial: 0};
 var startButtonPos = {x: 400, y: 380};
 var startButtonRad = 80;
-var trialDur = 8000;
+var trialDur = 10000;
 var clientStart;
 
 // task logging vars
@@ -74,6 +74,7 @@ function setup(){
     socket.on('openMouth', openMouth);
     socket.on('closeMouth', closeMouth);
     socket.on('updateScore', updateScore);
+    socket.on('updateRunNum', updateRunNum);
     socket.on('catchBug', catchBug);
     socket.on('getClientLogs', sendLogsToServer);
 
@@ -126,7 +127,7 @@ function createRunNumSelection(){
     runNumSel = createSelect();
     runNumSel.position(width/2, .35*height-9)
     runNumSel.parent('taskSketchDiv');
-    for (var r = 1; r < 6; r++){
+    for (var r = 1; r < 9; r++){
         runNumSel.option(r);
     }
     runNumSel.changed(setRunNum);
@@ -134,6 +135,7 @@ function createRunNumSelection(){
 
 function setRunNum(){
     runNum = runNumSel.value();
+    sendRunNum();
 }
 
 /**
@@ -378,6 +380,15 @@ function updateScore(newScore){
     addLog('incoming', 'updateScore');
 }
 
+function updateRunNum(newRunNum){
+    // update the run Number
+    runNum = newRunNum;
+    runNumSel.value(runNum);
+
+    // log
+    addLog('incoming', 'updateRunNum')
+}
+
 function catchBug(){
     lizardBody.catchBug();
     trialBug.catchBug();
@@ -399,14 +410,8 @@ function sendMsgToServer(msg){
 }
 
 function sendStartTask(){
-    // send start message along with the run number
-    runNum = runNumSel.value();
-    console.log('runNum is: ' + runNum)
-
-    socket.emit('startTask', runNum);
-
-    // log
-    addLog('outgoing', 'startTask: run#' + runNum);
+    // send start message
+    sendMsgToServer('startTask')
 }
 
 function senderCheckedIn(){
@@ -418,6 +423,14 @@ function receiverCheckedIn(){
     // tell node server that receiver has checked in
     sendMsgToServer('receiverCheckIn');
 };
+
+function sendRunNum(){
+    // send the run num to the server
+    socket.emit('updateRunNum', runNum);
+
+    // log
+    addLog('outgoing', 'newRunNum: ' + runNum);
+}
 
 function sendLogsToServer(){
     // send this clients logs to the server

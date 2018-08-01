@@ -26,20 +26,23 @@ var senderID = '';
 var receiverID = '';
 
 // Task control vars
-var dummyScanDur = 2000;
-var trialDur = 8000;  // trial dur in ms
+var dummyScanDur = 8000;
+var trialDur = 10000;  // trial dur in ms
+var restDur = 8000;    // rest dur in ms
 var taskState = 'startScreen';
 var trialIncrementor;
 var taskStart;
 var trialNum = -1;      // note: -1, so nextTrial works correctly
 var trialOrder = ['goTrial', 'noGoTrial',
                     'goTrial', 'noGoTrial',
+                    'goTrial', 'noGoTrial',
+                    'goTrial', 'noGoTrial',
+                    'goTrial', 'noGoTrial',
                     'goTrial', 'noGoTrial'];
 var trialStarts = [];       // trial start times
 var trialOutcomes = [];     // trial outcomes
 var trialCatchTimes = [];     // bug catch times
-var restDur = 2000;
-var runNum = 0;
+var runNum = 1;
 var mouthState = 'closed';
 var score = {goTrial: 0, noGoTrial: 0}
 var thisTrialCaught = false;
@@ -55,6 +58,7 @@ io.sockets.on('connection', function(socket){
     sendConnectedClients();
 
     // tell the clients the current task state and score
+    sendRunNum();
     sendTaskState();
     sendScore();
 
@@ -84,16 +88,12 @@ io.sockets.on('connection', function(socket){
     })
 
     // client sends start task command
-    socket.on('startTask', function(runNumber){
-        // set the run number
-        runNum = runNumber;
-        console.log('run number: ' + runNum);
-
+    socket.on('startTask', function(){
         startTask();
 
         // log
         var source = getSource(id);
-        addLog('incoming', source, 'startTask: run#' + runNum);
+        addLog('incoming', source, 'startTask');
     });
 
     // client disconnects
@@ -146,6 +146,16 @@ io.sockets.on('connection', function(socket){
         var source = getSource(id);
         addLog('incoming', source, 'catchBug');
     });
+
+    // received update run number from client
+    socket.on('updateRunNum', function(newRunNum){
+        runNum = newRunNum;
+        sendRunNum();
+
+        // log
+        var source = getSource(id);
+        addLog('incoming', source, 'newRunNum: ' + newRunNum);
+    })
 
     // received logs obj from client
     socket.on('logData', function(clientLogs){
@@ -221,6 +231,12 @@ function sendScore(){
     // send the score object to all connected clients
     io.sockets.emit('updateScore', score)
     addLog('outgoing', 'nodeServer', 'updateScore');
+}
+
+function sendRunNum(){
+    // send the current run number to all connected clients
+    io.sockets.emit('updateRunNum', runNum);
+    addLog('outgoing', 'nodeServer', 'updateRunNum: ' + runNum);
 }
 
 function getClientLogs(){

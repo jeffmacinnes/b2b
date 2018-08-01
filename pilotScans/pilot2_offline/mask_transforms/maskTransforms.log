@@ -37,3 +37,61 @@
 07-02 18:24:36 - [1;32mINFO[0m - : applying mni2func transform to /Users/jeff/gDrive/jeffCloud/real-time/b2b/data/juelich_prob_GMPrimaryMotorCortexBA4p_R_50prob.nii.gz
 07-02 18:24:37 - [1;32mINFO[0m - : creating binarized mask of /Users/jeff/gDrive/jeffCloud/real-time/b2b/pilotScans/pilot2_offline/mask_transforms/FUNC_masks/motorCortex_R_50prob_FUNC_weighted
 07-02 18:24:37 - [1;32mINFO[0m - : [Total processing time] 1.048 seconds
+07-31 20:23:04 - [1;36mDEBUG[0m - : [Settings    ] MNI_mask: /Users/jeff/gDrive/jeffCloud/real-time/b2b/data/motor_imagery_association-test_z_FDR_0.01.nii.gz
+07-31 20:23:04 - [1;36mDEBUG[0m - : [Settings    ] MNI_standard: /Users/jeff/gDrive/jeffCloud/real-time/pyneal/utils/MNI_templates/MNI152_T1_1mm_brain.nii.gz
+07-31 20:23:04 - [1;36mDEBUG[0m - : [Settings    ] createFuncBrainMask: False
+07-31 20:23:04 - [1;36mDEBUG[0m - : [Settings    ] outputPrefix: motor_imagery_neuroSynth
+07-31 20:23:04 - [1;36mDEBUG[0m - : [Settings    ] skullStrip: True
+07-31 20:23:04 - [1;36mDEBUG[0m - : [Settings    ] subjAnat: /Users/jeff/gDrive/jeffCloud/real-time/b2b/pilotScans/pilot2_offline/pilot2_anat_MPRAGE.nii.gz
+07-31 20:23:04 - [1;36mDEBUG[0m - : [Settings    ] subjFunc: /Users/jeff/gDrive/jeffCloud/real-time/b2b/pilotScans/pilot2_offline/func_0003.nii.gz
+07-31 20:23:04 - [1;36mDEBUG[0m - : [Settings    ] transformMaskToFunc: True
+07-31 20:23:04 - [1;32mINFO[0m - : creating exampleFunc image by averaging input func
+07-31 20:23:04 - [1;32mINFO[0m - : [using existing] /Users/jeff/gDrive/jeffCloud/real-time/b2b/pilotScans/pilot2_offline/mask_transforms/exampleFunc.nii.gz
+07-31 20:23:04 - [1;32mINFO[0m - : transforming MNI mask to functional space
+07-31 20:23:04 - [1;32mINFO[0m - : skull stripping hi-res subject anatomical
+07-31 20:23:04 - [1;32mINFO[0m - : [using existing] /Users/jeff/gDrive/jeffCloud/real-time/b2b/pilotScans/pilot2_offline/mask_transforms/hires_brain.nii.gz
+07-31 20:23:04 - [1;32mINFO[0m - : creating mni2hires transformation matrix
+07-31 20:23:04 - [1;32mINFO[0m - : [using existing] /Users/jeff/gDrive/jeffCloud/real-time/b2b/pilotScans/pilot2_offline/mask_transforms/mni2hires.mat
+07-31 20:23:04 - [1;32mINFO[0m - : creating hires2func transformation matrix
+07-31 20:23:04 - [1;32mINFO[0m - : [using existing] /Users/jeff/gDrive/jeffCloud/real-time/b2b/pilotScans/pilot2_offline/mask_transforms/hires2func.mat
+07-31 20:23:04 - [1;32mINFO[0m - : concatenating mni2hires and hires2func matrices
+07-31 20:23:04 - [1;32mINFO[0m - : [using existing] /Users/jeff/gDrive/jeffCloud/real-time/b2b/pilotScans/pilot2_offline/mask_transforms/mni2func.mat
+07-31 20:23:04 - [1;32mINFO[0m - : applying mni2func transform to /Users/jeff/gDrive/jeffCloud/real-time/b2b/data/motor_imagery_association-test_z_FDR_0.01.nii.gz
+07-31 20:23:05 - [1;32mINFO[0m - : creating binarized mask of /Users/jeff/gDrive/jeffCloud/real-time/b2b/pilotScans/pilot2_offline/mask_transforms/FUNC_masks/motor_imagery_neuroSynth_FUNC_weighted
+07-31 20:23:05 - [1;32mINFO[0m - : [Total processing time] 0.197 seconds
+08-01 01:33:45 - [1;36mDEBUG[0m - : [Settings    ] MNI_mask: /Users/jeff/gDrive/jeffCloud/real-time/b2b/data/motor_imagery_association-test_z_FDR_0.01.nii.gz
+08-01 01:33:45 - [1;36mDEBUG[0m - : [Settings    ] MNI_standard: /Users/jeff/gDrive/jeffCloud/real-time/pyneal/utils/MNI_templates/MNI152_T1_2mm_brain.nii.gz
+08-01 01:33:45 - [1;36mDEBUG[0m - : [Settings    ] createFuncBrainMask: False
+08-01 01:33:45 - [1;36mDEBUG[0m - : [Settings    ] outputPrefix: test
+08-01 01:33:45 - [1;36mDEBUG[0m - : [Settings    ] skullStrip: True
+08-01 01:33:45 - [1;36mDEBUG[0m - : [Settings    ] subjAnat: /Users/jeff/gDrive/jeffCloud/real-time/b2b/pilotScans/pilot2_offline/pilot2_anat_MPRAGE.nii.gz
+08-01 01:33:45 - [1;36mDEBUG[0m - : [Settings    ] subjFunc: /Users/jeff/gDrive/jeffCloud/real-time/b2b/pilotScans/pilot2_offline/func_0003.nii.gz
+08-01 01:33:45 - [1;36mDEBUG[0m - : [Settings    ] transformMaskToFunc: True
+08-01 01:33:45 - [1;32mINFO[0m - : creating exampleFunc image by averaging input func and running brain extraction
+08-01 01:33:45 - [1;32mINFO[0m - : [using existing] /Users/jeff/gDrive/jeffCloud/real-time/b2b/pilotScans/pilot2_offline/mask_transforms/exampleFunc.nii.gz
+08-01 01:33:45 - [1;32mINFO[0m - : transforming MNI mask to functional space
+08-01 01:33:45 - [1;32mINFO[0m - : skull stripping hi-res subject anatomical
+08-01 01:33:45 - [1;32mINFO[0m - : [using existing] /Users/jeff/gDrive/jeffCloud/real-time/b2b/pilotScans/pilot2_offline/mask_transforms/hires_brain.nii.gz
+08-01 01:33:45 - [1;32mINFO[0m - : creating mni2hires transformation matrix
+08-01 01:33:45 - [1;32mINFO[0m - : [using existing] /Users/jeff/gDrive/jeffCloud/real-time/b2b/pilotScans/pilot2_offline/mask_transforms/mni2hires.mat
+08-01 01:33:45 - [1;32mINFO[0m - : creating hires2func transformation matrix
+08-01 01:33:45 - [1;32mINFO[0m - : [using existing] /Users/jeff/gDrive/jeffCloud/real-time/b2b/pilotScans/pilot2_offline/mask_transforms/hires2func.mat
+08-01 01:33:45 - [1;32mINFO[0m - : concatenating mni2hires and hires2func matrices
+08-01 01:33:45 - [1;32mINFO[0m - : [using existing] /Users/jeff/gDrive/jeffCloud/real-time/b2b/pilotScans/pilot2_offline/mask_transforms/mni2func.mat
+08-01 01:33:45 - [1;32mINFO[0m - : applying mni2func transform to /Users/jeff/gDrive/jeffCloud/real-time/b2b/data/motor_imagery_association-test_z_FDR_0.01.nii.gz
+08-01 01:33:45 - [1;32mINFO[0m - : creating binarized mask of /Users/jeff/gDrive/jeffCloud/real-time/b2b/pilotScans/pilot2_offline/mask_transforms/FUNC_masks/test_FUNC_weighted
+08-01 01:33:45 - [1;32mINFO[0m - : [Total processing time] 0.149 seconds
+08-01 09:42:00 - WARNING - : stderr: Traceback (most recent call last):
+08-01 09:42:00 - WARNING - : stderr:   File "createMask.py", line 281, in <module>
+08-01 09:42:00 - WARNING - : stderr:     m = MaskCreator()
+08-01 09:42:00 - WARNING - : stderr:   File "createMask.py", line 111, in __init__
+08-01 09:42:00 - WARNING - : stderr:     self.displayMasks()
+08-01 09:42:00 - WARNING - : stderr:   File "createMask.py", line 251, in displayMasks
+08-01 09:42:00 - WARNING - : stderr:     subprocess.call(cmd)
+08-01 09:42:00 - WARNING - : stderr:   File "/usr/local/Cellar/python/3.6.4_4/Frameworks/Python.framework/Versions/3.6/lib/python3.6/subprocess.py", line 269, in call
+08-01 09:42:00 - WARNING - : stderr:     return p.wait(timeout=timeout)
+08-01 09:42:00 - WARNING - : stderr:   File "/usr/local/Cellar/python/3.6.4_4/Frameworks/Python.framework/Versions/3.6/lib/python3.6/subprocess.py", line 1457, in wait
+08-01 09:42:00 - WARNING - : stderr:     (pid, sts) = self._try_wait(0)
+08-01 09:42:00 - WARNING - : stderr:   File "/usr/local/Cellar/python/3.6.4_4/Frameworks/Python.framework/Versions/3.6/lib/python3.6/subprocess.py", line 1404, in _try_wait
+08-01 09:42:00 - WARNING - : stderr:     (pid, sts) = os.waitpid(self.pid, wait_flags)
+08-01 09:42:00 - WARNING - : stderr: KeyboardInterrupt

@@ -13,7 +13,7 @@ import numpy as np
 import urllib.request
 
 ## TMS server configuration vars
-socketHost = '10.19.156.166'
+socketHost = '10.18.223.190'
 socketPort = 6666
 
 ## webRoute configuration vars
@@ -33,8 +33,7 @@ dummyScans = ['dummy'] * int((dummyDur/TR))
 activeTrial = ['active'] * int((activeDur/TR))
 restTrial = ['rest'] * int((restDur/TR))
 trialStructure = dummyScans + ((activeTrial + restTrial) * 4)
-print(trialStructure
-)
+print(trialStructure)
 
 class PynealSim():
     """
