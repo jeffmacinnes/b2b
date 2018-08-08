@@ -1,0 +1,17 @@
+08-01 12:46:16 - [1;36mDEBUG[0m - : [Settings    ] MNI_mask: /Users/jeff/gDrive/jeffCloud/real-time/b2b/data/motor_imagery_association-test_z_FDR_0.01.nii.gz
+08-01 12:46:16 - [1;36mDEBUG[0m - : [Settings    ] MNI_standard: /Users/jeff/gDrive/jeffCloud/real-time/pyneal/utils/MNI_templates/MNI152_T1_2mm_brain.nii.gz
+08-01 12:46:16 - [1;36mDEBUG[0m - : [Settings    ] createFuncBrainMask: False
+08-01 12:46:16 - [1;36mDEBUG[0m - : [Settings    ] outputPrefix: motorImagery_neuroSynth
+08-01 12:46:16 - [1;36mDEBUG[0m - : [Settings    ] skullStrip: True
+08-01 12:46:16 - [1;36mDEBUG[0m - : [Settings    ] subjAnat: /Users/jeff/gDrive/jeffCloud/real-time/b2b/pilotScans/pilot3_real/pilot3_anat_MPRAGE.nii.gz
+08-01 12:46:16 - [1;36mDEBUG[0m - : [Settings    ] subjFunc: /Users/jeff/gDrive/jeffCloud/real-time/b2b/pilotScans/pilot3_real/localizer_0000.nii.gz
+08-01 12:46:16 - [1;36mDEBUG[0m - : [Settings    ] transformMaskToFunc: True
+08-01 12:46:16 - [1;32mINFO[0m - : creating exampleFunc image by averaging input func and running brain extraction
+08-01 12:46:17 - [1;32mINFO[0m - : transforming MNI mask to functional space
+08-01 12:46:17 - [1;32mINFO[0m - : skull stripping hi-res subject anatomical
+08-01 12:46:21 - [1;32mINFO[0m - : creating mni2hires transformation matrix
+08-01 12:46:39 - [1;32mINFO[0m - : creating hires2func transformation matrix
+08-01 12:46:58 - [1;32mINFO[0m - : concatenating mni2hires and hires2func matrices
+08-01 12:46:58 - [1;32mINFO[0m - : applying mni2func transform to /Users/jeff/gDrive/jeffCloud/real-time/b2b/data/motor_imagery_association-test_z_FDR_0.01.nii.gz
+08-01 12:46:59 - [1;32mINFO[0m - : creating binarized mask of /Users/jeff/gDrive/jeffCloud/real-time/b2b/pilotScans/pilot3_real/mask_transforms/FUNC_masks/motorImagery_neuroSynth_FUNC_weighted
+08-01 12:46:59 - [1;32mINFO[0m - : [Total processing time] 42.921 seconds

@@ -1,0 +1,13 @@
+trialNum	trialType	startTime	outcome	catchTime
+1	goTrial	8001	uncaught	NA
+2	goTrial	26010	caught	33689
+3	noGoTrial	44012	uncaught	NA
+4	noGoTrial	62014	uncaught	NA
+5	noGoTrial	80020	uncaught	NA
+6	noGoTrial	98025	uncaught	NA
+7	goTrial	116028	uncaught	NA
+8	noGoTrial	134032	uncaught	NA
+9	goTrial	152038	uncaught	NA
+10	noGoTrial	170040	uncaught	NA
+11	goTrial	188046	uncaught	NA
+12	goTrial	206053	uncaught	NA

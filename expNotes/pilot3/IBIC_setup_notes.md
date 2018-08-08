@@ -112,6 +112,8 @@
  
 * Check in as `Sender`. Talk to folks at Guthrie to see how its going. Make sure they access the task site and check in as `receiver`
 
+* update **run number** to appropriate one
+
 * Remind subj of task instructions before beginning
 	* Purple flies: Eat (motor imagery)
 	* Red flies: Avoid (rest)
@@ -129,3 +131,8 @@
 	* **Mask**: select the whole brain mask from before
 	* **# of timepts**: 110
 	* **Analysis**: custom, load `../b2b/pilotScans/pilot3_real/pyneal_b2b_customAnalysis.py`
+
+
+### Cleanup
+
+* At end of everything, copy all files from mounted X: drive for this subject 

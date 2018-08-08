@@ -1,0 +1,108 @@
+timestamp	direction	source	message
+9292194	outgoing	nodeServer	updateScore
+9292194	outgoing	nodeServer	startTask
+9292194	outgoing	nodeServer	setTaskState: dummyScans
+9292194	incoming	SENDER	startTask
+9300195	outgoing	nodeServer	setTaskState: goTrial
+9304661	incoming	webRoute	openMouth
+9304662	outgoing	nodeServer	openMouth
+9306714	incoming	webRoute	closeMouth
+9306715	outgoing	nodeServer	closeMouth
+9308762	incoming	webRoute	openMouth
+9308762	outgoing	nodeServer	openMouth
+9310198	outgoing	nodeServer	setTaskState: rest
+9310198	outgoing	nodeServer	closeMouth
+9311167	incoming	webRoute	closeMouth
+9313000	incoming	webRoute	openMouth
+9313000	outgoing	nodeServer	openMouth
+9318204	outgoing	nodeServer	closeMouth
+9318204	outgoing	nodeServer	setTaskState: goTrial
+9323370	incoming	webRoute	openMouth
+9323371	outgoing	nodeServer	openMouth
+9325523	incoming	webRoute	openMouth
+9325883	outgoing	nodeServer	catchBug
+9325884	outgoing	nodeServer	updateScore
+9325884	incoming	RECEIVER	catchBug
+9328204	outgoing	nodeServer	setTaskState: rest
+9328205	outgoing	nodeServer	closeMouth
+9336206	outgoing	nodeServer	setTaskState: noGoTrial
+9341377	incoming	webRoute	closeMouth
+9343328	incoming	webRoute	closeMouth
+9345273	incoming	webRoute	closeMouth
+9346207	outgoing	nodeServer	setTaskState: rest
+9347333	incoming	webRoute	closeMouth
+9349904	incoming	webRoute	closeMouth
+9354209	outgoing	nodeServer	setTaskState: noGoTrial
+9359589	incoming	webRoute	closeMouth
+9361350	incoming	webRoute	closeMouth
+9363215	incoming	webRoute	closeMouth
+9364210	outgoing	nodeServer	setTaskState: rest
+9365389	incoming	webRoute	closeMouth
+9367330	incoming	webRoute	closeMouth
+9372214	outgoing	nodeServer	setTaskState: noGoTrial
+9377739	incoming	webRoute	closeMouth
+9379379	incoming	webRoute	closeMouth
+9381123	incoming	webRoute	closeMouth
+9382217	outgoing	nodeServer	setTaskState: rest
+9383073	incoming	webRoute	closeMouth
+9385117	incoming	webRoute	closeMouth
+9390220	outgoing	nodeServer	setTaskState: noGoTrial
+9392752	incoming	RECEIVER	catchBug
+9395380	incoming	webRoute	closeMouth
+9397124	incoming	webRoute	closeMouth
+9399385	incoming	webRoute	closeMouth
+9400220	outgoing	nodeServer	setTaskState: rest
+9401228	incoming	webRoute	closeMouth
+9403187	incoming	webRoute	closeMouth
+9408222	outgoing	nodeServer	setTaskState: goTrial
+9413254	incoming	webRoute	closeMouth
+9415197	incoming	webRoute	closeMouth
+9417055	incoming	webRoute	closeMouth
+9418224	outgoing	nodeServer	setTaskState: rest
+9419219	incoming	webRoute	closeMouth
+9421176	incoming	webRoute	closeMouth
+9426227	outgoing	nodeServer	setTaskState: noGoTrial
+9431149	incoming	webRoute	closeMouth
+9433612	incoming	webRoute	closeMouth
+9435463	incoming	webRoute	closeMouth
+9436227	outgoing	nodeServer	setTaskState: rest
+9437427	incoming	webRoute	closeMouth
+9439579	incoming	webRoute	closeMouth
+9444232	outgoing	nodeServer	setTaskState: goTrial
+9449137	incoming	RECEIVER	catchBug
+9449147	incoming	webRoute	closeMouth
+9451421	incoming	webRoute	closeMouth
+9453376	incoming	webRoute	closeMouth
+9454233	outgoing	nodeServer	setTaskState: rest
+9455415	incoming	webRoute	closeMouth
+9457270	incoming	webRoute	closeMouth
+9457448	incoming	RECEIVER	catchBug
+9460564	incoming	RECEIVER	catchBug
+9461212	incoming	RECEIVER	catchBug
+9462234	outgoing	nodeServer	setTaskState: noGoTrial
+9467358	incoming	webRoute	closeMouth
+9469396	incoming	webRoute	closeMouth
+9471356	incoming	webRoute	closeMouth
+9472235	outgoing	nodeServer	setTaskState: rest
+9473318	incoming	webRoute	closeMouth
+9475265	incoming	webRoute	closeMouth
+9480240	outgoing	nodeServer	setTaskState: goTrial
+9485130	incoming	webRoute	closeMouth
+9487280	incoming	webRoute	closeMouth
+9489544	incoming	webRoute	openMouth
+9489544	outgoing	nodeServer	openMouth
+9490240	outgoing	nodeServer	setTaskState: rest
+9490240	outgoing	nodeServer	closeMouth
+9491092	incoming	webRoute	openMouth
+9491092	outgoing	nodeServer	openMouth
+9491411	incoming	RECEIVER	catchBug
+9498247	outgoing	nodeServer	closeMouth
+9498247	outgoing	nodeServer	setTaskState: goTrial
+9503461	incoming	webRoute	closeMouth
+9505203	incoming	webRoute	closeMouth
+9507162	incoming	webRoute	closeMouth
+9508248	outgoing	nodeServer	setTaskState: rest
+9509222	incoming	webRoute	closeMouth
+9511276	incoming	webRoute	closeMouth
+9511750	incoming	RECEIVER	catchBug
+9516252	outgoing	nodeServer	setTaskState: end

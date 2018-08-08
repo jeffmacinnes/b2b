@@ -1,0 +1,119 @@
+timestamp	direction	source	message
+9991498	outgoing	nodeServer	updateScore
+9991498	outgoing	nodeServer	startTask
+9991498	outgoing	nodeServer	setTaskState: dummyScans
+9991498	incoming	SENDER	startTask
+9999501	outgoing	nodeServer	setTaskState: goTrial
+10000528	incoming	RECEIVER	catchBug
+10008420	incoming	RECEIVER	catchBug
+10009503	outgoing	nodeServer	setTaskState: rest
+10017512	outgoing	nodeServer	setTaskState: goTrial
+10018747	incoming	RECEIVER	catchBug
+10018986	incoming	webRoute	closeMouth
+10019290	incoming	webRoute	closeMouth
+10019597	incoming	webRoute	openMouth
+10019598	outgoing	nodeServer	openMouth
+10020621	incoming	webRoute	openMouth
+10025580	incoming	webRoute	openMouth
+10025910	outgoing	nodeServer	catchBug
+10025910	outgoing	nodeServer	updateScore
+10025910	incoming	RECEIVER	catchBug
+10026603	incoming	webRoute	closeMouth
+10026604	outgoing	nodeServer	closeMouth
+10027422	incoming	webRoute	closeMouth
+10027513	outgoing	nodeServer	setTaskState: rest
+10028549	incoming	webRoute	closeMouth
+10030720	incoming	webRoute	closeMouth
+10035516	outgoing	nodeServer	setTaskState: goTrial
+10040531	incoming	webRoute	closeMouth
+10042110	incoming	RECEIVER	catchBug
+10042478	incoming	webRoute	closeMouth
+10044533	incoming	webRoute	closeMouth
+10045517	outgoing	nodeServer	setTaskState: rest
+10046709	incoming	webRoute	openMouth
+10046709	outgoing	nodeServer	openMouth
+10048656	incoming	webRoute	closeMouth
+10048656	outgoing	nodeServer	closeMouth
+10053519	outgoing	nodeServer	setTaskState: noGoTrial
+10054754	incoming	RECEIVER	catchBug
+10058654	incoming	webRoute	closeMouth
+10060704	incoming	webRoute	closeMouth
+10062974	incoming	webRoute	closeMouth
+10063519	outgoing	nodeServer	setTaskState: rest
+10064631	incoming	webRoute	closeMouth
+10066678	incoming	webRoute	closeMouth
+10067857	incoming	RECEIVER	catchBug
+10071520	outgoing	nodeServer	setTaskState: goTrial
+10076783	incoming	webRoute	closeMouth
+10078534	incoming	webRoute	closeMouth
+10079612	incoming	RECEIVER	catchBug
+10080700	incoming	RECEIVER	catchBug
+10080787	incoming	webRoute	closeMouth
+10081522	outgoing	nodeServer	setTaskState: rest
+10082551	incoming	RECEIVER	catchBug
+10082643	incoming	webRoute	closeMouth
+10084488	incoming	webRoute	closeMouth
+10089526	outgoing	nodeServer	setTaskState: noGoTrial
+10091500	incoming	RECEIVER	catchBug
+10093135	incoming	RECEIVER	catchBug
+10094875	incoming	webRoute	openMouth
+10094875	outgoing	nodeServer	openMouth
+10096837	incoming	webRoute	closeMouth
+10096837	outgoing	nodeServer	closeMouth
+10097439	incoming	RECEIVER	catchBug
+10099085	incoming	webRoute	closeMouth
+10099526	outgoing	nodeServer	setTaskState: rest
+10100936	incoming	webRoute	closeMouth
+10102781	incoming	webRoute	closeMouth
+10104193	incoming	RECEIVER	catchBug
+10107530	outgoing	nodeServer	setTaskState: noGoTrial
+10112653	incoming	webRoute	closeMouth
+10114819	incoming	webRoute	closeMouth
+10116672	incoming	webRoute	closeMouth
+10117531	outgoing	nodeServer	setTaskState: rest
+10117851	incoming	RECEIVER	catchBug
+10118634	incoming	webRoute	closeMouth
+10120643	incoming	RECEIVER	catchBug
+10120698	incoming	webRoute	closeMouth
+10125536	outgoing	nodeServer	setTaskState: noGoTrial
+10130911	incoming	webRoute	closeMouth
+10132759	incoming	webRoute	closeMouth
+10133242	incoming	RECEIVER	catchBug
+10134608	incoming	webRoute	closeMouth
+10135536	outgoing	nodeServer	setTaskState: rest
+10136572	incoming	webRoute	closeMouth
+10138684	incoming	webRoute	closeMouth
+10143542	outgoing	nodeServer	setTaskState: goTrial
+10148605	incoming	webRoute	closeMouth
+10150118	incoming	RECEIVER	catchBug
+10150571	incoming	webRoute	closeMouth
+10152634	incoming	webRoute	closeMouth
+10153542	outgoing	nodeServer	setTaskState: rest
+10154490	incoming	webRoute	closeMouth
+10156640	incoming	webRoute	closeMouth
+10161544	outgoing	nodeServer	setTaskState: noGoTrial
+10166814	incoming	webRoute	closeMouth
+10168874	incoming	webRoute	closeMouth
+10170628	incoming	webRoute	closeMouth
+10171545	outgoing	nodeServer	setTaskState: rest
+10172682	incoming	webRoute	closeMouth
+10174653	incoming	webRoute	closeMouth
+10179524	incoming	RECEIVER	catchBug
+10179545	outgoing	nodeServer	setTaskState: noGoTrial
+10181045	incoming	RECEIVER	catchBug
+10184622	incoming	webRoute	closeMouth
+10186684	incoming	webRoute	closeMouth
+10188556	incoming	webRoute	closeMouth
+10189547	outgoing	nodeServer	setTaskState: rest
+10190812	incoming	webRoute	closeMouth
+10192549	incoming	webRoute	openMouth
+10192549	outgoing	nodeServer	openMouth
+10197548	outgoing	nodeServer	closeMouth
+10197548	outgoing	nodeServer	setTaskState: goTrial
+10202540	incoming	webRoute	closeMouth
+10204603	incoming	webRoute	closeMouth
+10206654	incoming	webRoute	closeMouth
+10207550	outgoing	nodeServer	setTaskState: rest
+10208605	incoming	webRoute	closeMouth
+10210571	incoming	webRoute	closeMouth
+10215554	outgoing	nodeServer	setTaskState: end

@@ -1,0 +1,81 @@
+timestamp	direction	message
+167	incoming	updateConnectedClients
+167	incoming	updateRunNum
+167	incoming	setTaskState: startScreen
+167	incoming	updateScore
+1725	outgoing	senderCheckIn
+1786	incoming	updateConnectedClients
+3846	outgoing	newRunNum: 6
+3907	incoming	updateRunNum
+44807	outgoing	startTask
+44868	incoming	updateScore
+44868	incoming	startTask
+44869	incoming	setTaskState: dummyScans
+52872	incoming	setTaskState: goTrial
+62877	incoming	setTaskState: rest
+70887	incoming	setTaskState: noGoTrial
+75733	incoming	openMouth
+76451	incoming	catchBug
+76452	incoming	updateScore
+80888	incoming	setTaskState: rest
+80888	incoming	closeMouth
+82308	incoming	openMouth
+88890	incoming	closeMouth
+88890	incoming	setTaskState: goTrial
+94058	incoming	openMouth
+96664	incoming	catchBug
+96664	incoming	updateScore
+98893	incoming	setTaskState: rest
+98893	incoming	closeMouth
+106893	incoming	setTaskState: noGoTrial
+111884	incoming	openMouth
+113943	incoming	closeMouth
+115902	incoming	openMouth
+116894	incoming	setTaskState: rest
+116894	incoming	closeMouth
+117975	incoming	openMouth
+124912	incoming	closeMouth
+124913	incoming	setTaskState: noGoTrial
+134148	incoming	openMouth
+134911	incoming	setTaskState: rest
+134911	incoming	closeMouth
+142916	incoming	setTaskState: noGoTrial
+147821	incoming	openMouth
+150346	incoming	catchBug
+150346	incoming	updateScore
+152919	incoming	setTaskState: rest
+152919	incoming	closeMouth
+160921	incoming	setTaskState: noGoTrial
+166309	incoming	openMouth
+167951	incoming	closeMouth
+170922	incoming	setTaskState: rest
+172083	incoming	openMouth
+178927	incoming	closeMouth
+178927	incoming	setTaskState: noGoTrial
+188931	incoming	setTaskState: rest
+189993	incoming	openMouth
+196940	incoming	closeMouth
+196940	incoming	setTaskState: goTrial
+204003	incoming	openMouth
+206253	incoming	catchBug
+206253	incoming	updateScore
+206940	incoming	setTaskState: rest
+206941	incoming	closeMouth
+214945	incoming	setTaskState: goTrial
+221994	incoming	openMouth
+224569	incoming	catchBug
+224569	incoming	updateScore
+224947	incoming	setTaskState: rest
+224947	incoming	closeMouth
+232949	incoming	setTaskState: goTrial
+237979	incoming	openMouth
+240420	incoming	catchBug
+240420	incoming	updateScore
+242952	incoming	setTaskState: rest
+242952	incoming	closeMouth
+250958	incoming	setTaskState: goTrial
+256135	incoming	openMouth
+258576	incoming	catchBug
+258576	incoming	updateScore
+260962	incoming	setTaskState: rest
+260962	incoming	closeMouth

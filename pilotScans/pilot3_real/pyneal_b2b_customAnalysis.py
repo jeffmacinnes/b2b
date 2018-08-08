@@ -29,11 +29,11 @@ import zmq
 
 
 # TMS Server Info
-host = '127.0.0.1' # get from settingsThatWork
-#host = '10.19.15.206'
+# host = '127.0.0.1' # get from settingsThatWork
+host = '10.18.223.190'
 port = 6666
 classifierName = 'pilot3_classifier.pkl'
-maskFile = 'motor_imagery_neuroSynth_FUNC_mask.nii.gz'
+maskFile = 'mask_transforms/FUNC_masks/motorImagery_neuroSynth_FUNC_mask.nii.gz'
 weightMask = False
 numTimepts = 110
 
